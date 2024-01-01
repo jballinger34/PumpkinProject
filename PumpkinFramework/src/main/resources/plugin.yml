@@ -1,0 +1,4 @@
+name: PumpkinFramework
+version: '${version}'
+main: me.fakepumpkin7.pumpkinframework.PumpkinFramework
+api-version: '1.20'

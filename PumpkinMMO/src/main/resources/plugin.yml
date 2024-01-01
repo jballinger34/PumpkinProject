@@ -1,0 +1,4 @@
+name: PumpkinMMO
+version: '${version}'
+main: me.fakepumpkin7.pumpkinmmo.PumpkinMMO
+api-version: '1.20'

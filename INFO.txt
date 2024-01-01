@@ -1,0 +1,42 @@
+MC VERSION - 
+	1.8.8
+
+FEATURES - 
+	custom damage/health/defence system
+	custom mining system
+
+	progression
+		enchants
+		gearsets
+		weapons
+		tools
+		mobs
+		bosses
+		new areas
+		skills
+		item storage
+		economy
+	economy
+		money
+		npc shops
+		open market
+		auction house
+		trade between players
+	skills
+		set of base skills very relevant to core gameplay
+		
+		skill tree?
+		
+	mmo
+		1 server for each island
+		guild/clan feature?
+		dungeons?
+		crafting
+		events
+	enchants
+		called runes
+		totally custom
+	world
+		hub, village with surrounding forest
+
+	
