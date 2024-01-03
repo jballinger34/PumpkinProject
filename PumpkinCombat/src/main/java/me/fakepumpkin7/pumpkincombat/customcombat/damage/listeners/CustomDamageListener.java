@@ -3,12 +3,15 @@ package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 import me.fakepumpkin7.pumpkincombat.customcombat.CombatUtils;
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.event.CustomDamageEvent;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+
 
 public class CustomDamageListener implements Listener {
 
@@ -51,6 +54,13 @@ public class CustomDamageListener implements Listener {
 
 
         CombatUtils.dealDamage(target, finalDamage, targetMaxHealth);
+
+        if(target.hasMetadata("pumpkin-last-knockback")
+                && ( System.currentTimeMillis() < target.getMetadata("pumpkin-last-knockback").get(0).asLong())) {
+            return;
+        }
+        CombatUtils.dealKnockback(e);
+
 
     }
 

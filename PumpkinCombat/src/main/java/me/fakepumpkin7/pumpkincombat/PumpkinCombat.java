@@ -12,6 +12,7 @@ public final class PumpkinCombat extends JavaPlugin {
     //TODO
     // MAKE SPEED ALL ENTITIES NOT JUST PLAYERS
 
+    @Getter static PumpkinCombat instance;
 
     @Getter CustomDamage customDamage;
     @Getter CustomHealth customHealth;
@@ -21,6 +22,7 @@ public final class PumpkinCombat extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        instance = this;
 
         customDamage = new CustomDamage(this);
         customHealth = new CustomHealth(this);
