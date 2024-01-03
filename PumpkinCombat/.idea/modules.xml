@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PumpkinCombat.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PumpkinCombat.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PumpkinCore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PumpkinCore.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me.fakepumpkin7.PumpkinCombat.main.iml" filepath="$PROJECT_DIR$/.idea/modules/me.fakepumpkin7.PumpkinCombat.main.iml" />
     </modules>
   </component>
 </project>

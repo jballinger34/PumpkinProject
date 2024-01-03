@@ -49,6 +49,9 @@ public class CustomDamageListener implements Listener {
         double targetDefence = workOutDefence(target);
         System.out.println("Defence:" + targetDefence);
 
+        double knockback = workOutKnockback(target);
+        System.out.println("Knockback:" + knockback);
+
         double finalDamage = scaleDamage(damage,targetDefence);
         System.out.println("final damage:" + finalDamage);
 
@@ -59,9 +62,7 @@ public class CustomDamageListener implements Listener {
                 && ( System.currentTimeMillis() < target.getMetadata("pumpkin-last-knockback").get(0).asLong())) {
             return;
         }
-        CombatUtils.dealKnockback(e);
-
-
+        CombatUtils.dealKnockback(e, knockback);
     }
 
 
@@ -90,11 +91,19 @@ public class CustomDamageListener implements Listener {
             dmg = (playerBaseDamage+weaponBaseDamage)*playerDamageMultiplier*weaponDamageMultiplier ;
             return dmg;
         }
-
-
         return dmg;
     }
 
+    private double workOutKnockback(Entity attacker){
+        double knockback = 0.5;
+        if(attacker instanceof Player) {
+            Player player = (Player) attacker;
+            ItemStack weapon = player.getInventory().getItemInHand();
+            knockback = cd.getItemKnockback(weapon);
+            return knockback;
+        }
+        return knockback;
+    }
 
     private double workOutMaxHealth(Entity entity){
         double health = 20;
