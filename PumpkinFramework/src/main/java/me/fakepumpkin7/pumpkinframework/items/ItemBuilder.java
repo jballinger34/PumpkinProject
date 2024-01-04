@@ -51,17 +51,17 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder setBaseDamage(int baseDamage){
+    public ItemBuilder setBaseDamage(double baseDamage){
         addNBT("pumpkin-base-damage", baseDamage);
         return this;
     }
 
-    public ItemBuilder setDamageMulti(int damageMulti){
+    public ItemBuilder setDamageMulti(double damageMulti){
         addNBT("pumpkin-damage-multi", damageMulti);
         return this;
     }
 
-    public ItemBuilder setKnockback(int knockback){
+    public ItemBuilder setKnockback(double knockback){
         addNBT("pumpkin-knockback-multi", knockback);
         return this;
     }

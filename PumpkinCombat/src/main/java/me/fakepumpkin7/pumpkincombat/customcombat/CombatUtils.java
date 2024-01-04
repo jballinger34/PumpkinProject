@@ -25,8 +25,9 @@ public class CombatUtils {
         Entity attacker = e.getAttacker();
 
         Vector distVec = target.getLocation().subtract(attacker.getLocation()).toVector();
-        Vector normDistVec =  distVec.normalize().setY(0).multiply(knockback);
-        target.setVelocity( target.getVelocity().add (normDistVec) );
+        Vector normDistVec =  distVec.normalize().setY(0);
+        Vector scaledDistVec = normDistVec.multiply(knockback);
+        target.setVelocity( target.getVelocity().add (scaledDistVec) );
 
         //sets to when cooldown ends
         target.setMetadata("pumpkin-last-knockback", new FixedMetadataValue(PumpkinCombat.getInstance(), System.currentTimeMillis() + knockBackCooldownMS));

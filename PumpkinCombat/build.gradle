@@ -9,6 +9,7 @@ version = '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
     flatDir{
+        dirs 'D:/Users/balli/Desktop/PumpkinProject/libraries'
         dirs 'C:/Users/Dad/IdeaProjects/PumpkinProject/libraries'
     }
     maven {

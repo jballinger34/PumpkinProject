@@ -5,6 +5,7 @@ import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.event.CustomDamageEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,7 +50,7 @@ public class CustomDamageListener implements Listener {
         double targetDefence = workOutDefence(target);
         System.out.println("Defence:" + targetDefence);
 
-        double knockback = workOutKnockback(target);
+        double knockback = workOutKnockback(attacker, target);
         System.out.println("Knockback:" + knockback);
 
         double finalDamage = scaleDamage(damage,targetDefence);
@@ -78,15 +79,15 @@ public class CustomDamageListener implements Listener {
             Player player = (Player) attacker;
             //player stats
             double playerBaseDamage = cd.getEntityBaseDamage(player);
-            System.out.println("pbd:" + playerBaseDamage);
+            //System.out.println("pbd:" + playerBaseDamage);
             double playerDamageMultiplier = cd.getEntityDamageMulti(player);
-            System.out.println("pdm:" + playerDamageMultiplier);
+            //System.out.println("pdm:" + playerDamageMultiplier);
             //weapon stats
             ItemStack weapon = player.getInventory().getItemInHand();
             double weaponBaseDamage = cd.getItemBaseDamage(weapon);
-            System.out.println("wbd:" + weaponBaseDamage);
+            //System.out.println("wbd:" + weaponBaseDamage);
             double weaponDamageMultiplier = cd.getItemDamageMulti(weapon);
-            System.out.println("wdm:" + weaponDamageMultiplier);
+            //System.out.println("wdm:" + weaponDamageMultiplier);
 
             dmg = (playerBaseDamage+weaponBaseDamage)*playerDamageMultiplier*weaponDamageMultiplier ;
             return dmg;
@@ -94,12 +95,14 @@ public class CustomDamageListener implements Listener {
         return dmg;
     }
 
-    private double workOutKnockback(Entity attacker){
-        double knockback = 0.5;
+
+    //TODO make anti-kb stat for target
+    private double workOutKnockback(Entity attacker, Entity target){
+        double knockback = 1;
         if(attacker instanceof Player) {
             Player player = (Player) attacker;
             ItemStack weapon = player.getInventory().getItemInHand();
-            knockback = cd.getItemKnockback(weapon);
+            knockback *= cd.getItemKnockbackMulti(weapon);
             return knockback;
         }
         return knockback;

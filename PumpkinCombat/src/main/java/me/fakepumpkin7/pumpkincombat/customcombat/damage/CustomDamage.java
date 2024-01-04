@@ -24,7 +24,7 @@ public class CustomDamage {
         Bukkit.getPluginManager().registerEvents(new CustomDamageListener(this), plugin);
         Bukkit.getPluginManager().registerEvents(new InitCustomDamageListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents
-                (new OnJoinTest(new ItemBuilder(Material.DIAMOND_AXE).setName("TEST").addGlow().setBaseDamage(5).build()), plugin);
+                (new OnJoinTest(new ItemBuilder(Material.DIAMOND_AXE).setName("TEST").addGlow().setBaseDamage(5).setKnockback(4000).build()), plugin);
 
         this.plugin = plugin;
 
@@ -100,19 +100,19 @@ public class CustomDamage {
         return multi;
     }
 
-    public double getItemKnockback(ItemStack item) {
-        double knockback = 0.5;
+    public double getItemKnockbackMulti(ItemStack item) {
+        double knockbackMulti = 1;
 
         if(item.getType().equals(Material.AIR) || item == null){
-            return knockback;
+            return knockbackMulti;
         }
 
 
-        if (NBTUtil.hasNbt(item,"pumpkin-knockback-multi")) {
-            knockback = NBTUtil.getNbtDouble(item, "pumpkin-knockback-multi");
+        if (NbtUtil.hasNbt(item,"pumpkin-knockback-multi")) {
+            knockbackMulti = NbtUtil.getNbtDouble(item, "pumpkin-knockback-multi");
         }
 
-        return knockback;
+        return knockbackMulti;
     }
     public ItemStack setItemBaseDamage(ItemStack item, double base){
         NBTItem nbtItem = NbtUtil.getNbtItem(item);
