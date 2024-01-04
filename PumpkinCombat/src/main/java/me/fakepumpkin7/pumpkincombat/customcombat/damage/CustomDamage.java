@@ -99,6 +99,21 @@ public class CustomDamage {
 
         return multi;
     }
+
+    public double getItemKnockback(ItemStack item) {
+        double knockback = 0.5;
+
+        if(item.getType().equals(Material.AIR) || item == null){
+            return knockback;
+        }
+
+
+        if (NBTUtil.hasNbt(item,"pumpkin-knockback-multi")) {
+            knockback = NBTUtil.getNbtDouble(item, "pumpkin-knockback-multi");
+        }
+
+        return knockback;
+    }
     public ItemStack setItemBaseDamage(ItemStack item, double base){
         NBTItem nbtItem = NbtUtil.getNbtItem(item);
         nbtItem.setDouble("pumpkin-base-damage", base);

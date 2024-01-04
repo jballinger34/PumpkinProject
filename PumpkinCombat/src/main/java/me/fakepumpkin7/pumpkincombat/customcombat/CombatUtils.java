@@ -20,18 +20,16 @@ public class CombatUtils {
         }
     }
 
-    public static void dealKnockback(CustomDamageEvent e){
+    public static void dealKnockback(CustomDamageEvent e, double knockback){
         Entity target = e.getTarget();
         Entity attacker = e.getAttacker();
 
         Vector distVec = target.getLocation().subtract(attacker.getLocation()).toVector();
-        Vector normDistVec =  distVec.normalize();
+        Vector normDistVec =  distVec.normalize().setY(0).multiply(knockback);
         target.setVelocity( target.getVelocity().add (normDistVec) );
 
         //sets to when cooldown ends
         target.setMetadata("pumpkin-last-knockback", new FixedMetadataValue(PumpkinCombat.getInstance(), System.currentTimeMillis() + knockBackCooldownMS));
-
-
     }
 }
 
