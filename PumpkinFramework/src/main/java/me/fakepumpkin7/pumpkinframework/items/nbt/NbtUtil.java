@@ -30,4 +30,7 @@ public class NbtUtil {
         return getNbtItem(item).getBoolean(key);
     }
 
+    public static Float getNbtFloat(ItemStack item, String key){
+        return getNbtItem(item).getFloat(key);
+    }
 }

@@ -55,10 +55,10 @@ public class CustomDamageListener implements Listener {
 
         CombatUtils.dealDamage(target, finalDamage, targetMaxHealth);
 
-        if(target.hasMetadata("pumpkin-last-knockback")
+        /*if(target.hasMetadata("pumpkin-last-knockback")
                 && ( System.currentTimeMillis() < target.getMetadata("pumpkin-last-knockback").get(0).asLong())) {
             return;
-        }
+        }*/
         CombatUtils.dealKnockback(e);
 
 
