@@ -2,10 +2,7 @@ package me.fakepumpkin7.pumpkincombat.customcombat.damage;
 
 
 import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
-import me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners.CustomDamageListener;
-import me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners.DamageListener;
-import me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners.InitCustomDamageListener;
-import me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners.OnJoinTest;
+import me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners.*;
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import org.bukkit.Bukkit;
@@ -25,6 +22,7 @@ public class CustomDamage {
         Bukkit.getPluginManager().registerEvents(new InitCustomDamageListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents
                 (new OnJoinTest(new ItemBuilder(Material.DIAMOND_AXE).setName("TEST").addGlow().setBaseDamage(5).setKnockback(4000).build()), plugin);
+        Bukkit.getPluginManager().registerEvents(new EntitySpawnListener(this), plugin);
 
         this.plugin = plugin;
 
@@ -50,7 +48,7 @@ public class CustomDamage {
     }
 
     public void setEntityBaseDamage(Entity entity, double base){
-        entity.setMetadata("pumpkin-base-damage", new FixedMetadataValue(plugin, base));
+         entity.setMetadata("pumpkin-base-damage", new FixedMetadataValue(plugin, base));
     }
     public void setEntityDamageMulti(Entity entity, double multi){
         entity.setMetadata("pumpkin-damage-multi", new FixedMetadataValue(plugin, multi));

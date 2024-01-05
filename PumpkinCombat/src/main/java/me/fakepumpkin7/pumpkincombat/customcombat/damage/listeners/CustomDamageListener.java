@@ -75,23 +75,27 @@ public class CustomDamageListener implements Listener {
      */
     private double workOutDamage(Entity attacker){
         double dmg = 0;
+
+        //entity stats
+        double baseDamage = cd.getEntityBaseDamage(attacker);
+        //System.out.println("pbd:" + playerBaseDamage);
+        double damageMultiplier = cd.getEntityDamageMulti(attacker);
+        //System.out.println("pdm:" + playerDamageMultiplier);
+
+        //weapon stats
         if(attacker instanceof Player){
             Player player = (Player) attacker;
-            //player stats
-            double playerBaseDamage = cd.getEntityBaseDamage(player);
-            //System.out.println("pbd:" + playerBaseDamage);
-            double playerDamageMultiplier = cd.getEntityDamageMulti(player);
-            //System.out.println("pdm:" + playerDamageMultiplier);
-            //weapon stats
             ItemStack weapon = player.getInventory().getItemInHand();
             double weaponBaseDamage = cd.getItemBaseDamage(weapon);
             //System.out.println("wbd:" + weaponBaseDamage);
             double weaponDamageMultiplier = cd.getItemDamageMulti(weapon);
             //System.out.println("wdm:" + weaponDamageMultiplier);
 
-            dmg = (playerBaseDamage+weaponBaseDamage)*playerDamageMultiplier*weaponDamageMultiplier ;
+            dmg = (baseDamage+weaponBaseDamage)*damageMultiplier*weaponDamageMultiplier ;
             return dmg;
         }
+
+        dmg = baseDamage*damageMultiplier;
         return dmg;
     }
 
