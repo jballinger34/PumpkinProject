@@ -1,5 +1,6 @@
 package me.fakepumpkin7.pumpkinmmo;
 
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PumpkinMMO extends JavaPlugin {
@@ -22,14 +23,25 @@ public final class PumpkinMMO extends JavaPlugin {
     // AND THEY GAIN THE EFFECTS OF THE SKILLS
 
 
+    //IMPL
+    // onenable saves
+
+    @Getter
+    static PumpkinMMO instance;
+    SkillHandler skillHandler;
+
     @Override
     public void onEnable() {
+        instance = this;
+        saveDefaultConfig();
         // Plugin startup logic
+        skillHandler = new SkillHandler();
 
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        skillHandler.saveToConfig();
     }
 }
