@@ -24,7 +24,7 @@ public class InitCustomDefenceListener implements Listener {
         player.setMetadata("pumpkin-custom-defence", new FixedMetadataValue(plugin, 0));
 
 
-        ItemStack item = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDefence(1000).addGlow().setName("TEST").build();
+        ItemStack item = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDefence(1000).setSpeed(0.3).setHealth(80).addGlow().setName("TEST").build();
         player.getInventory().addItem(item);
 
 

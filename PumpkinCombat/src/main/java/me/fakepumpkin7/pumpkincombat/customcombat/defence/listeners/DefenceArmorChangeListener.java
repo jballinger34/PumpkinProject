@@ -1,25 +1,22 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.defence.listeners;
 
-import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
-import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
 import me.fakepumpkin7.pumpkincombat.customcombat.defence.CustomDefence;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
 
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 
-public class ArmorChangeListener implements Listener {
+public class DefenceArmorChangeListener implements Listener {
 
 
     CustomDefence customDefence;
 
 
-    public ArmorChangeListener(CustomDefence customDefence){
+    public DefenceArmorChangeListener(CustomDefence customDefence){
         this.customDefence = customDefence;
     }
 
@@ -33,8 +30,6 @@ public class ArmorChangeListener implements Listener {
 
         double appliedDefence = customDefence.getItemDefence(applied);
         customDefence.addEntityDefence(entity, appliedDefence);
-
-        System.out.println("ADDED " + appliedDefence);
     }
 
     @EventHandler
@@ -46,8 +41,6 @@ public class ArmorChangeListener implements Listener {
 
         double removedDefence = customDefence.getItemDefence(removed);
         customDefence.addEntityDefence(entity,  -1*removedDefence );
-
-        System.out.println("REMOVED " + removedDefence);
     }
 
 

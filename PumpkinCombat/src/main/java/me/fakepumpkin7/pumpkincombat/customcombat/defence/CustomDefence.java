@@ -1,9 +1,8 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.defence;
 
 import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
-import me.fakepumpkin7.pumpkincombat.customcombat.defence.listeners.ArmorChangeListener;
+import me.fakepumpkin7.pumpkincombat.customcombat.defence.listeners.DefenceArmorChangeListener;
 import me.fakepumpkin7.pumpkincombat.customcombat.defence.listeners.InitCustomDefenceListener;
-import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -16,7 +15,7 @@ public class CustomDefence {
     PumpkinCombat plugin;
     public CustomDefence(PumpkinCombat plugin){
         Bukkit.getPluginManager().registerEvents(new InitCustomDefenceListener(plugin), plugin);
-        Bukkit.getPluginManager().registerEvents(new ArmorChangeListener(this), plugin);
+        Bukkit.getPluginManager().registerEvents(new DefenceArmorChangeListener(this), plugin);
 
         this.plugin = plugin;
     }
