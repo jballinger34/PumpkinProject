@@ -18,6 +18,7 @@ public class ItemBuilder {
     public ItemBuilder(Material material){
         this.item = new ItemStack(material);
     }
+    public ItemBuilder(ItemStack itemStack){this.item = itemStack;}
 
     public ItemBuilder setName(String name){
         ItemMeta meta = item.getItemMeta();
@@ -63,6 +64,21 @@ public class ItemBuilder {
 
     public ItemBuilder setKnockback(double knockback){
         addNBT("pumpkin-knockback-multi", knockback);
+        return this;
+    }
+
+    public ItemBuilder setDefence(double defence){
+        addNBT("pumpkin-custom-defence", defence);
+        return this;
+    }
+
+    public ItemBuilder setHealth(double health){
+        addNBT("pumpkin-custom-health", health);
+        return this;
+    }
+
+    public ItemBuilder setSpeed(double speed){
+        addNBT("pumpkin-custom-speed", speed);
         return this;
     }
 

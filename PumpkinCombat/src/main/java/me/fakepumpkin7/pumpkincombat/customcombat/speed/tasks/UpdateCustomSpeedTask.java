@@ -17,7 +17,7 @@ public class UpdateCustomSpeedTask extends BukkitRunnable {
     public void run() {
         for(Player player : Bukkit.getOnlinePlayers()){
 
-            double speed = plugin.getCustomSpeed().getSpeed(player);
+            double speed = plugin.getCustomSpeed().getPlayerSpeed(player);
             player.setWalkSpeed((float) speed);
         }
     }

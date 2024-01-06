@@ -1,5 +1,6 @@
 package me.fakepumpkin7.pumpkinframework.items.nbt;
 
+import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
 import org.bukkit.inventory.ItemStack;
 import de.tr7zw.nbtapi.NBTItem;
 
@@ -32,5 +33,9 @@ public class NbtUtil {
 
     public static Float getNbtFloat(ItemStack item, String key){
         return getNbtItem(item).getFloat(key);
+    }
+
+    public static void addNbt(ItemStack itemStack, String key, double value){
+        itemStack = new ItemBuilder(itemStack).addNBT(key,value).build();
     }
 }

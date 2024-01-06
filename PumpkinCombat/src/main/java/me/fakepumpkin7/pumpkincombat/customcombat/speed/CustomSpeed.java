@@ -22,7 +22,7 @@ public class CustomSpeed {
     }
 
 
-    public double getSpeed(Player player){
+    public double getPlayerSpeed(Player player){
         double speed = player.getWalkSpeed();
 
         if(player.hasMetadata("pumpkin-custom-speed")){
@@ -32,7 +32,7 @@ public class CustomSpeed {
         return speed;
     }
 
-    public void setSpeed(Player player, double speed){
+    public void setPlayerSpeed(Player player, double speed){
         player.setMetadata("pumpkin-custom-speed", new FixedMetadataValue(plugin, speed));
     }
 

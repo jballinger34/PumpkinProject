@@ -34,5 +34,4 @@ public final class PumpkinCombat extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
-
 }
