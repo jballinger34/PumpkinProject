@@ -1,6 +1,6 @@
 package me.fakepumpkin7.pumpkinmmo;
 
-import me.fakepumpkin7.pumpkinmmo.skills.CombatSkill;
+import me.fakepumpkin7.pumpkinmmo.skills.combat.CombatSkill;
 import me.fakepumpkin7.pumpkinmmo.skills.Skill;
 
 import java.util.ArrayList;
