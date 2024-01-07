@@ -4,6 +4,7 @@ import me.fakepumpkin7.pumpkincombat.customcombat.CombatUtils;
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.event.CustomDamageEvent;
 import org.bukkit.Location;
+import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,44 +26,59 @@ public class CustomDamageListener implements Listener {
         this.cd = cd;
     }
 
+
+    //TODO
+    // scale the damage in the non attacker case by a different defence metric
+    // true defence// fall damage defence // different stat
     @EventHandler
     public void onCustomDamage(CustomDamageEvent e){
 
         Entity attacker = e.getAttacker();
         Entity target = e.getTarget();
-        EntityDamageEvent.DamageCause cause = e.getDamageCause();
+        System.out.println("location " + target.getLocation());
+        System.out.println("type " + target.getType());
 
+        EntityDamageEvent.DamageCause cause = e.getDamageCause();
+        System.out.println("cause " +cause );
+        double damage;
+
+        //target health/defence stats
+        double targetMaxHealth = workOutMaxHealth(target);
+        System.out.println("tmh:" + targetMaxHealth);
+        double targetDefence = workOutDefence(target);
+        System.out.println("Defence:" + targetDefence);
+        double knockback = workOutKnockback(attacker, target);
+        System.out.println("Knockback:" + knockback);
+        double finalDamage;
+        //work out damage
         if(attacker == null){
             //no attacker
             //use damage cause and target stats to work out custom health to deduct from targets custom health amount
 
+            damage = workOutDamage(cause, e.getVanillaDamage());
+            System.out.println("Damage:" + damage);
 
-            return;
+            finalDamage = scaleDamage(damage,targetDefence);
+            System.out.println("final damage:" + finalDamage);
+
+
+
+
+        } else {
+            // attacker
+            // work out how much damage to deal, should be item in main hand
+            // use this and target stats to work out custom health to deduct from targets custom health amount
+
+            damage = workOutDamage(attacker);
+            System.out.println("Damage:" + damage);
+
+            finalDamage = scaleDamage(damage,targetDefence);
+            System.out.println("final damage:" + finalDamage);
+
+
         }
-        // attacker
-        // work out how much damage to deal, should be item in main hand
-        double damage = workOutDamage(attacker);
-        System.out.println("Damage:" + damage);
-        // use this and target stats to work out custom health to deduct from targets custom health amount
-        double targetMaxHealth = workOutMaxHealth(target);
-        System.out.println("tmh:" + targetMaxHealth);
-
-        double targetDefence = workOutDefence(target);
-        System.out.println("Defence:" + targetDefence);
-
-        double knockback = workOutKnockback(attacker, target);
-        System.out.println("Knockback:" + knockback);
-
-        double finalDamage = scaleDamage(damage,targetDefence);
-        System.out.println("final damage:" + finalDamage);
-
 
         CombatUtils.dealDamage(target, finalDamage, targetMaxHealth);
-
-        if(target.hasMetadata("pumpkin-last-knockback")
-                && ( System.currentTimeMillis() < target.getMetadata("pumpkin-last-knockback").get(0).asLong())) {
-            return;
-        }
         CombatUtils.dealKnockback(e, knockback);
     }
 
@@ -99,6 +115,12 @@ public class CustomDamageListener implements Listener {
         return dmg;
     }
 
+    private double workOutDamage(EntityDamageEvent.DamageCause cause, double vanillaDamage){
+        //TODO
+        // make a switch statement for different damage causes
+        return vanillaDamage;
+
+    }
 
     //TODO make anti-kb stat for target
     private double workOutKnockback(Entity attacker, Entity target){
@@ -113,12 +135,21 @@ public class CustomDamageListener implements Listener {
     }
 
     private double workOutMaxHealth(Entity entity){
-        double health = 20;
+        double health = getVanillaHealth(entity);
         if(entity.hasMetadata("pumpkin-custom-health")){
             health = entity.getMetadata("pumpkin-custom-health").get(0).asDouble();
         }
         return health;
     }
+
+    private double getVanillaHealth(Entity entity){
+        if(entity instanceof Creature){
+            Creature creature = (Creature) entity;
+            return creature.getMaxHealth();
+        }
+        return 1;
+    }
+
 
     private double workOutDefence(Entity entity){
         double defence = 0;

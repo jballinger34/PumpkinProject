@@ -3,6 +3,7 @@ package me.fakepumpkin7.pumpkincombat.customcombat;
 import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.event.CustomDamageEvent;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
@@ -18,11 +19,25 @@ public class CombatUtils {
             double damageToDeal = finalDamage*le.getMaxHealth() / targetMaxHealth;
             le.damage(damageToDeal);
         }
+
+        if(target instanceof Item){
+            Item itemEntity = (Item) target;
+            itemEntity.remove();
+        }
     }
 
     public static void dealKnockback(CustomDamageEvent e, double knockback){
         Entity target = e.getTarget();
         Entity attacker = e.getAttacker();
+
+        if(attacker == null){
+            return;
+        }
+
+        if(target.hasMetadata("pumpkin-last-knockback")
+                && ( System.currentTimeMillis() < target.getMetadata("pumpkin-last-knockback").get(0).asLong())) {
+            return;
+        }
 
         Vector distVec = target.getLocation().subtract(attacker.getLocation()).toVector();
         Vector normDistVec =  distVec.normalize().setY(0);

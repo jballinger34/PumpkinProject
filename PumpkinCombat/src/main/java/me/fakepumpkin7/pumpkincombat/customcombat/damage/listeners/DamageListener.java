@@ -13,14 +13,14 @@ public class DamageListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamagedNotByEntity(EntityDamageEvent e){
-        e.setDamage(0);
-        e.setCancelled(true);
-
         if(causedByEntity(e.getCause())){
             return;
         }
 
         Bukkit.getPluginManager().callEvent( new CustomDamageEvent(e.getCause(),null, e.getEntity(), e.getDamage()) );
+
+        e.setDamage(0);
+        e.setCancelled(true);
 
     }
     @EventHandler(priority = EventPriority.LOWEST)
