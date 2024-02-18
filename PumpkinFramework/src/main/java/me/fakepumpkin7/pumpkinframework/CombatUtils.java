@@ -10,16 +10,18 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
+import org.bukkit.metadata.Metadatable;
 import org.bukkit.util.Vector;
 
-//TODO CHANGE METHODS BELOW TO TAKE PLUGIN CALLING THEM AS PARAM, INSTEAD OF PUMPKINFRAMEWORK
-//      FOR DEBUGGING PURPOSES
+import java.util.List;
 
 public class CombatUtils {
 
     public static long knockBackCooldownMS = 500;
 
     public static void dealDamage(Entity target, double finalDamage, double targetMaxHealth){
+
         if(target instanceof LivingEntity){
             LivingEntity le = (LivingEntity) target;
 
@@ -208,44 +210,57 @@ public class CombatUtils {
 
     //HEALTH UTILS
 
-    public static double getEntityHealth(Entity entity){
-        double health = 20;
+    public static double getEntityCustomHealth(Entity entity){
+        double health = 1;
+        if(entity instanceof LivingEntity){
+            double vanillaMaxHealth = ((LivingEntity) entity).getMaxHealth();
+            double vanillaHealth = ((LivingEntity) entity).getHealth();
 
-        if(entity.hasMetadata("pumpkin-custom-health")){
-            health = entity.getMetadata("pumpkin-custom-health").get(0).asDouble();
+            double maxHealth = getEntityMaxHealth(entity);
+            health = (vanillaHealth/vanillaMaxHealth)*maxHealth;
         }
-
         return health;
+
     }
 
-    public static void setEntityHealth(Entity entity, double toSet){
-        toSet = Math.max(0,toSet);
+    public static double getEntityMaxHealth(Entity entity){
+        double maxhealth = 1;
+
+        if(entity.hasMetadata("pumpkin-custom-health")){
+            maxhealth = entity.getMetadata("pumpkin-custom-health").get(0).asDouble();
+        }
+
+        return maxhealth;
+    }
+
+    public static void setEntityMaxHealth(Entity entity, double toSet){
+        toSet = Math.max(1,toSet);
         entity.setMetadata("pumpkin-custom-health", new FixedMetadataValue(PumpkinFramework.getInstance(), toSet));
     }
     public static void addEntityHealth(Entity entity, double toAdd){
-        double current = getEntityHealth(entity);
+        double current = getEntityMaxHealth(entity);
 
         double newVal = current + toAdd;
 
-        setEntityHealth(entity, newVal);
+        setEntityMaxHealth(entity, newVal);
     }
 
-    public static double getItemHealth(ItemStack itemStack){
-        double health = 0;
+    public static double getItemMaxHealth(ItemStack itemStack){
+        double maxhealth = 0;
         if(NbtUtil.hasNbt(itemStack,"pumpkin-custom-health" )){
-            health = NbtUtil.getNbtDouble(itemStack,"pumpkin-custom-health");
+            maxhealth = NbtUtil.getNbtDouble(itemStack,"pumpkin-custom-health");
         }
-        return health;
+        return maxhealth;
     }
 
-    public static void setItemHealth(ItemStack itemStack, double toSet){
+    public static void setItemMaxHealth(ItemStack itemStack, double toSet){
         NbtUtil.addNbt(itemStack,"pumpkin-custom-health",toSet);
     }
-    public static void addItemHealth(ItemStack itemStack, double toAdd){
-        double current = getItemHealth(itemStack);
+    public static void addItemMaxHealth(ItemStack itemStack, double toAdd){
+        double current = getItemMaxHealth(itemStack);
         double newVal = current + toAdd;
 
-        setItemHealth(itemStack, newVal);
+        setItemMaxHealth(itemStack, newVal);
     }
 
     //SPEED UTILS

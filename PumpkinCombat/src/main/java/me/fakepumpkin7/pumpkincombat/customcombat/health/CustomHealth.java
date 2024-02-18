@@ -21,7 +21,7 @@ public class CustomHealth {
 
     public CustomHealth(PumpkinCombat plugin){
         this.plugin = plugin;
-        Bukkit.getPluginManager().registerEvents(new InitCustomHealthListener(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new InitCustomHealthListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new HealthArmorChangeListener(this), plugin);
 
     }

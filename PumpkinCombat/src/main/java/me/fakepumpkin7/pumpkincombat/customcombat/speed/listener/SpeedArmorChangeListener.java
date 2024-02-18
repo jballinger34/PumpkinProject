@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.speed.listener;
 
 import me.fakepumpkin7.pumpkincombat.customcombat.speed.CustomSpeed;
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;
 import org.bukkit.entity.Player;
@@ -25,8 +26,8 @@ public class SpeedArmorChangeListener implements Listener {
         Player entity = event.getPlayer();
 
 
-        double appliedSpeed = customSpeed.getItemSpeed(applied);
-        customSpeed.addPlayerSpeed(entity, appliedSpeed);
+        double appliedSpeed = CombatUtils.getItemSpeed(applied);
+        CombatUtils.addPlayerSpeed(entity, appliedSpeed);
     }
 
     @EventHandler
@@ -36,8 +37,8 @@ public class SpeedArmorChangeListener implements Listener {
         Player entity = event.getPlayer();
 
 
-        double removedSpeed = customSpeed.getItemSpeed(removed);
-        customSpeed.addPlayerSpeed(entity,  -1*removedSpeed );
+        double removedSpeed = CombatUtils.getItemSpeed(removed);
+        CombatUtils.addPlayerSpeed(entity,  -1*removedSpeed );
     }
 
 }

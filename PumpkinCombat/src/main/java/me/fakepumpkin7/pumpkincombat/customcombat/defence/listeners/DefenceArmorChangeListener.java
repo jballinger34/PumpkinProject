@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.defence.listeners;
 
 import me.fakepumpkin7.pumpkincombat.customcombat.defence.CustomDefence;
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
 
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;
@@ -28,8 +29,8 @@ public class DefenceArmorChangeListener implements Listener {
         Player entity = event.getPlayer();
 
 
-        double appliedDefence = customDefence.getItemDefence(applied);
-        customDefence.addEntityDefence(entity, appliedDefence);
+        double appliedDefence = CombatUtils.getItemDefence(applied);
+        CombatUtils.addEntityDefence(entity, appliedDefence);
     }
 
     @EventHandler
@@ -39,8 +40,8 @@ public class DefenceArmorChangeListener implements Listener {
         Player entity = event.getPlayer();
 
 
-        double removedDefence = customDefence.getItemDefence(removed);
-        customDefence.addEntityDefence(entity,  -1*removedDefence );
+        double removedDefence = CombatUtils.getItemDefence(removed);
+        CombatUtils.addEntityDefence(entity,  -1*removedDefence );
     }
 
 

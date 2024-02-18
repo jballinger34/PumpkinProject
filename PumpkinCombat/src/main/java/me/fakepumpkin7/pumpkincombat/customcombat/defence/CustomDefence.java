@@ -14,7 +14,7 @@ public class CustomDefence {
 
     PumpkinCombat plugin;
     public CustomDefence(PumpkinCombat plugin){
-        Bukkit.getPluginManager().registerEvents(new InitCustomDefenceListener(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new InitCustomDefenceListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new DefenceArmorChangeListener(this), plugin);
 
         this.plugin = plugin;

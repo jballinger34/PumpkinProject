@@ -21,7 +21,7 @@ public class CustomDamage {
         Bukkit.getPluginManager().registerEvents(new CustomDamageListener(this), plugin);
         Bukkit.getPluginManager().registerEvents(new InitCustomDamageListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents
-                (new OnJoinTest(new ItemBuilder(Material.DIAMOND_AXE).setName("TEST").addGlow().setBaseDamage(5).setKnockback(4000).build()), plugin);
+                (new OnJoinTest(new ItemBuilder(Material.DIAMOND_AXE).setName("TEST").addGlow().setBaseDamage(6).setKnockback(4000).build()), plugin);
         Bukkit.getPluginManager().registerEvents(new EntitySpawnListener(this), plugin);
 
         this.plugin = plugin;

@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.defence.listeners;
 
 import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,20 +13,10 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public class InitCustomDefenceListener implements Listener {
 
-    PumpkinCombat plugin;
-
-    public InitCustomDefenceListener(PumpkinCombat p){
-        this.plugin = p;
-    }
-
     @EventHandler
     public void initCDonPlayerJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
-        player.setMetadata("pumpkin-custom-defence", new FixedMetadataValue(plugin, 0));
-
-
-        ItemStack item = new ItemBuilder(Material.DIAMOND_CHESTPLATE).setDefence(1000).setSpeed(0.3).setHealth(80).addGlow().setName("TEST").build();
-        player.getInventory().addItem(item);
+        CombatUtils.setEntityDefence(player,0);
 
 
 

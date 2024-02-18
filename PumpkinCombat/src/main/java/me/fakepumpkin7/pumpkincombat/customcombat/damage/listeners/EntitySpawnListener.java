@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Projectile;
@@ -36,7 +37,7 @@ public class EntitySpawnListener implements Listener {
 
 
         if(vanillaDamageMap.get(entity.getType()) != null){
-            customDamage.setEntityBaseDamage(entity, vanillaDamageMap.get(entity.getType()));
+            CombatUtils.setEntityBaseDamage(entity, vanillaDamageMap.get(entity.getType()));
         }
 
     }
@@ -47,7 +48,7 @@ public class EntitySpawnListener implements Listener {
         Projectile projectile = event.getEntity();
 
         if(vanillaDamageMap.get(projectile.getType()) != null){
-            customDamage.setEntityBaseDamage(projectile, vanillaDamageMap.get(projectile.getType()));
+            CombatUtils.setEntityBaseDamage(projectile, vanillaDamageMap.get(projectile.getType()));
         }
     }
 

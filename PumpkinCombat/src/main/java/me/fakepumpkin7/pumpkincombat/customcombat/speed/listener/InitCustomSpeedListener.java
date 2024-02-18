@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.speed.listener;
 
 import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,6 @@ public class InitCustomSpeedListener implements Listener {
     @EventHandler
     public void initCSonPlayerJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
-        player.setMetadata("pumpkin-custom-speed", new FixedMetadataValue(plugin, 0.2));
+        CombatUtils.setPlayerSpeed(player,0.2);
     }
 }

@@ -1,8 +1,8 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
-import me.fakepumpkin7.pumpkincombat.customcombat.damage.event.CustomDamageEvent;
 import me.fakepumpkin7.pumpkinframework.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.event.CustomDamageEvent;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -40,7 +40,7 @@ public class CustomDamageListener implements Listener {
         double damage;
 
         //target health/defence stats
-        double targetMaxHealth = workOutMaxHealth(target);
+        double targetMaxHealth = CombatUtils.getEntityMaxHealth(target);
         System.out.println("tmh:" + targetMaxHealth);
         double targetDefence = workOutDefence(target);
         System.out.println("Defence:" + targetDefence);
@@ -55,12 +55,6 @@ public class CustomDamageListener implements Listener {
             damage = workOutDamage(cause, e.getVanillaDamage());
             System.out.println("Damage:" + damage);
 
-            finalDamage = scaleDamage(damage,targetDefence);
-            System.out.println("final damage:" + finalDamage);
-
-
-
-
         } else {
             // attacker
             // work out how much damage to deal, should be item in main hand
@@ -69,11 +63,10 @@ public class CustomDamageListener implements Listener {
             damage = workOutDamage(attacker);
             System.out.println("Damage:" + damage);
 
-            finalDamage = scaleDamage(damage,targetDefence);
-            System.out.println("final damage:" + finalDamage);
-
-
         }
+        finalDamage = scaleDamage(damage,targetDefence);
+        System.out.println("final damage:" + finalDamage);
+
 
         CombatUtils.dealDamage(target, finalDamage, targetMaxHealth);
         CombatUtils.dealKnockback(target, attacker, knockback);
@@ -129,14 +122,6 @@ public class CustomDamageListener implements Listener {
             return knockback;
         }
         return knockback;
-    }
-
-    private double workOutMaxHealth(Entity entity){
-        double health = getVanillaHealth(entity);
-        if(entity.hasMetadata("pumpkin-custom-health")){
-            health = entity.getMetadata("pumpkin-custom-health").get(0).asDouble();
-        }
-        return health;
     }
 
     private double getVanillaHealth(Entity entity){

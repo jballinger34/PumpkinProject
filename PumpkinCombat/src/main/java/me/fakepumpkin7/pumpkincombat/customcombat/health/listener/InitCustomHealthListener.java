@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.health.listener;
 
 import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -12,16 +13,10 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public class InitCustomHealthListener implements Listener {
 
-    PumpkinCombat plugin;
-
-    public InitCustomHealthListener(PumpkinCombat p){
-        this.plugin = p;
-    }
-
     @EventHandler
     public void initCHonPlayerJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
-        player.setMetadata("pumpkin-custom-health", new FixedMetadataValue(plugin, 20));
+        CombatUtils.setEntityMaxHealth(player, 20);
     }
 
     @EventHandler
@@ -32,7 +27,7 @@ public class InitCustomHealthListener implements Listener {
         if(entity instanceof LivingEntity){
             defaultHealth = ((LivingEntity) entity).getMaxHealth();
         }
-        entity.setMetadata("pumpkin-custom-health", new FixedMetadataValue(plugin, defaultHealth));
+        CombatUtils.setEntityMaxHealth(entity, defaultHealth);
     }
 
 }

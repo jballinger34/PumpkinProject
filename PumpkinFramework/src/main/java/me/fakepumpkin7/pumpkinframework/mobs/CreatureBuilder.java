@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkinframework.mobs;
 
 
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,6 +19,10 @@ public class CreatureBuilder{
     }
     public CreatureBuilder(Creature creature){
         this.creature = creature;
+    }
+
+    public Creature build(){
+        return creature;
     }
 
     public CreatureBuilder setDrops(LootPool lootPool){
@@ -50,6 +55,18 @@ public class CreatureBuilder{
     }
     public CreatureBuilder setItemInMainHand(ItemStack item){
         creature.getEquipment().setItemInHand(item);
+        return this;
+    }
+    public CreatureBuilder setMaxHealth(double maxHealth){
+        CombatUtils.setEntityMaxHealth(creature, maxHealth);
+        return this;
+    }
+    public CreatureBuilder setDefence(double defence){
+        CombatUtils.setEntityDefence(creature, defence);
+        return this;
+    }
+    public CreatureBuilder setBaseDamage(double damage){
+        CombatUtils.setEntityBaseDamage(creature, damage);
         return this;
     }
 
