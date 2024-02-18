@@ -1,12 +1,19 @@
-package me.fakepumpkin7.pumpkincombat.customcombat;
+package me.fakepumpkin7.pumpkinframework;
 
-import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
-import me.fakepumpkin7.pumpkincombat.customcombat.damage.event.CustomDamageEvent;
+import de.tr7zw.nbtapi.NBTItem;
+import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
+import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
+
+//TODO CHANGE METHODS BELOW TO TAKE PLUGIN CALLING THEM AS PARAM, INSTEAD OF PUMPKINFRAMEWORK
+//      FOR DEBUGGING PURPOSES
 
 public class CombatUtils {
 
@@ -26,10 +33,7 @@ public class CombatUtils {
         }
     }
 
-    public static void dealKnockback(CustomDamageEvent e, double knockback){
-        Entity target = e.getTarget();
-        Entity attacker = e.getAttacker();
-
+    public static void dealKnockback(Entity target, Entity attacker, double knockback){
         if(attacker == null){
             return;
         }
@@ -45,11 +49,11 @@ public class CombatUtils {
         target.setVelocity( target.getVelocity().add (scaledDistVec) );
 
         //sets to when cooldown ends
-        target.setMetadata("pumpkin-last-knockback", new FixedMetadataValue(PumpkinCombat.getInstance(), System.currentTimeMillis() + knockBackCooldownMS));
+        target.setMetadata("pumpkin-last-knockback", new FixedMetadataValue(PumpkinFramework.getInstance(), System.currentTimeMillis() + knockBackCooldownMS));
     }
     //DAMAGE UTILS
 
-    public double getEntityBaseDamage(Entity entity){
+    public static double getEntityBaseDamage(Entity entity){
         double base = 0;
 
         if(entity.hasMetadata("pumpkin-base-damage")){
@@ -58,7 +62,7 @@ public class CombatUtils {
 
         return base;
     }
-    public double getEntityDamageMulti(Entity entity){
+    public static double getEntityDamageMulti(Entity entity){
         double multi = 1;
 
         if(entity.hasMetadata("pumpkin-damage-multi")){
@@ -68,21 +72,21 @@ public class CombatUtils {
         return multi;
     }
 
-    public void setEntityBaseDamage(Entity entity, double base){
-        entity.setMetadata("pumpkin-base-damage", new FixedMetadataValue(plugin, base));
+    public static void setEntityBaseDamage(Entity entity, double base){
+        entity.setMetadata("pumpkin-base-damage", new FixedMetadataValue(PumpkinFramework.getInstance(), base));
     }
-    public void setEntityDamageMulti(Entity entity, double multi){
-        entity.setMetadata("pumpkin-damage-multi", new FixedMetadataValue(plugin, multi));
+    public static void setEntityDamageMulti(Entity entity, double multi){
+        entity.setMetadata("pumpkin-damage-multi", new FixedMetadataValue(PumpkinFramework.getInstance(), multi));
     }
 
-    public void addEntityBaseDamage(Entity entity, double toAdd){
+    public static void addEntityBaseDamage(Entity entity, double toAdd){
         double current = getEntityBaseDamage(entity);
 
         double newVal = current + toAdd;
 
         setEntityBaseDamage(entity, newVal);
     }
-    public void addEntityDamageMulti(Entity entity, double toAdd){
+    public static void addEntityDamageMulti(Entity entity, double toAdd){
         double current = getEntityDamageMulti(entity);
 
         double newVal = current + toAdd;
@@ -91,7 +95,7 @@ public class CombatUtils {
     }
 
 
-    public double getItemBaseDamage(ItemStack item) {
+    public static double getItemBaseDamage(ItemStack item) {
         double base = 0;
         if(item.getType().equals(Material.AIR) || item == null){
             return base;
@@ -104,7 +108,7 @@ public class CombatUtils {
         return base;
 
     }
-    public double getItemDamageMulti(ItemStack item) {
+    public static double getItemDamageMulti(ItemStack item) {
         double multi = 1;
 
         if(item.getType().equals(Material.AIR) || item == null){
@@ -119,7 +123,7 @@ public class CombatUtils {
         return multi;
     }
 
-    public double getItemKnockbackMulti(ItemStack item) {
+    public static double getItemKnockbackMulti(ItemStack item) {
         double knockbackMulti = 1;
 
         if(item.getType().equals(Material.AIR) || item == null){
@@ -133,27 +137,27 @@ public class CombatUtils {
 
         return knockbackMulti;
     }
-    public ItemStack setItemBaseDamage(ItemStack item, double base){
+    public static ItemStack setItemBaseDamage(ItemStack item, double base){
         NBTItem nbtItem = NbtUtil.getNbtItem(item);
         nbtItem.setDouble("pumpkin-base-damage", base);
 
         return nbtItem.getItem();
 
     }
-    public ItemStack setItemDamageMulti(ItemStack item, double multi){
+    public static ItemStack setItemDamageMulti(ItemStack item, double multi){
         NBTItem nbtItem = NbtUtil.getNbtItem(item);
         nbtItem.setDouble("pumpkin-damage-multi", multi);
 
         return nbtItem.getItem();
     }
 
-    public ItemStack addItemBaseDamage(ItemStack item, double toAdd){
+    public static ItemStack addItemBaseDamage(ItemStack item, double toAdd){
         double current = getItemBaseDamage(item);
         double newVal = current + toAdd;
 
         return setItemBaseDamage(item, newVal);
     }
-    public ItemStack addItemDamageMulti(ItemStack item, double toAdd){
+    public static ItemStack addItemDamageMulti(ItemStack item, double toAdd){
         double current = getItemDamageMulti(item);
         double newVal = current + toAdd;
 
@@ -164,7 +168,7 @@ public class CombatUtils {
 
     //DEFENCE UTILS
 
-    public double getEntityDefence(Entity entity){
+    public static double getEntityDefence(Entity entity){
         double defence = 0;
         if(entity.hasMetadata("pumpkin-custom-defence")){
             defence = entity.getMetadata("pumpkin-custom-defence").get(0).asDouble();
@@ -172,19 +176,19 @@ public class CombatUtils {
         return defence;
     }
 
-    public void setEntityDefence(Entity entity, double toSet){
+    public static void setEntityDefence(Entity entity, double toSet){
         toSet = Math.max(0,toSet);
-        entity.setMetadata("pumpkin-custom-defence", new FixedMetadataValue(plugin, toSet));
+        entity.setMetadata("pumpkin-custom-defence", new FixedMetadataValue(PumpkinFramework.getInstance(), toSet));
     }
 
-    public void addEntityDefence(Entity entity, double toAdd){
+    public static void addEntityDefence(Entity entity, double toAdd){
         double current = getEntityDefence(entity);
         double newVal = current + toAdd;
 
         setEntityDefence(entity, newVal);
     }
 
-    public double getItemDefence(ItemStack itemStack){
+    public static double getItemDefence(ItemStack itemStack){
         double defence = 0;
         if(NbtUtil.hasNbt(itemStack,"pumpkin-custom-defence" )){
             defence = NbtUtil.getNbtDouble(itemStack,"pumpkin-custom-defence");
@@ -192,10 +196,10 @@ public class CombatUtils {
         return defence;
     }
 
-    public void setItemDefence(ItemStack itemStack, double toSet){
+    public static void setItemDefence(ItemStack itemStack, double toSet){
         NbtUtil.addNbt(itemStack,"pumpkin-custom-defence",toSet);
     }
-    public void addItemDefence(ItemStack itemStack, double toAdd){
+    public static void addItemDefence(ItemStack itemStack, double toAdd){
         double current = getItemDefence(itemStack);
         double newVal = current + toAdd;
 
@@ -204,7 +208,7 @@ public class CombatUtils {
 
     //HEALTH UTILS
 
-    public double getEntityHealth(Entity entity){
+    public static double getEntityHealth(Entity entity){
         double health = 20;
 
         if(entity.hasMetadata("pumpkin-custom-health")){
@@ -214,11 +218,11 @@ public class CombatUtils {
         return health;
     }
 
-    public void setEntityHealth(Entity entity, double toSet){
+    public static void setEntityHealth(Entity entity, double toSet){
         toSet = Math.max(0,toSet);
-        entity.setMetadata("pumpkin-custom-health", new FixedMetadataValue(plugin, toSet));
+        entity.setMetadata("pumpkin-custom-health", new FixedMetadataValue(PumpkinFramework.getInstance(), toSet));
     }
-    public void addEntityHealth(Entity entity, double toAdd){
+    public static void addEntityHealth(Entity entity, double toAdd){
         double current = getEntityHealth(entity);
 
         double newVal = current + toAdd;
@@ -226,7 +230,7 @@ public class CombatUtils {
         setEntityHealth(entity, newVal);
     }
 
-    public double getItemHealth(ItemStack itemStack){
+    public static double getItemHealth(ItemStack itemStack){
         double health = 0;
         if(NbtUtil.hasNbt(itemStack,"pumpkin-custom-health" )){
             health = NbtUtil.getNbtDouble(itemStack,"pumpkin-custom-health");
@@ -234,10 +238,10 @@ public class CombatUtils {
         return health;
     }
 
-    public void setItemHealth(ItemStack itemStack, double toSet){
+    public static void setItemHealth(ItemStack itemStack, double toSet){
         NbtUtil.addNbt(itemStack,"pumpkin-custom-health",toSet);
     }
-    public void addItemHealth(ItemStack itemStack, double toAdd){
+    public static void addItemHealth(ItemStack itemStack, double toAdd){
         double current = getItemHealth(itemStack);
         double newVal = current + toAdd;
 
@@ -245,7 +249,7 @@ public class CombatUtils {
     }
 
     //SPEED UTILS
-    public double getPlayerSpeed(Player player){
+    public static double getPlayerSpeed(Player player){
         double speed = player.getWalkSpeed();
 
         if(player.hasMetadata("pumpkin-custom-speed")){
@@ -255,11 +259,11 @@ public class CombatUtils {
         return speed;
     }
 
-    public void setPlayerSpeed(Player player, double speed){
-        player.setMetadata("pumpkin-custom-speed", new FixedMetadataValue(plugin, speed));
+    public static void setPlayerSpeed(Player player, double speed){
+        player.setMetadata("pumpkin-custom-speed", new FixedMetadataValue(PumpkinFramework.getInstance(), speed));
     }
 
-    public void addPlayerSpeed(Player player, double toAdd){
+    public static void addPlayerSpeed(Player player, double toAdd){
         double current = getPlayerSpeed(player);
 
         double newVal = toAdd + current;
@@ -267,7 +271,7 @@ public class CombatUtils {
         setPlayerSpeed(player, newVal);
     }
 
-    public double getItemSpeed(ItemStack itemStack){
+    public static double getItemSpeed(ItemStack itemStack){
         double speed = 0;
         if(NbtUtil.hasNbt(itemStack,"pumpkin-custom-speed" )){
             speed = NbtUtil.getNbtDouble(itemStack,"pumpkin-custom-speed");
@@ -275,11 +279,11 @@ public class CombatUtils {
         return speed;
     }
 
-    public void setItemSpeed(ItemStack itemStack, double toSet){
+    public static void setItemSpeed(ItemStack itemStack, double toSet){
         NbtUtil.addNbt(itemStack,"pumpkin-custom-speed",toSet);
     }
 
-    public void addItemSpeed(ItemStack itemStack, double toAdd){
+    public static void addItemSpeed(ItemStack itemStack, double toAdd){
         double current = getItemSpeed(itemStack);
         double newVal = current + toAdd;
 

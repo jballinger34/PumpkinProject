@@ -1,18 +1,15 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 
-import me.fakepumpkin7.pumpkincombat.customcombat.CombatUtils;
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.event.CustomDamageEvent;
-import org.bukkit.Location;
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 
 
 public class CustomDamageListener implements Listener {
@@ -79,7 +76,7 @@ public class CustomDamageListener implements Listener {
         }
 
         CombatUtils.dealDamage(target, finalDamage, targetMaxHealth);
-        CombatUtils.dealKnockback(e, knockback);
+        CombatUtils.dealKnockback(target, attacker, knockback);
     }
 
 
@@ -93,18 +90,18 @@ public class CustomDamageListener implements Listener {
         double dmg = 0;
 
         //entity stats
-        double baseDamage = cd.getEntityBaseDamage(attacker);
+        double baseDamage = CombatUtils.getEntityBaseDamage(attacker);
         //System.out.println("pbd:" + playerBaseDamage);
-        double damageMultiplier = cd.getEntityDamageMulti(attacker);
+        double damageMultiplier = CombatUtils.getEntityDamageMulti(attacker);
         //System.out.println("pdm:" + playerDamageMultiplier);
 
         //weapon stats
         if(attacker instanceof Player){
             Player player = (Player) attacker;
             ItemStack weapon = player.getInventory().getItemInHand();
-            double weaponBaseDamage = cd.getItemBaseDamage(weapon);
+            double weaponBaseDamage = CombatUtils.getItemBaseDamage(weapon);
             //System.out.println("wbd:" + weaponBaseDamage);
-            double weaponDamageMultiplier = cd.getItemDamageMulti(weapon);
+            double weaponDamageMultiplier = CombatUtils.getItemDamageMulti(weapon);
             //System.out.println("wdm:" + weaponDamageMultiplier);
 
             dmg = (baseDamage+weaponBaseDamage)*damageMultiplier*weaponDamageMultiplier ;
@@ -128,7 +125,7 @@ public class CustomDamageListener implements Listener {
         if(attacker instanceof Player) {
             Player player = (Player) attacker;
             ItemStack weapon = player.getInventory().getItemInHand();
-            knockback *= cd.getItemKnockbackMulti(weapon);
+            knockback *= CombatUtils.getItemKnockbackMulti(weapon);
             return knockback;
         }
         return knockback;
