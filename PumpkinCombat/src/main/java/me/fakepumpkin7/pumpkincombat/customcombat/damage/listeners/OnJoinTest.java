@@ -18,15 +18,6 @@ public class OnJoinTest implements Listener {
 
     public OnJoinTest(ItemStack item){
         this.item = item;
-
-        ShapedRecipe sr = new ShapedRecipe(item);
-        sr.shape("  R",
-                 "EEE",
-                 "   ");
-        sr.setIngredient('E', Material.EYE_OF_ENDER);
-        sr.setIngredient('R', Material.YELLOW_FLOWER);
-
-        Bukkit.addRecipe(sr);
     }
 
 

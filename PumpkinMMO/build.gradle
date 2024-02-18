@@ -26,7 +26,6 @@ dependencies {
 
     compileOnly name: "spigot-1.8.8"
     compileOnly name: "PumpkinFramework"
-    compileOnly name: "PumpkinCombat"
     compileOnly name: "item-nbt-api-plugin-2.11.1"
 }
 

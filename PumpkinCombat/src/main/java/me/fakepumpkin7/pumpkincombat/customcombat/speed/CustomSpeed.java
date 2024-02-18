@@ -23,47 +23,4 @@ public class CustomSpeed {
         speedTask.runTaskTimer(plugin, 20, 40);
 
     }
-
-
-    public double getPlayerSpeed(Player player){
-        double speed = player.getWalkSpeed();
-
-        if(player.hasMetadata("pumpkin-custom-speed")){
-            speed = player.getMetadata("pumpkin-custom-speed").get(0).asDouble();
-        }
-
-        return speed;
-    }
-
-    public void setPlayerSpeed(Player player, double speed){
-        player.setMetadata("pumpkin-custom-speed", new FixedMetadataValue(plugin, speed));
-    }
-
-    public void addPlayerSpeed(Player player, double toAdd){
-        double current = getPlayerSpeed(player);
-
-        double newVal = toAdd + current;
-
-        setPlayerSpeed(player, newVal);
-    }
-
-    public double getItemSpeed(ItemStack itemStack){
-        double speed = 0;
-        if(NbtUtil.hasNbt(itemStack,"pumpkin-custom-speed" )){
-            speed = NbtUtil.getNbtDouble(itemStack,"pumpkin-custom-speed");
-        }
-        return speed;
-    }
-
-    public void setItemSpeed(ItemStack itemStack, double toSet){
-        NbtUtil.addNbt(itemStack,"pumpkin-custom-speed",toSet);
-    }
-
-    public void addItemSpeed(ItemStack itemStack, double toAdd){
-        double current = getItemSpeed(itemStack);
-        double newVal = current + toAdd;
-
-        setItemSpeed(itemStack, newVal);
-    }
-
 }
