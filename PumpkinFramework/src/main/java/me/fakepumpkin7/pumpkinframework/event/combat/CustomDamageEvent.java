@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinframework.event;
+package me.fakepumpkin7.pumpkinframework.event.combat;
 
 import lombok.Getter;
 import org.bukkit.entity.Entity;

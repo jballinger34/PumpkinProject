@@ -1,6 +1,6 @@
 package me.fakepumpkin7.pumpkinmmo.skills.combat;
 
-import me.fakepumpkin7.pumpkinmmo.event.SkillExpGainEvent;
+import me.fakepumpkin7.pumpkinframework.event.mmo.SkillExpGainEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,10 +17,6 @@ public class CombatSkillGainListener implements Listener {
 
     public CombatSkillGainListener(CombatSkill skill){
         this.skill = skill;
-    }
-    @EventHandler
-    public void TEST(PlayerJoinEvent e){
-        Bukkit.getPluginManager().callEvent(new SkillExpGainEvent(e.getPlayer(), skill, 10));
     }
 
 }

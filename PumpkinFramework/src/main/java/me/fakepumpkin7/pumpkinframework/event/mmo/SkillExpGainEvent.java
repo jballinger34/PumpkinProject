@@ -1,13 +1,12 @@
-package me.fakepumpkin7.pumpkinmmo.event;
+package me.fakepumpkin7.pumpkinframework.event.mmo;
+
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import me.fakepumpkin7.pumpkinmmo.skills.Skill;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
 public class SkillExpGainEvent extends Event {
@@ -17,7 +16,7 @@ public class SkillExpGainEvent extends Event {
     @Getter
     private final Player player;
     @Getter
-    private final Skill skill;
+    private final String skillName;
     @Getter
     private final double exp;
 

@@ -11,8 +11,5 @@ public class CombatSkill extends Skill {
         super("Combat", 50);
 
         Bukkit.getPluginManager().registerEvents(new CombatSkillGainListener(this), PumpkinMMO.getInstance());
-
     }
-
-
 }

@@ -4,11 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.fakepumpkin7.pumpkinmmo.PumpkinMMO;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.craftbukkit.libs.org.ibex.nestedvm.util.Platform;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
-import java.lang.module.Configuration;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -52,6 +48,5 @@ public abstract class Skill {
             PumpkinMMO.getInstance().getConfig().getConfigurationSection(name).set(id.toString(), expMap.get(id));
         }
     }
-
 
 }
