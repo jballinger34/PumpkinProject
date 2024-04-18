@@ -21,7 +21,10 @@ public class SkillCommand implements CommandExecutor {
             Player player = (Player) sender;
             for(Skill skill : skillHandler.getSkillList()){
                 player.sendMessage(skill.getName());
-                player.sendMessage("" + skill.getExpMap().get(player.getUniqueId()));
+                double exp = skill.getExpMap().get(player.getUniqueId());
+                player.sendMessage("Exp: "+ exp );
+                player.sendMessage("Level: " + skill.calculateLevel(exp).get(0));
+                player.sendMessage("Progress: " + skill.calculateLevel(exp).get(1)+"/"+skill.calculateLevel(exp).get(2));
             }
 
             return true;

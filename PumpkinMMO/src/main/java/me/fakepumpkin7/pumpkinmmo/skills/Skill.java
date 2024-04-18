@@ -3,10 +3,10 @@ package me.fakepumpkin7.pumpkinmmo.skills;
 import lombok.Getter;
 import lombok.Setter;
 import me.fakepumpkin7.pumpkinmmo.PumpkinMMO;
+import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class Skill {
 
@@ -15,7 +15,6 @@ public abstract class Skill {
 
     @Getter @Setter
     String name;
-
     int maxLevel;
 
 
@@ -49,4 +48,32 @@ public abstract class Skill {
         }
     }
 
+
+
+    //returns level,expToNextLevel,expForNextLevel
+    //so say level 0 with 30/100 exp
+    //returns 0,30,100
+    public List<Object> calculateLevel(double exp){
+        int level = 0;
+        double tempExp = 0;
+        int factor = 100;
+        while(exp > 0) {
+            tempExp = exp;
+            if(level <  maxLevel*2/5) {
+                factor = level*100;
+            } else if(level < maxLevel*4/5){
+                factor = level*1000;
+            } else if(level <  maxLevel){
+                factor = level*10000;
+            }
+
+            exp = exp - factor;
+            level++;
+
+
+
+        }
+
+        return Arrays.asList(level,tempExp,factor);
+    }
 }
