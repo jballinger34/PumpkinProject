@@ -1,8 +1,0 @@
-name: PumpkinMobs
-version: '${version}'
-main: me.fakepumpkin7.pumpkinmobs.PumpkinMobs
-api-version: '1.20'
-
-commands:
-  spawntest:
-    usage: /<command>
