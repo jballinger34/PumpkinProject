@@ -1,7 +1,5 @@
 package me.fakepumpkin7.pumpkinframework;
 
-import de.tr7zw.nbtapi.NBTItem;
-import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -10,8 +8,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
-import org.bukkit.metadata.Metadatable;
 import org.bukkit.util.Vector;
 
 import java.util.List;
@@ -139,32 +135,6 @@ public class CombatUtils {
 
         return knockbackMulti;
     }
-    public static ItemStack setItemBaseDamage(ItemStack item, double base){
-        NBTItem nbtItem = NbtUtil.getNbtItem(item);
-        nbtItem.setDouble("pumpkin-base-damage", base);
-
-        return nbtItem.getItem();
-
-    }
-    public static ItemStack setItemDamageMulti(ItemStack item, double multi){
-        NBTItem nbtItem = NbtUtil.getNbtItem(item);
-        nbtItem.setDouble("pumpkin-damage-multi", multi);
-
-        return nbtItem.getItem();
-    }
-
-    public static ItemStack addItemBaseDamage(ItemStack item, double toAdd){
-        double current = getItemBaseDamage(item);
-        double newVal = current + toAdd;
-
-        return setItemBaseDamage(item, newVal);
-    }
-    public static ItemStack addItemDamageMulti(ItemStack item, double toAdd){
-        double current = getItemDamageMulti(item);
-        double newVal = current + toAdd;
-
-        return setItemDamageMulti(item, newVal);
-    }
 
 
 
@@ -198,18 +168,8 @@ public class CombatUtils {
         return defence;
     }
 
-    public static void setItemDefence(ItemStack itemStack, double toSet){
-        NbtUtil.addNbt(itemStack,"pumpkin-custom-defence",toSet);
-    }
-    public static void addItemDefence(ItemStack itemStack, double toAdd){
-        double current = getItemDefence(itemStack);
-        double newVal = current + toAdd;
-
-        setItemDefence(itemStack, newVal);
-    }
 
     //HEALTH UTILS
-
     public static double getEntityCustomHealth(Entity entity){
         double health = 1;
         if(entity instanceof LivingEntity){
@@ -253,15 +213,6 @@ public class CombatUtils {
         return maxhealth;
     }
 
-    public static void setItemMaxHealth(ItemStack itemStack, double toSet){
-        NbtUtil.addNbt(itemStack,"pumpkin-custom-health",toSet);
-    }
-    public static void addItemMaxHealth(ItemStack itemStack, double toAdd){
-        double current = getItemMaxHealth(itemStack);
-        double newVal = current + toAdd;
-
-        setItemMaxHealth(itemStack, newVal);
-    }
 
     //SPEED UTILS
     public static double getPlayerSpeed(Player player){
@@ -294,15 +245,5 @@ public class CombatUtils {
         return speed;
     }
 
-    public static void setItemSpeed(ItemStack itemStack, double toSet){
-        NbtUtil.addNbt(itemStack,"pumpkin-custom-speed",toSet);
-    }
-
-    public static void addItemSpeed(ItemStack itemStack, double toAdd){
-        double current = getItemSpeed(itemStack);
-        double newVal = current + toAdd;
-
-        setItemSpeed(itemStack, newVal);
-    }
 }
 

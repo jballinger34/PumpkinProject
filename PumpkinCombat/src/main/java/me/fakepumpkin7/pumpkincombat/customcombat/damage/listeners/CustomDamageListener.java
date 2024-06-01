@@ -2,7 +2,7 @@ package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
 import me.fakepumpkin7.pumpkinframework.CombatUtils;
-import me.fakepumpkin7.pumpkinframework.event.CustomDamageEvent;
+import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

@@ -9,9 +9,12 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
-@RequiredArgsConstructor
 public class ArmorUnEquipEvent extends Event implements Cancellable {
 
+    public ArmorUnEquipEvent(Player player, ItemStack itemStack){
+        this.player = player;
+        this.item = itemStack;
+    }
     private static final HandlerList handlers = new HandlerList();
 
     @Getter private final Player player;

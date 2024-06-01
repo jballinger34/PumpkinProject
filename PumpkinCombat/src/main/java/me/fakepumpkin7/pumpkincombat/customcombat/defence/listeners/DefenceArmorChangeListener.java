@@ -23,7 +23,6 @@ public class DefenceArmorChangeListener implements Listener {
 
     @EventHandler
     public void onPlayerAddArmor(ArmorEquipEvent event){
-
         //if piece put on has defence stat, add defence stat.
         ItemStack applied = event.getItem();
         Player entity = event.getPlayer();

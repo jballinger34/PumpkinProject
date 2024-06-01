@@ -1,6 +1,6 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 
-import me.fakepumpkin7.pumpkinframework.event.CustomDamageEvent;
+import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

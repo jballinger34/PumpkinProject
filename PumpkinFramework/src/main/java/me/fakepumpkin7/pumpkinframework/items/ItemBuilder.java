@@ -1,5 +1,7 @@
 package me.fakepumpkin7.pumpkinframework.items;
 
+import me.fakepumpkin7.pumpkinframework.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -38,6 +40,58 @@ public class ItemBuilder {
         item.setItemMeta(meta);
         return this;
     }
+    private ItemBuilder addStatsLore(){
+        ItemMeta meta = item.getItemMeta();
+        List<String> lore = meta.getLore();
+        if(lore == null){
+            lore = new ArrayList<>();
+        }
+        List<String> statsLore = generateStatsLore();
+
+        statsLore.addAll(lore);
+        meta.setLore(statsLore);
+        item.setItemMeta(meta);
+        return this;
+    }
+    private List<String> generateStatsLore(){
+        List<String> lore = new ArrayList<>();
+
+        double baseDamage = CombatUtils.getItemBaseDamage(item);
+        double defence = CombatUtils.getItemDefence(item);
+        double maxHealth = CombatUtils.getItemMaxHealth(item);
+        double speed = CombatUtils.getItemSpeed(item);
+
+        double damageMulti = CombatUtils.getItemDamageMulti(item);
+        double knockback = CombatUtils.getItemKnockbackMulti(item);
+
+        if(baseDamage != 0){
+            lore.add("Damage: +" + baseDamage);
+        }
+        if(defence != 0){
+            lore.add("Defence: +" + defence);
+        }
+        if(maxHealth != 0){
+            lore.add("Health: +" + maxHealth);
+        }
+        if(speed != 0){
+            lore.add("Speed: +" + speed);
+        }
+
+        //for the multis, 1 is default
+        if(damageMulti != 1){
+            lore.add("All damage is multiplied by "+ damageMulti);
+        }
+        if(knockback != 1){
+            lore.add("All given knockback is multiplied by "+ knockback);
+        }
+        if(lore.size() > 0){
+            lore.add("");
+        }
+
+
+
+        return lore;
+    }
 
     public ItemBuilder addGlow(){
         if(item.getType() == Material.FISHING_ROD){
@@ -56,9 +110,19 @@ public class ItemBuilder {
         addNBT("pumpkin-base-damage", baseDamage);
         return this;
     }
+    public ItemBuilder addBaseDamage(double baseDamage){
+        double currentBaseDamage = NbtUtil.getNbtDouble(item, "pumpkin-base-damage");
+        setBaseDamage(currentBaseDamage + baseDamage);
+        return this;
+    }
 
     public ItemBuilder setDamageMulti(double damageMulti){
         addNBT("pumpkin-damage-multi", damageMulti);
+        return this;
+    }
+    public ItemBuilder addDamageMulti(double damageMulti){
+        double currentDamageMulti = NbtUtil.getNbtDouble(item, "pumpkin-damage-multi");
+        setDamageMulti(currentDamageMulti + damageMulti);
         return this;
     }
 
@@ -66,9 +130,19 @@ public class ItemBuilder {
         addNBT("pumpkin-knockback-multi", knockback);
         return this;
     }
+    public ItemBuilder addKnockback(double knockback){
+        double currentKnockback = NbtUtil.getNbtDouble(item, "pumpkin-knockback-multi");
+        setKnockback(currentKnockback + knockback);
+        return this;
+    }
 
     public ItemBuilder setDefence(double defence){
         addNBT("pumpkin-custom-defence", defence);
+        return this;
+    }
+    public ItemBuilder addDefence(double defence){
+        double currentDefence = NbtUtil.getNbtDouble(item, "pumpkin-custom-defence");
+        setDefence(currentDefence + defence);
         return this;
     }
 
@@ -76,14 +150,22 @@ public class ItemBuilder {
         addNBT("pumpkin-custom-health", health);
         return this;
     }
+    public ItemBuilder addHealth(double health){
+        double currentHealth = NbtUtil.getNbtDouble(item, "pumpkin-custom-health");
+        setHealth(currentHealth + health);
+        return this;
+    }
+
 
     public ItemBuilder setSpeed(double speed){
         addNBT("pumpkin-custom-speed", speed);
         return this;
     }
-
-    //TODO
-    // ADD METHODS TO ADD SPEED, DEFENCE, HEALTH
+    public ItemBuilder addSpeed(double speed){
+        double currentSpeed = NbtUtil.getNbtDouble(item, "pumpkin-custom-speed");
+        setSpeed(currentSpeed + speed);
+        return this;
+    }
 
     public ItemBuilder addNBT(String key, double doubleVal){
         net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
@@ -124,6 +206,9 @@ public class ItemBuilder {
 
 
     public ItemStack build(){
+        //could have this as a public method,
+        // but like this it will be called for every item built with itembuilder
+        addStatsLore();
         return this.item;
     }
 

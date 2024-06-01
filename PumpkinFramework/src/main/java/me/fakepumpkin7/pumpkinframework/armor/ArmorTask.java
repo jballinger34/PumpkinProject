@@ -19,6 +19,7 @@ public class ArmorTask implements Runnable {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
+
             ItemStack[] currentEquipment = player.getEquipment().getArmorContents();
             ItemStack[] previousEquipment = playerEquipment.get(player.getUniqueId());
 
@@ -30,7 +31,6 @@ public class ArmorTask implements Runnable {
                 } else if (!isEmpty(currentEquipment[i]) && (previousEquipment == null || isEmpty(previousEquipment[i]))){
                     currentEquipment[i].setAmount(1);
                     callEquip(player, currentEquipment[i]);
-
                 } else if (!isEmpty(currentEquipment[i]) && !currentEquipment[i].isSimilar(previousEquipment[i])) {
                     previousEquipment[i].setAmount(1);
                     currentEquipment[i].setAmount(1);
