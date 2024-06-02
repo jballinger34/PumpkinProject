@@ -3,6 +3,7 @@ package me.fakepumpkin7.pumpkinframework.items;
 import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
@@ -65,24 +66,24 @@ public class ItemBuilder {
         double knockback = CombatUtils.getItemKnockbackMulti(item);
 
         if(baseDamage != 0){
-            lore.add("Damage: +" + baseDamage);
+            lore.add(ChatColor.GRAY + "Damage: "+ ChatColor.RED +"+" + baseDamage);
         }
         if(defence != 0){
-            lore.add("Defence: +" + defence);
+            lore.add(ChatColor.GRAY + "Defence: "+ ChatColor.RED +"+"  + defence);
         }
         if(maxHealth != 0){
-            lore.add("Health: +" + maxHealth);
+            lore.add(ChatColor.GRAY + "Health: "+ ChatColor.RED  +"+" + maxHealth);
         }
         if(speed != 0){
-            lore.add("Speed: +" + speed);
+            lore.add(ChatColor.GRAY + "Speed: "+ ChatColor.RED  +"+"+ speed);
         }
 
         //for the multis, 1 is default
         if(damageMulti != 1){
-            lore.add("All damage is multiplied by "+ damageMulti);
+            lore.add(ChatColor.GRAY + "All damage dealt is multiplied by " + ChatColor.RED + damageMulti);
         }
         if(knockback != 1){
-            lore.add("All given knockback is multiplied by "+ knockback);
+            lore.add(ChatColor.GRAY + "All knockback dealt is multiplied by " + ChatColor.RED +  knockback);
         }
         if(lore.size() > 0){
             lore.add("");

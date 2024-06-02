@@ -2,13 +2,14 @@ plugins {
     id 'java'
 }
 
-group = 'me.fakepumpkin7'
+group = 'com.rit.sucy'
 version = ''
 
 repositories {
     mavenCentral()
     flatDir{
         dirs 'D:/Users/balli/Desktop/PumpkinProject/libraries'
+        dirs 'C:/Users/Dad/IdeaProjects/PumpkinProject/libraries'
     }
     maven {
         name = "spigotmc-repo"
@@ -24,12 +25,12 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    implementation name: 'item-nbt-api-plugin-2.11.1'
-
     compileOnly name: "spigot-1.8.8"
+    compileOnly name: "PumpkinFramework"
+    compileOnly name: "PumpkinEnchants"
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 8
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
