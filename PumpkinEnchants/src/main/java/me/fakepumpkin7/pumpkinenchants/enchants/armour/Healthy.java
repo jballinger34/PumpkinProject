@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 public class Healthy extends BaseEnchant {
 
     public Healthy() {
-        super("Healthy", EnchantmentGroup.ARMOR);
-        this.max = 5;
+        super("Healthy","Adds Health" , EnchantmentGroup.ARMOR, 5,true);
     }
 
     double healthPerLevel = 5;

@@ -9,7 +9,6 @@ import com.rit.sucy.CustomEnchantment;
 import com.rit.sucy.EnchantmentAPI;
 import com.rit.sucy.service.ENameParser;
 import com.rit.sucy.service.ICommand;
-import com.rit.sucy.service.PermissionNode;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,7 +19,7 @@ public class AddEnchantCommand implements ICommand {
     }
 
     public boolean execute(EnchantmentAPI plugin, CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player && sender.hasPermission(PermissionNode.ADMIN.getNode())) {
+        if (sender instanceof Player && sender.isOp()) {
             String name = args[0];
             int difference = 0;
             int level = 1;

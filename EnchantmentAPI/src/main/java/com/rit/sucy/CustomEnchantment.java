@@ -8,8 +8,6 @@ package com.rit.sucy;
 import com.rit.sucy.util.PostDefenceEffectRunnable;
 import com.rit.sucy.util.PostToolEffectRunnable;
 import com.rit.sucy.util.TreeMultiMap;
-import com.rit.sucy.config.RootConfig;
-import com.rit.sucy.config.RootNode;
 import com.rit.sucy.service.ENameParser;
 import com.rit.sucy.service.ERomanNumeral;
 import com.rit.sucy.service.MaterialClass;
@@ -37,95 +35,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class CustomEnchantment implements Comparable<CustomEnchantment> {
-    public static final String DEFAULT_GROUP = "Default";
-    protected List<String> suffixGroups;
     protected final String enchantName;
     protected String description;
     protected Material[] naturalItems;
-    protected Map<MaterialClass, Integer> weight;
-    protected boolean isEnabled;
-    protected boolean isTableEnabled;
-    protected String group;
-    protected double interval;
-    protected double base;
     protected int max;
     protected boolean stacks;
 
-    public CustomEnchantment(String name) {
-        this(name, (String)null, new Material[0], "Default", 5);
-    }
-
-    /** @deprecated */
-    public CustomEnchantment(String name, String[] naturalItems) {
-        this(name, (String)null, MaterialsParser.toMaterial(naturalItems), "Default", 5);
-    }
-
-    public CustomEnchantment(String name, Material[] naturalItems) {
-        this(name, (String)null, naturalItems, "Default", 5);
-    }
-
-    public CustomEnchantment(String name, String description) {
-        this(name, description, new Material[0], "Default", 5);
-    }
-
-    /** @deprecated */
-    public CustomEnchantment(String name, String[] naturalItems, int weight) {
-        this(name, (String)null, MaterialsParser.toMaterial(naturalItems), "Default", weight);
-    }
-
-    public CustomEnchantment(String name, Material[] naturalItems, int weight) {
-        this(name, (String)null, naturalItems, "Default", weight);
-    }
-
-    public CustomEnchantment(String name, Material[] naturalItems, String group) {
-        this(name, (String)null, naturalItems, group, 5);
-    }
-
-    public CustomEnchantment(String name, String description, Material[] naturalItems) {
-        this(name, description, naturalItems, "Default", 5);
-    }
-
-    public CustomEnchantment(String name, String description, String group) {
-        this(name, description, new Material[0], group, 5);
-    }
-
-    public CustomEnchantment(String name, String description, int weight) {
-        this(name, description, new Material[0], "Default", 5);
-    }
-
-    public CustomEnchantment(String name, String description, Material[] naturalItems, String group) {
-        this(name, description, naturalItems, group, 5);
-    }
-
-    public CustomEnchantment(String name, String description, Material[] naturalItems, int weight) {
-        this(name, description, naturalItems, "Default", 5);
-    }
-
-    public CustomEnchantment(String name, String description, String group, int weight) {
-        this(name, description, new Material[0], group, weight);
-    }
-
-    public CustomEnchantment(String name, Material[] naturalItems, String group, int weight) {
-        this(name, (String)null, naturalItems, group, weight);
-    }
-
-    public CustomEnchantment(String name, String description, Material[] naturalItems, String group, int weight) {
-        this.suffixGroups = new ArrayList();
-        Validate.notEmpty(name, "Your Enchantment needs a name!");
-        Validate.notNull(naturalItems, "Input an empty array instead of \"null\"!");
-        Validate.isTrue(weight >= 0, "Weight can't be negative!");
+    public CustomEnchantment(String name, String description, Material[] naturalItems, int max, boolean stacks) {
         this.enchantName = name;
         this.description = description;
         this.naturalItems = naturalItems;
-        this.isEnabled = true;
-        this.group = group;
-        this.max = 1;
-        this.base = 1.0;
-        this.interval = 10.0;
-        this.isTableEnabled = true;
-        this.stacks = false;
-        this.weight = new HashMap();
-        this.weight.put(MaterialClass.DEFAULT, weight);
+
+        this.max = max;
+        this.stacks = stacks;
     }
 
     public String name() {
@@ -136,39 +58,10 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
         return this.description;
     }
 
-    public boolean canStack() {
-        return this.stacks;
+    public boolean canStack(){
+        return stacks;
     }
 
-    public void setCanStack(boolean stack) {
-        this.stacks = stack;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.isEnabled = enabled;
-    }
-
-    public boolean isEnabled() {
-        return this.isEnabled;
-    }
-
-    public void setTableEnabled(boolean value) {
-        this.isTableEnabled = value;
-    }
-
-    public boolean isTableEnabled() {
-        return this.isTableEnabled && ((RootConfig)((EnchantmentAPI)Bukkit.getPluginManager().getPlugin("EnchantmentAPI")).getModuleForClass(RootConfig.class)).getBoolean(RootNode.CUSTOM_TABLE);
-    }
-
-    public int getEnchantLevel(int expLevel) {
-        for(int i = this.max; i >= 1; --i) {
-            if ((double)expLevel >= this.base + this.interval * (double)(i - 1)) {
-                return i;
-            }
-        }
-
-        return 0;
-    }
 
     public int getMaxLevel() {
         return this.max;
@@ -178,31 +71,6 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
         this.max = value;
     }
 
-    public double getBase() {
-        return this.base;
-    }
-
-    public void setBase(double value) {
-        this.base = value;
-    }
-
-    public double getInterval() {
-        return this.interval;
-    }
-
-    public void setInterval(double value) {
-        this.interval = value;
-    }
-
-    public List<String> getSuffixGroups() {
-        return this.suffixGroups;
-    }
-
-    public int getCostPerLevel(boolean withBook) {
-        int costIndex = (Integer)this.weight.get(MaterialClass.DEFAULT) * this.max;
-        int divisor = withBook ? 2 : 1;
-        return (Integer)this.weight.get(MaterialClass.DEFAULT) == 1 ? 8 / divisor : (costIndex < 10 ? 4 / divisor : (costIndex < 30 ? 2 / divisor : 1));
-    }
 
     public void setNaturalMaterials(Material[] materials) {
         this.naturalItems = materials;
@@ -223,17 +91,6 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
         return this.naturalItems;
     }
 
-    public void setWeight(int weight) {
-        this.weight.put(MaterialClass.DEFAULT, weight);
-    }
-
-    public int getWeight() {
-        return (Integer)this.weight.get(MaterialClass.DEFAULT);
-    }
-
-    public int getWeight(MaterialClass material) {
-        return this.weight.containsKey(material) ? (Integer)this.weight.get(material) : (Integer)this.weight.get(MaterialClass.DEFAULT);
-    }
 
     public boolean canEnchantOnto(ItemStack item) {
         if (this.naturalItems != null && item != null) {
@@ -246,56 +103,11 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
                     return true;
                 }
             }
-
-            return item.getType() == Material.BOOK || item.getType() == Material.ENCHANTED_BOOK;
-        } else {
-            return false;
         }
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public String getGroup() {
-        return this.group;
-    }
-
-    public boolean conflictsWith(CustomEnchantment enchantment) {
-        Validate.notNull(enchantment);
-        return !this.group.equals("Default") && this.group.equalsIgnoreCase(enchantment.group);
-    }
-
-    public boolean conflictsWith(List<CustomEnchantment> enchantmentsToCheck) {
-        Validate.notNull(enchantmentsToCheck);
-        Iterator var2 = enchantmentsToCheck.iterator();
-
-        CustomEnchantment enchantment;
-        do {
-            if (!var2.hasNext()) {
-                return false;
-            }
-
-            enchantment = (CustomEnchantment)var2.next();
-        } while(!this.conflictsWith(enchantment));
-
-        return true;
-    }
-
-    public boolean conflictsWith(CustomEnchantment... enchantmentsToCheck) {
-        Validate.notNull(enchantmentsToCheck);
-        CustomEnchantment[] var2 = enchantmentsToCheck;
-        int var3 = enchantmentsToCheck.length;
-
-        for(int var4 = 0; var4 < var3; ++var4) {
-            CustomEnchantment enchantment = var2[var4];
-            if (this.conflictsWith(enchantment)) {
-                return true;
-            }
-        }
-
         return false;
     }
+
+
 
     public ItemStack addToItem(ItemStack item, int enchantLevel) {
         Validate.notNull(item);

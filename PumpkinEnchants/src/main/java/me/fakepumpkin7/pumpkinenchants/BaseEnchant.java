@@ -12,9 +12,13 @@ import java.util.Deque;
 public class BaseEnchant extends CustomEnchantment {
 
 
-    public BaseEnchant(String name, EnchantmentGroup group) {
-        super(name, group.getAllMaterials());
+    public BaseEnchant(String name, String description, EnchantmentGroup group, int max,boolean stacks) {
+        super(name, description ,group.getAllMaterials(),max, stacks);
     }
+    public BaseEnchant(String name, String description, int max, EnchantmentGroup group) {
+        super(name, description ,group.getAllMaterials(),max, false);
+    }
+
 
 
 }

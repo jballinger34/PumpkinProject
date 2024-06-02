@@ -10,8 +10,7 @@ import org.bukkit.entity.LivingEntity;
 
 public class Lifesteal extends BaseEnchant {
     public Lifesteal() {
-        super("Lifesteal", EnchantmentGroup.SWORD);
-        this.max = 3;
+        super("Lifesteal","Steals Life :D",3, EnchantmentGroup.SWORD);
     }
 
     double procPercentPerLevel = 10;

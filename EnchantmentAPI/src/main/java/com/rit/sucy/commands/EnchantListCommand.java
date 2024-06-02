@@ -7,9 +7,7 @@ package com.rit.sucy.commands;
 
 import com.rit.sucy.CustomEnchantment;
 import com.rit.sucy.EnchantmentAPI;
-import com.rit.sucy.enchanting.VanillaEnchantment;
 import com.rit.sucy.service.ICommand;
-import com.rit.sucy.service.PermissionNode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -22,7 +20,7 @@ public class EnchantListCommand implements ICommand {
     }
 
     public boolean execute(EnchantmentAPI plugin, CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission(PermissionNode.LIST.getNode())) {
+        if (!sender.isOp()) {
             return false;
         } else {
             if (args.length > 0) {
@@ -37,9 +35,6 @@ public class EnchantListCommand implements ICommand {
 
                         while(iterator.hasNext()) {
                             CustomEnchantment next = (CustomEnchantment)iterator.next();
-                            if (next instanceof VanillaEnchantment) {
-                                iterator.remove();
-                            }
                         }
 
                         if (page * 9 > enchants.size() + 8) {
@@ -69,10 +64,9 @@ public class EnchantListCommand implements ICommand {
 
                 while(var9.hasNext()) {
                     CustomEnchantment enchantment = (CustomEnchantment)var9.next();
-                    if (!(enchantment instanceof VanillaEnchantment)) {
-                        message = message + ChatColor.GOLD + enchantment.name() + ChatColor.GRAY + ", ";
-                        ++count;
-                    }
+
+                    message = message + ChatColor.GOLD + enchantment.name() + ChatColor.GRAY + ", ";
+                    ++count;
                 }
 
                 message = message.substring(0, message.length() - 2);

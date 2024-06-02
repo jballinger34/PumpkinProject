@@ -7,7 +7,6 @@ package com.rit.sucy.commands;
 
 import com.rit.sucy.CustomEnchantment;
 import com.rit.sucy.EnchantmentAPI;
-import com.rit.sucy.enchanting.VanillaEnchantment;
 import com.rit.sucy.service.ENameParser;
 import com.rit.sucy.service.ICommand;
 import java.util.ArrayList;
@@ -41,16 +40,15 @@ public class BookCommand implements ICommand {
             while(true) {
                 CustomEnchantment enchantment;
                 do {
-                    do {
-                        if (!var9.hasNext()) {
-                            book.setItemMeta(meta);
-                            ((Player)sender).getInventory().addItem(new ItemStack[]{book});
-                            return true;
-                        }
+                    if (!var9.hasNext()) {
+                        book.setItemMeta(meta);
+                        ((Player)sender).getInventory().addItem(new ItemStack[]{book});
+                        return true;
+                    }
 
-                        enchantment = (CustomEnchantment)var9.next();
-                    } while(enchantment instanceof VanillaEnchantment);
+                    enchantment = (CustomEnchantment)var9.next();
                 } while(enchantment.getDescription() == null);
+
 
                 String page = enchantment.name() + " - " + enchantment.getDescription() + "\n\nItems: ";
                 if (enchantment.getNaturalMaterials().length <= 0) {

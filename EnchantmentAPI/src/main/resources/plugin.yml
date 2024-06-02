@@ -25,16 +25,6 @@ commands:
     usage: /enchantapi book
     permission: EnchantmentAPI.book
     permission-message: You lack the privileges to use that!
-  enchantapi stats:
-    description: displays stats for enchantment probabilities
-    usage: /enchantapi stats <item> <level>
-    permission: EnchantmentAPI.admin
-    permission-message: You lack the privileges to use that!
-  enchantapi graph:
-    description: displays graphs for enchantment probabilities
-    usage: /enchantapi graph <item> <enchant>
-    permission: EnchantmentAPI.admin
-    permission-message: You lack the privileges to use that!
 permissions:
   EnchantmentAPI.list:
     description: basic list of enchantments

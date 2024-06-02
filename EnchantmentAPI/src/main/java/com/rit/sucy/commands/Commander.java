@@ -8,7 +8,6 @@ package com.rit.sucy.commands;
 import com.rit.sucy.EnchantmentAPI;
 import com.rit.sucy.service.CommandHandler;
 import com.rit.sucy.service.ICommand;
-import com.rit.sucy.service.PermissionNode;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -24,28 +23,25 @@ public class Commander extends CommandHandler {
         this.registerCommand("add", new AddEnchantCommand());
         this.registerCommand("remove", new RemoveEnchantCommand());
         this.registerCommand("book", new BookCommand());
-        this.registerCommand("stats", new StatCommand());
-        this.registerCommand("graph", new GraphCommand());
     }
 
     public boolean noArgs(CommandSender sender, Command command, String label) {
         sender.sendMessage(ChatColor.GRAY + "========= " + ChatColor.RED + this.plugin.getName() + ChatColor.GRAY + " =========");
         sender.sendMessage(" /enchantapi");
         sender.sendMessage("    help         " + ChatColor.YELLOW + "- Show the help menu");
-        if (sender.hasPermission(PermissionNode.LIST.getNode())) {
+        if (sender.isOp()) {
             sender.sendMessage("    list          " + ChatColor.YELLOW + "- List all enchantments");
             sender.sendMessage("    list <page> " + ChatColor.YELLOW + "- List a page of enchantments with descriptions");
         }
 
-        if (sender.hasPermission(PermissionNode.BOOK.getNode())) {
+        if (sender.isOp()) {
             sender.sendMessage("    book        " + ChatColor.YELLOW + "- Gives a book with enchantment descriptions");
         }
 
-        if (sender.hasPermission(PermissionNode.ADMIN.getNode())) {
+        if (sender.isOp()) {
             sender.sendMessage("    reload      " + ChatColor.YELLOW + "- Reload the plugin");
             sender.sendMessage("    add          " + ChatColor.YELLOW + "- Add an enchantment to an item");
-            sender.sendMessage("    stats <item> <level>      " + ChatColor.YELLOW + "- Displays enchantment stats");
-            sender.sendMessage("    graph <item> <enchant> " + ChatColor.YELLOW + "- Displays a graph of stats");
+            sender.sendMessage("    remove          " + ChatColor.YELLOW + "- Remove an enchantment from an item");
         }
 
         return true;
