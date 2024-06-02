@@ -1,0 +1,6 @@
+name: PumpkinArmour
+version: '${version}'
+main: me.fakepumpkin7.pumpkinarmour.PumpkinArmour
+commands:
+  givearmourset:
+    usage: /givearmourset <setid>
