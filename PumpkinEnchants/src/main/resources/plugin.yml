@@ -1,0 +1,6 @@
+name: PumpkinEnchants
+version: '${version}'
+main: me.fakepumpkin7.pumpkinenchants.PumpkinEnchants
+depend:
+  - PumpkinFramework
+  - EnchantmentAPI

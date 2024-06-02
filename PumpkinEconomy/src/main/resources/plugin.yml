@@ -1,0 +1,4 @@
+name: PumpkinEconomy
+version: '${version}'
+main: me.fakepumpkin7.pumpkineconomy.PumpkinEconomy
+api-version: '1.20'
