@@ -23,6 +23,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
+import me.fakepumpkin7.pumpkinframework.event.combat.CustomVanillaDamageEvent;
 import net.minecraft.server.v1_8_R3.EnchantmentDurability;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -72,7 +75,95 @@ public class EListener implements Listener {
         this.plugin = plugin;
     }
 
+
+    //cde is damage with attacker entity
+    //cvde is damage with no attacker
     @EventHandler(
+        priority = EventPriority.MONITOR,
+                ignoreCancelled = true
+    )
+    public void onCDE(CustomDamageEvent event){
+        if (!excuse && event.getDamageCause() != DamageCause.CUSTOM && !(event.getFinalDamage() <= 0.0)) {
+            if (event.getTarget() instanceof LivingEntity) {
+                if (event.getDamageCause() == DamageCause.ENTITY_ATTACK || event.getDamageCause() == DamageCause.PROJECTILE) {
+
+                    LivingEntity damaged = (LivingEntity)event.getTarget();
+                    LivingEntity attacker = (LivingEntity)event.getAttacker();
+
+
+                    Map.Entry entry;
+                    Iterator var8;
+                    if (attacker != null) {
+                        boolean valid = true;
+                        if (event.getDamageCause() == DamageCause.PROJECTILE && attacker instanceof Player) {
+                            ItemStack itemInHand = ((Player)attacker).getItemInHand();
+                            if (itemInHand == null || itemInHand.getType() != Material.BOW) {
+                                valid = false;
+                            }
+                        }
+
+                        if (valid) {
+                            var8 = this.getValidEnchantments(this.getItems(attacker)).entrySet().iterator();
+
+                            while(var8.hasNext()) {
+                                entry = (Map.Entry)var8.next();
+                                ((CustomEnchantment)entry.getKey()).applyEffect(attacker, damaged, (Integer)entry.getValue(), event);
+                            }
+                        }
+                    }
+
+                    TreeMultiMap<PostDefenceEffectRunnable> postRunTasks = new TreeMultiMap((o1, o2) -> {
+                        return -Integer.compare((Integer) o1, (Integer) o2);
+                    });
+                    var8 = this.getValidEnchantments(this.getItems(damaged)).entrySet().iterator();
+
+                    while(var8.hasNext()) {
+                        entry = (Map.Entry)var8.next();
+                        ((CustomEnchantment)entry.getKey()).applyDefenseEffect(damaged, attacker, (Integer)entry.getValue(), event, postRunTasks);
+                    }
+
+                    var8 = postRunTasks.getAll().iterator();
+
+                    while(var8.hasNext()) {
+                        PostDefenceEffectRunnable runnable = (PostDefenceEffectRunnable)var8.next();
+                        runnable.execute(damaged, attacker, event);
+                    }
+
+                }
+            }
+        } else {
+            excuse = false;
+        }
+    }
+    @EventHandler(
+        priority = EventPriority.MONITOR,
+                ignoreCancelled = true
+    )
+    public void onCVDE(CustomVanillaDamageEvent event){
+        if (!(event.getFinalDamage() <= 0.0) && event.getTarget() instanceof LivingEntity) {
+            LivingEntity damaged = (LivingEntity)event.getTarget();
+            TreeMultiMap<PostDefenceEffectRunnable> postRunTasks = new TreeMultiMap((o1, o2) -> {
+                return -Integer.compare((Integer) o1,(Integer) o2);
+            });
+            Iterator var4 = this.getValidEnchantments(this.getItems(damaged)).entrySet().iterator();
+
+            while(var4.hasNext()) {
+                Map.Entry<CustomEnchantment, Integer> entry = (Map.Entry)var4.next();
+                ((CustomEnchantment)entry.getKey()).applyDefenseEffect(damaged, null, (Integer)entry.getValue(), event, postRunTasks);
+            }
+
+            var4 = postRunTasks.getAll().iterator();
+
+            while(var4.hasNext()) {
+                PostDefenceEffectRunnable runnable = (PostDefenceEffectRunnable)var4.next();
+                runnable.execute(damaged, (LivingEntity)null, event);
+            }
+
+        }
+    }
+
+    //below methods replaced by onCDE, onCVDE handlers
+   /* @EventHandler(
             priority = EventPriority.MONITOR,
             ignoreCancelled = true
     )
@@ -186,6 +277,8 @@ public class EListener implements Listener {
 
         }
     }
+
+    */
 
     @EventHandler(
             priority = EventPriority.MONITOR,

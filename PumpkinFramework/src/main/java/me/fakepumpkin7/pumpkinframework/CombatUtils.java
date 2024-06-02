@@ -16,12 +16,14 @@ public class CombatUtils {
 
     public static long knockBackCooldownMS = 500;
 
-    public static void dealDamage(Entity target, double finalDamage, double targetMaxHealth){
+
+    //this will not call the CustomDamageEvent, so defence and any enchants will be ignored
+    public static void dealTrueDamage(Entity target, double finalDamage){
 
         if(target instanceof LivingEntity){
             LivingEntity le = (LivingEntity) target;
 
-            double damageToDeal = finalDamage*le.getMaxHealth() / targetMaxHealth;
+            double damageToDeal = finalDamage*le.getMaxHealth() / getEntityMaxHealth(target);
             le.damage(damageToDeal);
         }
 
@@ -29,6 +31,15 @@ public class CombatUtils {
             Item itemEntity = (Item) target;
             itemEntity.remove();
         }
+    }
+    public static void healEntity(Entity target, double healAmount){
+       if(target instanceof LivingEntity){
+           LivingEntity le = (LivingEntity) target;
+           double scaledHeal = healAmount*le.getMaxHealth() / getEntityMaxHealth(target);
+
+           double newHealth = Math.min(le.getMaxHealth(), le.getHealth() + scaledHeal);
+           le.setHealth(newHealth);
+       }
     }
 
     public static void dealKnockback(Entity target, Entity attacker, double knockback){

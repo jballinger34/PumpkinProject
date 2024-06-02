@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.fakepumpkin7.pumpkinenchants.EnchantType;
+import me.fakepumpkin7.pumpkinframework.event.combat.AbstractCustomDamageEvent;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,8 +30,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -375,10 +374,10 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
         return this.name().compareTo(customEnchantment.name());
     }
 
-    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, EntityDamageByEntityEvent event) {
+    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, AbstractCustomDamageEvent event) {
     }
 
-    public void applyDefenseEffect(LivingEntity user, LivingEntity attacker, int enchantLevel, EntityDamageEvent event, TreeMultiMap<PostDefenceEffectRunnable> postRunTasks) {
+    public void applyDefenseEffect(LivingEntity user, LivingEntity attacker, int enchantLevel, AbstractCustomDamageEvent event, TreeMultiMap<PostDefenceEffectRunnable> postRunTasks) {
     }
 
     public boolean applyToolEffect(Player player, Block block, List<ItemStack> drops, TreeMultiMap<PostToolEffectRunnable> postRunTasks, int enchantLevel, BlockEvent event) {

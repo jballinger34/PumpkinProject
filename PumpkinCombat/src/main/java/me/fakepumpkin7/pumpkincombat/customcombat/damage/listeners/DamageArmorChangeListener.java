@@ -1,7 +1,6 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 
 import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
-import me.fakepumpkin7.pumpkincombat.customcombat.defence.CustomDefence;
 import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;

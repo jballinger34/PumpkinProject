@@ -5,9 +5,9 @@
 
 package com.rit.sucy.util;
 
+import me.fakepumpkin7.pumpkinframework.event.combat.AbstractCustomDamageEvent;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.entity.EntityDamageEvent;
 
 public interface PostDefenceEffectRunnable {
-    void execute(LivingEntity var1, LivingEntity var2, EntityDamageEvent var3);
+    void execute(LivingEntity var1, LivingEntity var2, AbstractCustomDamageEvent var3);
 }

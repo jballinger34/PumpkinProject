@@ -1,7 +1,10 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 
 import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
+import me.fakepumpkin7.pumpkinframework.event.combat.CustomVanillaDamageEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -11,13 +14,14 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class DamageListener implements Listener {
 
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamagedNotByEntity(EntityDamageEvent e){
         if(causedByEntity(e.getCause())){
             return;
         }
 
-        Bukkit.getPluginManager().callEvent( new CustomDamageEvent(e.getCause(),null, e.getEntity(), e.getDamage()) );
+        Bukkit.getPluginManager().callEvent( new CustomVanillaDamageEvent(e.getEntity(), e.getCause() ,e.getDamage()) );
 
         e.setDamage(0);
         e.setCancelled(true);
@@ -25,7 +29,12 @@ public class DamageListener implements Listener {
     }
     @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamagedByEntity(EntityDamageByEntityEvent e){
-        Bukkit.getPluginManager().callEvent(  new CustomDamageEvent(e.getCause(), e.getDamager(), e.getEntity(), e.getDamage()) );
+        Entity attacker = e.getDamager();
+        if(e.getDamager() instanceof Projectile && ((Projectile) e.getDamager()).getShooter() instanceof Entity){
+            attacker = (Entity) ((Projectile) e.getDamager()).getShooter();
+        }
+
+        Bukkit.getPluginManager().callEvent(  new CustomDamageEvent(e.getCause(), attacker, e.getEntity()) );
 
         e.setDamage(0);
         e.setCancelled(true);
