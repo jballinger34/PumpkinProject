@@ -108,6 +108,7 @@ public enum EnchantmentGroup {
 
         }
         if(children.contains(EnchantmentGroup.HELMET)){
+            mats.add(Material.SKULL_ITEM);
             mats.add(Material.LEATHER_HELMET);
             mats.add(Material.CHAINMAIL_HELMET);
             mats.add(Material.GOLD_HELMET);
