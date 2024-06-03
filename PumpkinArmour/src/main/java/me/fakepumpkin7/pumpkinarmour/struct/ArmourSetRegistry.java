@@ -1,6 +1,6 @@
 package me.fakepumpkin7.pumpkinarmour.struct;
 
-import me.fakepumpkin7.pumpkinarmour.impl.EmeraldArmour;
+import me.fakepumpkin7.pumpkinarmour.impl.*;
 
 public enum ArmourSetRegistry {
 

@@ -1,25 +1,40 @@
 package me.fakepumpkin7.pumpkinframework.items;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
+import net.minecraft.server.v1_8_R3.Item;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 public class ItemBuilder {
 
     ItemStack item;
 
     public ItemBuilder(Material material){
-        this.item = new ItemStack(material);
+        if(material == Material.SKULL_ITEM){
+            this.item = new ItemStack(material, 1, (short) 3);
+        } else {
+            this.item = new ItemStack(material);
+        }
+
     }
     public ItemBuilder(ItemStack itemStack){this.item = itemStack;}
 
@@ -203,7 +218,40 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder dyeLeather(Color color){
+        if(!item.hasItemMeta() || !(item.getItemMeta() instanceof LeatherArmorMeta)) return this;
 
+        LeatherArmorMeta lam = (LeatherArmorMeta) item.getItemMeta();
+        lam.setColor(color);
+
+        item.setItemMeta(lam);
+
+        return this;
+    }
+
+    public ItemBuilder skullTexture(String skullURL){
+        if(!item.hasItemMeta() || !(item.getItemMeta() instanceof SkullMeta)) return this;
+        SkullMeta itemMeta = (SkullMeta) item.getItemMeta();
+
+
+        String skullTexture = Base64.getEncoder().encodeToString(("{textures:{SKIN:{url:\"" + skullURL + "\"}}}").getBytes());
+
+
+        GameProfile skinProfile = new GameProfile(UUID.randomUUID(), (String)null);
+        skinProfile.getProperties().put("textures", new Property("textures", skullTexture, "signed"));
+
+        try {
+            Field profileField = itemMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(itemMeta, skinProfile);
+        } catch (NoSuchFieldException | IllegalAccessException var17) {
+            var17.printStackTrace();
+        }
+
+
+        item.setItemMeta(itemMeta);
+        return this;
+    }
 
 
     public ItemStack build(){

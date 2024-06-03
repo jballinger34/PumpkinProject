@@ -1,11 +1,11 @@
 package me.fakepumpkin7.pumpkinarmour.impl;
 
 import me.fakepumpkin7.pumpkinarmour.struct.ArmourSet;
-import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class EmeraldArmour extends ArmourSet {
 
@@ -24,28 +24,32 @@ public class EmeraldArmour extends ArmourSet {
 
     @Override
     public void initSet(){
-        pieces.add(new ItemBuilder(Material.DIAMOND_HELMET)
+        pieces.add(new ItemBuilder(Material.SKULL_ITEM)
                 .addNBT("pumpkin-armour-id", id)
-                .setName("Emerald Helmet")
+                .setName(ChatColor.GREEN + "Emerald Helmet")
                 .setDefence(4)
+                .skullTexture("http://textures.minecraft.net/texture/8926c1f2c3c14d086c40cfc235fe938694f4a51067ada4726b486ea1c87b03e2")
                 .build());
 
-        pieces.add(new ItemBuilder(Material.DIAMOND_CHESTPLATE)
+        pieces.add(new ItemBuilder(Material.LEATHER_CHESTPLATE)
                 .addNBT("pumpkin-armour-id", id)
-                .setName("Emerald Chestplate")
+                .setName(ChatColor.GREEN + "Emerald Chestplate")
                 .setDefence(7)
+                .dyeLeather(Color.LIME)
                 .build());
 
-        pieces.add(new ItemBuilder(Material.DIAMOND_LEGGINGS)
+        pieces.add(new ItemBuilder(Material.LEATHER_LEGGINGS)
                 .addNBT("pumpkin-armour-id", id)
-                .setName("Emerald Leggings")
+                .setName(ChatColor.GREEN + "Emerald Leggings")
                 .setDefence(6)
+                .dyeLeather(Color.LIME)
                 .build());
 
-        pieces.add(new ItemBuilder(Material.DIAMOND_BOOTS)
+        pieces.add(new ItemBuilder(Material.LEATHER_BOOTS)
                 .addNBT("pumpkin-armour-id", id)
-                .setName("Emerald Boots")
+                .setName(ChatColor.GREEN + "Emerald Boots")
                 .setDefence(3)
+                .dyeLeather(Color.LIME)
                 .build());
     }
 }

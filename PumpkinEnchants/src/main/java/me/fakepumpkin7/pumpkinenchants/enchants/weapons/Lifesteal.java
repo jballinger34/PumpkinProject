@@ -10,16 +10,12 @@ import org.bukkit.entity.LivingEntity;
 
 public class Lifesteal extends BaseEnchant {
     public Lifesteal() {
-        super("Lifesteal","Steals Life :D",3, EnchantmentGroup.SWORD);
+        super("Lifesteal","Steals Life :D",3, EnchantmentGroup.WEAPONS);
     }
-
-    double procPercentPerLevel = 10;
     double healthPerProc = 5;
 
     @Override
     public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, AbstractCustomDamageEvent event) {
-        if(!(event instanceof CustomDamageEvent)) return; //environmental damage
-
         CombatUtils.healEntity(user,enchantLevel*healthPerProc);
     }
 
