@@ -1,0 +1,6 @@
+name: PumpkinFactions
+version: '${version}'
+main: me.fakepumpkin7.pumpkinfactions.PumpkinFactions
+commands:
+  faction:
+    aliases: [factions, f]
