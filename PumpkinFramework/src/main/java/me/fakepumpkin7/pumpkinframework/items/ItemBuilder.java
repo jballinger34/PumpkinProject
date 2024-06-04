@@ -68,7 +68,7 @@ public class ItemBuilder {
         return this;
     }
     public ItemBuilder addRarityLore(ItemRarity rarity){
-        addLoreLine(rarity.color + rarity.name());
+        addLoreLine(rarity.color + ChatColor.BOLD.toString() + rarity.name());
         return this;
     }
     private List<String> generateStatsLore(){

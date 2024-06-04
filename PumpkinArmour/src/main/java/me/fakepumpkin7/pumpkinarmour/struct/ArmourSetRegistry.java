@@ -5,6 +5,7 @@ import me.fakepumpkin7.pumpkinarmour.impl.*;
 public enum ArmourSetRegistry {
 
     EMERALD_ARMOUR(new EmeraldArmour()),
+    MIDAS_ARMOUR(new MidasArmour()),
     ;
 
     ArmourSet set;
