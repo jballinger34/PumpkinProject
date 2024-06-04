@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class CustomVanillaDamageEvent extends AbstractCustomDamageEvent {
 
 
-    public CustomVanillaDamageEvent(Entity target, EntityDamageEvent.DamageCause cause, double vanillaDamage){
+    public CustomVanillaDamageEvent(Entity target, EntityDamageEvent.DamageCause cause, double vanillaDamage) {
         this.damageCause = cause;
         this.target = target;
         this.finalDamage = workOutDamage(cause, vanillaDamage);
@@ -17,12 +17,9 @@ public class CustomVanillaDamageEvent extends AbstractCustomDamageEvent {
     }
 
 
-
-    private double workOutDamage(EntityDamageEvent.DamageCause cause, double vanillaDamage){
+    private double workOutDamage(EntityDamageEvent.DamageCause cause, double vanillaDamage) {
         //TODO
         // make a switch statement for different damage causes
         return vanillaDamage;
     }
-
-
 }

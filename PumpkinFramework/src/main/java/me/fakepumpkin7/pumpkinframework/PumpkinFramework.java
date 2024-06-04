@@ -2,6 +2,7 @@ package me.fakepumpkin7.pumpkinframework;
 
 import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.armor.ArmorTask;
+import me.fakepumpkin7.pumpkinframework.event.combat.DealDamage;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,7 +26,7 @@ public final class PumpkinFramework extends JavaPlugin {
     }
 
     private void registerListeners() {
-
+        Bukkit.getPluginManager().registerEvents(new DealDamage(), this);
     }
 
     private void registerTasks() {

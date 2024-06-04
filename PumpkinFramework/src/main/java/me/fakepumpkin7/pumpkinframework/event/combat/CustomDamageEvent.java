@@ -5,15 +5,16 @@ import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class CustomDamageEvent extends AbstractCustomDamageEvent {
+public class CustomDamageEvent extends AbstractCustomDamageEvent{
 
     @Getter
-    Entity attacker;
+    private Entity attacker;
+    @Getter
+    private double knockback;
 
 
 
@@ -24,13 +25,14 @@ public class CustomDamageEvent extends AbstractCustomDamageEvent {
         this.target = target;
 
         double targetDefence = workOutDefence(target);
-        double targetMaxHealth = CombatUtils.getEntityMaxHealth(target);
 
         double damage = workOutDamage(attacker);
         this.finalDamage = scaleDamage(damage, targetDefence);
 
-        CombatUtils.dealTrueDamage(target, finalDamage);
-        CombatUtils.dealKnockback(target, attacker, workOutKnockback(attacker, target));
+        this.knockback = workOutKnockback(attacker,target);
+
+
+
 
     }
 
