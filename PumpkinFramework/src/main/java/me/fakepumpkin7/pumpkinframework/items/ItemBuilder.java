@@ -4,9 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
-import net.minecraft.server.v1_8_R3.Item;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -77,7 +75,6 @@ public class ItemBuilder {
         double maxHealth = CombatUtils.getItemMaxHealth(item);
         double speed = CombatUtils.getItemSpeed(item);
 
-        double damageMulti = CombatUtils.getItemDamageMulti(item);
         double knockback = CombatUtils.getItemKnockbackMulti(item);
 
         if(baseDamage != 0){
@@ -94,9 +91,6 @@ public class ItemBuilder {
         }
 
         //for the multis, 1 is default
-        if(damageMulti != 1){
-            lore.add(ChatColor.GRAY + "All damage dealt is multiplied by " + ChatColor.RED + damageMulti);
-        }
         if(knockback != 1){
             lore.add(ChatColor.GRAY + "All knockback dealt is multiplied by " + ChatColor.RED +  knockback);
         }

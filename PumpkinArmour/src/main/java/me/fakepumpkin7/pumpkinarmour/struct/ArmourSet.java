@@ -1,13 +1,15 @@
 package me.fakepumpkin7.pumpkinarmour.struct;
 
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class ArmourSet {
+    static HashMap<UUID, String> uuidToSetBonusId = new HashMap<>();
 
     protected String id;
 

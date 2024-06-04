@@ -27,9 +27,6 @@ public class DamageArmorChangeListener implements Listener {
 
         double appliedBaseDamage = CombatUtils.getItemBaseDamage(applied);
         CombatUtils.addEntityBaseDamage(entity, appliedBaseDamage);
-
-        double appliedDamageMulti = CombatUtils.getItemDamageMulti(applied);
-        CombatUtils.addEntityDamageMulti(entity, appliedDamageMulti);
     }
 
     @EventHandler
@@ -41,10 +38,6 @@ public class DamageArmorChangeListener implements Listener {
 
         double removedBaseDamage = CombatUtils.getItemBaseDamage(removed);
         CombatUtils.addEntityBaseDamage(entity,  -1*removedBaseDamage );
-
-        double removedDamageMulti = CombatUtils.getItemDamageMulti(removed);
-        CombatUtils.addEntityDamageMulti(entity,  -1*removedDamageMulti );
-
     }
 
 }

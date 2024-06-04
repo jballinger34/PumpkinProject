@@ -13,7 +13,6 @@ public class CustomDamage {
 
     public CustomDamage(PumpkinCombat plugin){
         Bukkit.getPluginManager().registerEvents(new DamageListener(), plugin);
-        Bukkit.getPluginManager().registerEvents(new InitCustomDamageListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents(new EntitySpawnListener(this), plugin);
         Bukkit.getPluginManager().registerEvents(new DamageArmorChangeListener(this), plugin);
 

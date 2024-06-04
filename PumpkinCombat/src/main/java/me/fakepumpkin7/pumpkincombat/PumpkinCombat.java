@@ -5,6 +5,7 @@ import me.fakepumpkin7.pumpkincombat.customcombat.damage.CustomDamage;
 import me.fakepumpkin7.pumpkincombat.customcombat.defence.CustomDefence;
 import me.fakepumpkin7.pumpkincombat.customcombat.health.CustomHealth;
 import me.fakepumpkin7.pumpkincombat.customcombat.speed.CustomSpeed;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PumpkinCombat extends JavaPlugin {
@@ -28,6 +29,8 @@ public final class PumpkinCombat extends JavaPlugin {
         customHealth = new CustomHealth(this);
         customDefence = new CustomDefence(this);
         customSpeed = new CustomSpeed(this);
+
+        Bukkit.getPluginManager().registerEvents(new InitPlayerStatsListener(), this);
     }
 
     @Override

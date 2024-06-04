@@ -6,8 +6,10 @@ import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -42,7 +44,28 @@ public class ArmourChangeListener implements Listener {
             setBonusMap.put(e.getPlayer().getUniqueId().toString(), setId);
             ArmourSetRegistry.getSetById(setId).enableSetBonus(e.getPlayer());
         }
+    }
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event){
+        Player player = event.getPlayer();
+        ItemStack[] armour = player.getEquipment().getArmorContents();
 
+        String setId = null;
+        for(ItemStack piece : armour){
+            if(piece == null || piece.getType().equals(Material.AIR)) return;
+            if(!NbtUtil.hasNbt(piece, "pumpkin-armour-id")) return;
+
+            String tempSetId = NbtUtil.getNbtString(piece, "pumpkin-armour-id");
+            if(!(setId == null) && !setId.equals(tempSetId)){
+                return;
+            }
+            setId = tempSetId;
+        }
+        //here we know all pieces are the same
+        if(ArmourSetRegistry.getSetById(setId) != null){
+            setBonusMap.put(player.getUniqueId().toString(), setId);
+            ArmourSetRegistry.getSetById(setId).enableSetBonus(player);
+        }
 
     }
     @EventHandler

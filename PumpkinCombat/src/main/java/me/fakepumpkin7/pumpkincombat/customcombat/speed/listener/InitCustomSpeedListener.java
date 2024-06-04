@@ -19,6 +19,5 @@ public class InitCustomSpeedListener implements Listener {
     @EventHandler
     public void initCSonPlayerJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
-        CombatUtils.setPlayerSpeed(player,0.2);
     }
 }

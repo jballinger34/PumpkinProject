@@ -13,11 +13,6 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public class InitCustomHealthListener implements Listener {
 
-    @EventHandler
-    public void initCHonPlayerJoin(PlayerJoinEvent e){
-        Player player = e.getPlayer();
-        CombatUtils.setEntityMaxHealth(player, 20);
-    }
 
     @EventHandler
     public void initCHonEntitySpawn(EntitySpawnEvent e){

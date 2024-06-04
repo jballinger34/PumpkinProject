@@ -10,8 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
-import java.util.List;
-
 public class CombatUtils {
 
     public static long knockBackCooldownMS = 500;
@@ -71,21 +69,8 @@ public class CombatUtils {
 
         return base;
     }
-    public static double getEntityDamageMulti(Entity entity){
-        double multi = 1;
-
-        if(entity.hasMetadata("pumpkin-damage-multi")){
-            multi = entity.getMetadata("pumpkin-damage-multi").get(0).asDouble();
-        }
-
-        return multi;
-    }
-
     public static void setEntityBaseDamage(Entity entity, double base){
         entity.setMetadata("pumpkin-base-damage", new FixedMetadataValue(PumpkinFramework.getInstance(), base));
-    }
-    public static void setEntityDamageMulti(Entity entity, double multi){
-        entity.setMetadata("pumpkin-damage-multi", new FixedMetadataValue(PumpkinFramework.getInstance(), multi));
     }
 
     public static void addEntityBaseDamage(Entity entity, double toAdd){
@@ -95,14 +80,6 @@ public class CombatUtils {
 
         setEntityBaseDamage(entity, newVal);
     }
-    public static void addEntityDamageMulti(Entity entity, double toAdd){
-        double current = getEntityDamageMulti(entity);
-
-        double newVal = current + toAdd;
-
-        setEntityDamageMulti(entity, newVal);
-    }
-
 
     public static double getItemBaseDamage(ItemStack item) {
         double base = 0;
@@ -116,20 +93,6 @@ public class CombatUtils {
 
         return base;
 
-    }
-    public static double getItemDamageMulti(ItemStack item) {
-        double multi = 1;
-
-        if(item.getType().equals(Material.AIR) || item == null){
-            return multi;
-        }
-
-
-        if (me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil.hasNbt(item,"pumpkin-damage-multi")) {
-            multi = NbtUtil.getNbtDouble(item, "pumpkin-damage-multi");
-        }
-
-        return multi;
     }
 
     public static double getItemKnockbackMulti(ItemStack item) {

@@ -40,24 +40,20 @@ public class CustomDamageEvent extends AbstractCustomDamageEvent {
 
         //entity stats
         double baseDamage = CombatUtils.getEntityBaseDamage(attacker);
-        //System.out.println("pbd:" + playerBaseDamage);
-        double damageMultiplier = CombatUtils.getEntityDamageMulti(attacker);
-        //System.out.println("pdm:" + playerDamageMultiplier);
+
 
         //weapon stats
         if(attacker instanceof Player){
             Player player = (Player) attacker;
             ItemStack weapon = player.getInventory().getItemInHand();
             double weaponBaseDamage = CombatUtils.getItemBaseDamage(weapon);
-            //System.out.println("wbd:" + weaponBaseDamage);
-            double weaponDamageMultiplier = CombatUtils.getItemDamageMulti(weapon);
-            //System.out.println("wdm:" + weaponDamageMultiplier);
 
-            dmg = (baseDamage+weaponBaseDamage)*damageMultiplier*weaponDamageMultiplier ;
+            dmg = (baseDamage+weaponBaseDamage) ;
             return dmg;
         }
 
-        dmg = baseDamage*damageMultiplier;
+        dmg = baseDamage;
+
         return dmg;
     }
 
