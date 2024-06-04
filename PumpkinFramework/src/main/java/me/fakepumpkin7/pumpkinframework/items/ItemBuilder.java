@@ -98,9 +98,8 @@ public class ItemBuilder {
         if(knockback != 1){
             lore.add(ChatColor.GRAY + "All knockback dealt is multiplied by " + ChatColor.RED +  knockback);
         }
-        if(lore.size() > 0){
-            lore.add("");
-        }
+
+        lore.add("");
 
 
 

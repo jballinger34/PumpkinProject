@@ -138,8 +138,14 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
                 ((List)metaLore).remove(enchantmentColour + thisName + " " + ERomanNumeral.numeralOf((Integer)entry.getValue()));
             }
         }
+        int index = 0;
+        for(int i = 0; i < metaLore.size(); i++){
+            if(metaLore.get(i).equals("")){
+                index = i; break;
+            }
+        }
 
-        ((List)metaLore).add(0, enchantmentColour + this.enchantName + " " + ERomanNumeral.numeralOf(enchantLevel));
+        ((List)metaLore).add(index, enchantmentColour + this.enchantName + " " + ERomanNumeral.numeralOf(enchantLevel));
         meta.setLore((List)metaLore);
         if (!meta.hasDisplayName() || meta.getDisplayName() == null) {
             meta.setDisplayName(ENameParser.getName(material));
