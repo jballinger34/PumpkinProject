@@ -2,6 +2,7 @@ package me.fakepumpkin7.pumpkinarmour.impl;
 
 import me.fakepumpkin7.pumpkinarmour.struct.ArmourSet;
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
+import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -24,11 +25,14 @@ public class EmeraldArmour extends ArmourSet {
 
     @Override
     public void initSet(){
+
         pieces.add(new ItemBuilder(Material.SKULL_ITEM)
                 .addNBT("pumpkin-armour-id", id)
                 .setName(ChatColor.GREEN + "Emerald Helmet")
                 .setDefence(4)
                 .skullTexture("http://textures.minecraft.net/texture/8926c1f2c3c14d086c40cfc235fe938694f4a51067ada4726b486ea1c87b03e2")
+                .addStatsLore()
+                .addRarityLore(ItemRarity.RARE)
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_CHESTPLATE)
@@ -36,6 +40,8 @@ public class EmeraldArmour extends ArmourSet {
                 .setName(ChatColor.GREEN + "Emerald Chestplate")
                 .setDefence(7)
                 .dyeLeather(Color.LIME)
+                .addStatsLore()
+                .addRarityLore(ItemRarity.RARE)
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_LEGGINGS)
@@ -43,6 +49,8 @@ public class EmeraldArmour extends ArmourSet {
                 .setName(ChatColor.GREEN + "Emerald Leggings")
                 .setDefence(6)
                 .dyeLeather(Color.LIME)
+                .addStatsLore()
+                .addRarityLore(ItemRarity.RARE)
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_BOOTS)
@@ -50,6 +58,8 @@ public class EmeraldArmour extends ArmourSet {
                 .setName(ChatColor.GREEN + "Emerald Boots")
                 .setDefence(3)
                 .dyeLeather(Color.LIME)
+                .addStatsLore()
+                .addRarityLore(ItemRarity.RARE)
                 .build());
     }
 }

@@ -2,6 +2,7 @@ package me.fakepumpkin7.pumpkinarmour.impl;
 
 import me.fakepumpkin7.pumpkinarmour.struct.ArmourSet;
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
+import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -27,25 +28,33 @@ public class MidasArmour extends ArmourSet {
         pieces.add(new ItemBuilder(Material.GOLD_HELMET)
                 .addNBT("pumpkin-armour-id", id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Helmet")
-                .setDefence(4)
+                .setDefence(6)
+                .addStatsLore()
+                .addRarityLore(ItemRarity.MYTHIC)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_CHESTPLATE)
                 .addNBT("pumpkin-armour-id", id)
-                .setName(ChatColor.GREEN + "Emerald Chestplate")
-                .setDefence(7)
+                .setName(ChatColor.GREEN + "Midas Chestplate")
+                .setDefence(10)
+                .addStatsLore()
+                .addRarityLore(ItemRarity.MYTHIC)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_LEGGINGS)
                 .addNBT("pumpkin-armour-id", id)
-                .setName(ChatColor.GREEN + "Emerald Leggings")
-                .setDefence(6)
+                .setName(ChatColor.GREEN + "Midas Leggings")
+                .setDefence(9)
+                .addStatsLore()
+                .addRarityLore(ItemRarity.MYTHIC)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_BOOTS)
                 .addNBT("pumpkin-armour-id", id)
-                .setName(ChatColor.GREEN + "Emerald Boots")
-                .setDefence(3)
+                .setName(ChatColor.GREEN + "Midas Boots")
+                .setDefence(6)
+                .addStatsLore()
+                .addRarityLore(ItemRarity.MYTHIC)
                 .build());
     }
 }

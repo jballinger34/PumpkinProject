@@ -54,7 +54,7 @@ public class ItemBuilder {
         item.setItemMeta(meta);
         return this;
     }
-    private ItemBuilder addStatsLore(){
+    public ItemBuilder addStatsLore(){
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         if(lore == null){
@@ -65,6 +65,10 @@ public class ItemBuilder {
         statsLore.addAll(lore);
         meta.setLore(statsLore);
         item.setItemMeta(meta);
+        return this;
+    }
+    public ItemBuilder addRarityLore(ItemRarity rarity){
+        addLoreLine(rarity.color + rarity.name());
         return this;
     }
     private List<String> generateStatsLore(){
@@ -249,9 +253,6 @@ public class ItemBuilder {
 
 
     public ItemStack build(){
-        //could have this as a public method,
-        // but like this it will be called for every item built with itembuilder
-        addStatsLore();
         return this.item;
     }
 
