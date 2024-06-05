@@ -14,6 +14,9 @@ public class ChatUtils {
     public static void info(Player player, String message){
         player.sendMessage(ChatColor.YELLOW + ChatColor.BOLD.toString() + "(!) "+ ChatColor.WHITE + message);
     }
+    public static void notify(Player player, String message){
+        player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "(!) "+ ChatColor.WHITE + message);
+    }
     public static void success(Player player, String message){
         player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "(!) "+ ChatColor.GREEN + message);
     }
