@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public class MidasArmour extends ArmourSet {
 
     public MidasArmour(){
-        super("midas-armour");
+        super("midas-armour", ItemRarity.MYTHIC);
         //super will call init set, which will put set into pieces array
     }
 
@@ -30,31 +30,31 @@ public class MidasArmour extends ArmourSet {
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Helmet")
                 .setDefence(6)
                 .addStatsLore()
-                .addRarityLore(ItemRarity.MYTHIC)
+                .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_CHESTPLATE)
                 .addNBT("pumpkin-armour-id", id)
-                .setName(ChatColor.GREEN + "Midas Chestplate")
+                .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Chestplate")
                 .setDefence(10)
                 .addStatsLore()
-                .addRarityLore(ItemRarity.MYTHIC)
+                .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_LEGGINGS)
                 .addNBT("pumpkin-armour-id", id)
-                .setName(ChatColor.GREEN + "Midas Leggings")
+                .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Leggings")
                 .setDefence(9)
                 .addStatsLore()
-                .addRarityLore(ItemRarity.MYTHIC)
+                .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_BOOTS)
                 .addNBT("pumpkin-armour-id", id)
-                .setName(ChatColor.GREEN + "Midas Boots")
+                .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Boots")
                 .setDefence(6)
                 .addStatsLore()
-                .addRarityLore(ItemRarity.MYTHIC)
+                .addRarityLore(rarity)
                 .build());
     }
 }

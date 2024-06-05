@@ -124,6 +124,9 @@ public class CmdFaction implements CommandExecutor {
 
     private void printWho(Player player, Faction faction){
         player.sendMessage(faction.getName());
+        if(faction.getAlly() != null){
+            player.sendMessage("Allied with: " + faction.getAlly().getName());
+        }
         player.sendMessage("Members:");
         String members = "";
         for(UUID uuid : faction.getMembersAndRank().keySet()){

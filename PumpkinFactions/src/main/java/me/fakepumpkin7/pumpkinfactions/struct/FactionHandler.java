@@ -57,7 +57,15 @@ public class FactionHandler {
         return false;
     }
 
-
+    public static boolean isAlly(Player p1, Player p2){
+        Faction f1 = getPlayersFaction(p1.getUniqueId());
+        Faction f2 = getPlayersFaction(p2.getUniqueId());
+        if(f1 == null || f2 == null) return false;
+        if(f1.getAlly().equals(f2)){
+            return true;
+        }
+        return false;
+    }
 
 
 

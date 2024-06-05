@@ -43,4 +43,26 @@ public class Faction {
         }
         membersAndRank.remove(player.getUniqueId());
     }
+
+    //TODO
+    // TEST THIS SHIT
+    public void resetAlly(){
+        Faction oldAlly = this.ally;
+        this.ally = null;
+        if(oldAlly != null && oldAlly.getAlly() != null){
+            oldAlly.resetAlly();
+        }
+    }
+
+    public void setAlly(Faction toAlly) {
+        if(toAlly.equals(this.getAlly())){
+            //facs are already allied
+            return;
+        }
+        this.resetAlly();
+        toAlly.resetAlly();
+
+        this.ally = toAlly;
+        toAlly.ally = this;
+    }
 }

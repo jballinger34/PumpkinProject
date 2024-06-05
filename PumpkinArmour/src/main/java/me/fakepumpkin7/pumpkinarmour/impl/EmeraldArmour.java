@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public class EmeraldArmour extends ArmourSet {
 
     public EmeraldArmour(){
-        super("emerald-armour-set");
+        super("emerald-armour-set", ItemRarity.RARE);
         //super will call init set, which will put set into pieces array
     }
 
@@ -32,7 +32,7 @@ public class EmeraldArmour extends ArmourSet {
                 .setDefence(4)
                 .skullTexture("http://textures.minecraft.net/texture/8926c1f2c3c14d086c40cfc235fe938694f4a51067ada4726b486ea1c87b03e2")
                 .addStatsLore()
-                .addRarityLore(ItemRarity.RARE)
+                .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_CHESTPLATE)
@@ -41,7 +41,7 @@ public class EmeraldArmour extends ArmourSet {
                 .setDefence(7)
                 .dyeLeather(Color.LIME)
                 .addStatsLore()
-                .addRarityLore(ItemRarity.RARE)
+                .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_LEGGINGS)
@@ -50,7 +50,7 @@ public class EmeraldArmour extends ArmourSet {
                 .setDefence(6)
                 .dyeLeather(Color.LIME)
                 .addStatsLore()
-                .addRarityLore(ItemRarity.RARE)
+                .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_BOOTS)
@@ -59,7 +59,7 @@ public class EmeraldArmour extends ArmourSet {
                 .setDefence(3)
                 .dyeLeather(Color.LIME)
                 .addStatsLore()
-                .addRarityLore(ItemRarity.RARE)
+                .addRarityLore(rarity)
                 .build());
     }
 }

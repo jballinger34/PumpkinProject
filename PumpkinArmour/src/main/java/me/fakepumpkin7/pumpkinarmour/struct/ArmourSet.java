@@ -1,5 +1,7 @@
 package me.fakepumpkin7.pumpkinarmour.struct;
 
+import lombok.Getter;
+import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,8 +17,11 @@ public abstract class ArmourSet {
 
     protected List<ItemStack> pieces = new ArrayList<>();
 
-    public ArmourSet(String id){
+    protected ItemRarity rarity;
+
+    public ArmourSet(String id, ItemRarity rarity){
         this.id = id;
+        this.rarity = rarity;
         initSet();
     }
 
@@ -30,6 +35,10 @@ public abstract class ArmourSet {
         return id;
     }
     public void initSet(){
+    }
+
+    public ItemRarity getRarity() {
+        return rarity;
     }
 
     public void giveSetToPlayer(Player player){
