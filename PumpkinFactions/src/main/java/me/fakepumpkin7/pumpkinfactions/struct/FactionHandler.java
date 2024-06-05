@@ -1,5 +1,6 @@
 package me.fakepumpkin7.pumpkinfactions.struct;
 
+import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -17,7 +18,6 @@ public class FactionHandler {
     public static void createNewFaction(Player leader, String name){
         Faction faction = new Faction(leader, name);
         allFactions.add(faction);
-
     }
 
     public static Faction getPlayersFaction(String name){
