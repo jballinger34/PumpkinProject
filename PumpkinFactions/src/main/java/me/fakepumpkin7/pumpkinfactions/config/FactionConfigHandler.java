@@ -44,7 +44,7 @@ public class FactionConfigHandler {
     }
 
     //TODO WORK ON THIS SO ITS DOESN'T STORE AS MUCH REDUNDANT INFO
-    //TODO SPLIT THIS UP INTO SAVE MEMBERS, SAVE CHUNKS, ETC IF ANYTHING ELSE ADDED
+    // SPLIT THIS UP INTO SAVE MEMBERS, SAVE CHUNKS, ETC IF ANYTHING ELSE ADDED
     // this will reduce overall load, as this will be called whenever members change, land claimed etc
     public static void saveToConfig(Faction faction){
         if(PumpkinFactions.getInstance().getConfig().getConfigurationSection("factions") == null){

@@ -10,8 +10,7 @@ import java.util.*;
 
 public abstract class Skill {
 
-    //TODO
-    // rewrite save and load to be more compact
+    //TODO rewrite save and load to be more compact
 
     @Getter @Setter
     String name;

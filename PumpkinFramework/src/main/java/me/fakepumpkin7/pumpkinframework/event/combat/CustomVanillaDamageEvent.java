@@ -18,8 +18,7 @@ public class CustomVanillaDamageEvent extends AbstractCustomDamageEvent {
 
 
     private double workOutDamage(EntityDamageEvent.DamageCause cause, double vanillaDamage) {
-        //TODO
-        // make a switch statement for different damage causes
+        //TODO make a switch statement for different damage causes
         return vanillaDamage;
     }
 }

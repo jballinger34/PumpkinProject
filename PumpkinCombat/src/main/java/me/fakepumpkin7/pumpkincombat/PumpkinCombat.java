@@ -10,8 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PumpkinCombat extends JavaPlugin {
 
-    //TODO
-    // MAKE SPEED ALL ENTITIES NOT JUST PLAYERS
+    //TODO MAKE SPEED ALL ENTITIES NOT JUST PLAYERS
 
     @Getter static PumpkinCombat instance;
 

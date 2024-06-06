@@ -87,8 +87,7 @@ public class Faction {
 
     }
 
-    //TODO
-    // TEST ALLY SHIT
+    //TODO TEST ALLY SHIT
     public void resetAlly(){
         Faction oldAlly = this.ally;
         this.ally = null;
