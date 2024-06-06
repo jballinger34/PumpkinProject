@@ -1,8 +1,7 @@
 package me.fakepumpkin7.pumpkinfactions.struct;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
+import lombok.Getter;
+import me.fakepumpkin7.pumpkinfactions.config.FactionConfigHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -11,13 +10,18 @@ import java.util.*;
 
 public class FactionHandler {
 
-    static List<Faction> allFactions = new ArrayList<>();
+    @Getter
+    private static List<Faction> allFactions = new ArrayList<>();
 
-    static Multimap<Faction, FChunk> factionToLandMap = HashMultimap.create();
+
 
 
     public static void createNewFaction(Player leader, String name){
         Faction faction = new Faction(leader, name);
+        allFactions.add(faction);
+    }
+    public static void loadFactionFromDisk(String name, HashMap<UUID, FactionRank> playerRankMap){
+        Faction faction = new Faction(name, playerRankMap);
         allFactions.add(faction);
     }
 
@@ -70,20 +74,19 @@ public class FactionHandler {
 
     public static void factionClaimLand(Faction faction, FChunk chunk){
         if(getClaimAt(chunk) == null){
-            factionToLandMap.put(faction,chunk);
+            faction.getClaims().add(chunk);
         }
+        FactionConfigHandler.saveToConfig(faction);
     }
     public static void factionUnClaimLand(Faction faction, FChunk chunk){
         if(getClaimAt(chunk).getName().equals(faction.getName())){
-            factionToLandMap.remove(faction,chunk);
+            faction.getClaims().remove(chunk);
         }
-    }
-    public static Collection<FChunk> getFactionsClaims(Faction faction){
-        return factionToLandMap.get(faction);
+        FactionConfigHandler.saveToConfig(faction);
     }
     public static Faction getClaimAt(FChunk chunk){
-        for(Faction f : factionToLandMap.keySet()){
-            Collection<FChunk> chunks = factionToLandMap.get(f);
+        for(Faction f : allFactions){
+            Collection<FChunk> chunks = f.getClaims();
             for(FChunk chunk1 : chunks){
                 if (chunk.equals(chunk1)){
                     return f;
@@ -96,8 +99,6 @@ public class FactionHandler {
         FChunk chunk = new FChunk(worldName, x, y);
         return getClaimAt(chunk);
     }
-
-
 
 
 

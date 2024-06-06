@@ -358,7 +358,7 @@ public class CmdFaction implements CommandExecutor {
             return;
         }
         FChunk chunk = new FChunk(player.getLocation().getChunk());
-        if(!FactionHandler.getClaimAt(chunk).equals(faction)){
+        if(FactionHandler.getClaimAt(chunk) == null || !FactionHandler.getClaimAt(chunk).equals(faction)){
             ChatUtils.info(player,"You do not own this land to unclaim it.");
             return;
         }

@@ -25,7 +25,10 @@ public class FChunk {
         this.y = y;
     }
 
-    public boolean equals(FChunk chunk) {
+    @Override
+    public boolean equals(Object object) {
+        if(!(object instanceof FChunk)) return false;
+        FChunk chunk = (FChunk) object;
         return this.x == chunk.x && this.y == chunk.y && this.worldName.equals(chunk.worldName);
     }
 }

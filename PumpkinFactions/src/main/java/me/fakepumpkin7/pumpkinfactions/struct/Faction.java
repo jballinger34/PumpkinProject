@@ -20,16 +20,22 @@ public class Faction {
     @Getter
     Faction ally;
     @Getter
-    boolean isInviteOnly;
+    boolean isInviteOnly = true;
     List<UUID> currentlyInvited = new ArrayList<>();
+    @Getter
+    private List<FChunk> claims = new ArrayList<>();
 
     //use FactionHandler to create new factions
     //FactionHandler should probably re-create the factions on startup, and save them to config
     protected Faction(Player leader, String name){
         this.membersAndRank.put(leader.getUniqueId(), FactionRank.LEADER);
         this.name = name;
-        isInviteOnly = true;
     }
+    protected Faction(String name, HashMap<UUID,FactionRank> map){
+        this.name = name;
+        this.membersAndRank = map;
+    }
+
 
     public void addMember(Player player){
         if(FactionHandler.getPlayersFaction(player.getUniqueId()) != null){
