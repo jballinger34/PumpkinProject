@@ -1,16 +1,19 @@
 package me.fakepumpkin7.pumpkinfactions.cmd;
 
+import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
 import me.fakepumpkin7.pumpkinfactions.struct.Faction;
 import me.fakepumpkin7.pumpkinfactions.struct.FactionHandler;
 import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -89,7 +92,15 @@ public class CmdFaction implements CommandExecutor {
         if (subCommand.equals("toggleopen")) {
             runToggleOpen(player);
         }
-
+        if (subCommand.equals("map")) {
+            runMap(player);
+        }
+        if (subCommand.equals("claim")) {
+            runClaim(player);
+        }
+        if (subCommand.equals("unclaim")) {
+            runUnClaim(player);
+        }
         return true;
     }
 
@@ -273,6 +284,88 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player, "You have to be in a Faction to use this command.");
         }
     }
+
+    private void runMap(Player player) {
+        FChunk currentChunk = new FChunk(player.getLocation().getChunk());
+        String world = currentChunk.getWorldName();
+        Faction playerFac = FactionHandler.getPlayersFaction(player.getUniqueId());
+        int chunkX = currentChunk.getX();
+        int chunkY = currentChunk.getY();
+
+        String msg = "";
+        HashMap<Character, String> identifierAndFacName = new HashMap<>();
+        for(int y = -4; y < 5; y++){
+            for(int x = -9; x < 10; x++){
+                Faction claimed = FactionHandler.getClaimAt(world,chunkX + x, chunkY + y);
+                String chatColour = ChatColor.WHITE.toString();
+                char identifier = '-';
+                if(x == 0 && y == 0){
+                    chatColour = ChatColor.AQUA.toString();
+                }
+                if(claimed != null) {
+                    if (claimed.equals(playerFac)) {
+                        chatColour = ChatColor.GREEN.toString();
+                    } else if (claimed.equals(playerFac.getAlly())) {
+                        chatColour = ChatColor.DARK_PURPLE.toString();
+                    }
+
+                    identifier = claimed.getName().charAt(0);
+                    while (identifierAndFacName.containsKey(identifier) && !identifierAndFacName.get(identifier).equals(claimed.getName())) {
+                        identifier++;
+                    }
+                    identifierAndFacName.put(identifier, claimed.getName());
+                }
+                msg = msg + chatColour +identifier;
+            }
+            msg = msg + "\n";
+        }
+        player.sendMessage("Faction Claims Map:");
+        player.sendMessage(msg);
+        String msg2 = "";
+        player.sendMessage("Key:");
+        for(Character c: identifierAndFacName.keySet()){
+            msg2 = msg2 + c + ": " + identifierAndFacName.get(c);
+        }
+        player.sendMessage(msg2);
+    }
+    private void runClaim(Player player){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction");
+            return;
+        }
+        if(!faction.isAtLeastMod(player)){
+            ChatUtils.info(player,"You do not have permission to use this.");
+            return;
+        }
+        FChunk chunk = new FChunk(player.getLocation().getChunk());
+        if(FactionHandler.getClaimAt(chunk) != null){
+            ChatUtils.info(player,"This land is already claimed.");
+            return;
+        }
+        FactionHandler.factionClaimLand(faction, chunk);
+        ChatUtils.notify(player,"Successfully claimed land.");
+    }
+    private void runUnClaim(Player player){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction");
+            return;
+        }
+        if(!faction.isAtLeastMod(player)){
+            ChatUtils.info(player,"You do not have permission to use this.");
+            return;
+        }
+        FChunk chunk = new FChunk(player.getLocation().getChunk());
+        if(!FactionHandler.getClaimAt(chunk).equals(faction)){
+            ChatUtils.info(player,"You do not own this land to unclaim it.");
+            return;
+        }
+        FactionHandler.factionUnClaimLand(faction,chunk);
+        ChatUtils.notify(player,"Successfully unclaimed land.");
+    }
+
 
     private void printWho(Player player, Faction faction){
 

@@ -17,7 +17,6 @@ public class Faction {
     private String name;
     @Getter
     private HashMap<UUID, FactionRank> membersAndRank = new HashMap<>();
-
     @Getter
     Faction ally;
     @Getter
@@ -58,9 +57,6 @@ public class Faction {
         }
         membersAndRank.remove(uuid);
     }
-
-    //TODO
-    // DEAL WITH DEMOTING LEADERS, MAYBE ITS OWN FUNCTION
     public void demoteMember(UUID memberID){
         if(membersAndRank.get(memberID) == null) return;
         FactionRank current = membersAndRank.get(memberID);

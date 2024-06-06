@@ -1,18 +1,19 @@
 package me.fakepumpkin7.pumpkinfactions.struct;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class FactionHandler {
 
     static List<Faction> allFactions = new ArrayList<>();
 
+    static Multimap<Faction, FChunk> factionToLandMap = HashMultimap.create();
 
 
     public static void createNewFaction(Player leader, String name){
@@ -67,6 +68,34 @@ public class FactionHandler {
         return false;
     }
 
+    public static void factionClaimLand(Faction faction, FChunk chunk){
+        if(getClaimAt(chunk) == null){
+            factionToLandMap.put(faction,chunk);
+        }
+    }
+    public static void factionUnClaimLand(Faction faction, FChunk chunk){
+        if(getClaimAt(chunk).getName().equals(faction.getName())){
+            factionToLandMap.remove(faction,chunk);
+        }
+    }
+    public static Collection<FChunk> getFactionsClaims(Faction faction){
+        return factionToLandMap.get(faction);
+    }
+    public static Faction getClaimAt(FChunk chunk){
+        for(Faction f : factionToLandMap.keySet()){
+            Collection<FChunk> chunks = factionToLandMap.get(f);
+            for(FChunk chunk1 : chunks){
+                if (chunk.equals(chunk1)){
+                    return f;
+                }
+            }
+        }
+        return null;
+    }
+    public static Faction getClaimAt(String worldName, int x, int y) {
+        FChunk chunk = new FChunk(worldName, x, y);
+        return getClaimAt(chunk);
+    }
 
 
 
