@@ -1,8 +1,8 @@
 package me.fakepumpkin7.pumpkinfactions.listener;
 
-import me.fakepumpkin7.pumpkinfactions.struct.FactionHandler;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
+import me.fakepumpkin7.pumpkinframework.factions.FactionHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

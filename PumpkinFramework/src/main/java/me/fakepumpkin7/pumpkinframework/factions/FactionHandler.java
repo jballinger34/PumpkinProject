@@ -1,7 +1,8 @@
-package me.fakepumpkin7.pumpkinfactions.struct;
+package me.fakepumpkin7.pumpkinframework.factions;
+
 
 import lombok.Getter;
-import me.fakepumpkin7.pumpkinfactions.config.FactionConfigHandler;
+import me.fakepumpkin7.pumpkinframework.factions.event.FactionClaimChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -76,13 +77,20 @@ public class FactionHandler {
         if(getClaimAt(chunk) == null){
             faction.getClaims().add(chunk);
         }
-        FactionConfigHandler.saveToConfig(faction);
+        //event called so factionconfighandler saves config
+        Bukkit.getPluginManager().callEvent(new FactionClaimChangeEvent(faction));
     }
     public static void factionUnClaimLand(Faction faction, FChunk chunk){
         if(getClaimAt(chunk).getName().equals(faction.getName())){
+            //remove any warps in this chunk
+            faction.removeWarpsInChunk(chunk);
+
+            //remove chunk from faction
             faction.getClaims().remove(chunk);
+
         }
-        FactionConfigHandler.saveToConfig(faction);
+        //event called so factionconfighandler saves config
+        Bukkit.getPluginManager().callEvent(new FactionClaimChangeEvent(faction));
     }
     public static Faction getClaimAt(FChunk chunk){
         for(Faction f : allFactions){

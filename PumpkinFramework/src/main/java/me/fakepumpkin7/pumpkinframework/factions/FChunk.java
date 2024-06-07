@@ -1,8 +1,7 @@
-package me.fakepumpkin7.pumpkinfactions.struct;
+package me.fakepumpkin7.pumpkinframework.factions;
 
 import lombok.Getter;
 import org.bukkit.Chunk;
-import org.bukkit.event.Cancellable;
 
 public class FChunk {
 
@@ -32,4 +31,3 @@ public class FChunk {
         return this.x == chunk.x && this.y == chunk.y && this.worldName.equals(chunk.worldName);
     }
 }
-

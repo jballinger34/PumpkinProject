@@ -1,10 +1,10 @@
 package me.fakepumpkin7.pumpkinfactions.config;
 
 import me.fakepumpkin7.pumpkinfactions.PumpkinFactions;
-import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
-import me.fakepumpkin7.pumpkinfactions.struct.Faction;
-import me.fakepumpkin7.pumpkinfactions.struct.FactionHandler;
-import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
+import me.fakepumpkin7.pumpkinframework.factions.*;
+import me.fakepumpkin7.pumpkinframework.factions.Faction;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.*;
@@ -36,9 +36,13 @@ public class FactionConfigHandler {
 
             ConfigurationSection claimsConfig = facSection.getConfigurationSection("faction-claims");
 
-
             List<FChunk> chunkList = deserializeFChunks(claimsConfig.getString("claims-string"));
             faction.getClaims().addAll(chunkList);
+
+            ConfigurationSection warpsConfig = facSection.getConfigurationSection("faction-warps");
+            List<FWarp> warps = deserializeFWarps(warpsConfig.getString("all-warps"));
+            faction.getWarps().addAll(warps);
+
         }
 
     }
@@ -74,6 +78,13 @@ public class FactionConfigHandler {
         claimsSection.set("claims-string", serializeFChunks(faction.getClaims()));
 
 
+        if(factionSection.getConfigurationSection("faction-warps") == null){
+            factionSection.createSection("faction-warps");
+        }
+        ConfigurationSection warpsSection = factionSection.getConfigurationSection("faction-warps");
+
+        warpsSection.set("all-warps", serializeFWarps(faction.getWarps()));
+
         PumpkinFactions.getInstance().saveConfig();
     }
     public static void saveAllToConfig(){
@@ -97,6 +108,11 @@ public class FactionConfigHandler {
     }
     private static List<FChunk> deserializeFChunks(String chunksStr){
         List<FChunk> toReturn = new ArrayList<>();
+
+        if(chunksStr == null){
+            return toReturn;
+        }
+
         String[] chunkStrList = chunksStr.split(":");
         for(String chunkStr : chunkStrList){
             String[] chunkInfo = chunkStr.split(",");
@@ -110,4 +126,48 @@ public class FactionConfigHandler {
         }
         return toReturn;
     }
+
+    private static String serializeFWarps(List<FWarp> warpList){
+        String toReturn = "";
+        for(FWarp warp : warpList){
+
+            String x = String.valueOf(warp.getLocation().getX());
+            String y = String.valueOf(warp.getLocation().getY());
+            String z = String.valueOf(warp.getLocation().getZ());
+
+            String worldName = warp.getLocation().getWorld().getName();
+            String warpName = warp.getName();
+            String facRankOrdinalString = String.valueOf(warp.getRankNeeded().ordinal());
+
+            toReturn = toReturn + x + "," + y + "," + z +  "," + worldName + "," + warpName + "," + facRankOrdinalString +":";
+        }
+        return toReturn;
+    }
+    private static List<FWarp> deserializeFWarps(String warpsStr){
+        List<FWarp> toReturn = new ArrayList<>();
+
+        if(warpsStr == null){
+            return toReturn;
+        }
+
+        String[] warpStrList = warpsStr.split(":");
+        for(String warpStr : warpStrList){
+            String[] warpInfo = warpStr.split(",");
+
+            double x = Double.parseDouble(warpInfo[0]);
+            double y = Double.parseDouble(warpInfo[1]);
+            double z = Double.parseDouble(warpInfo[2]);
+            String worldName = warpInfo[3];
+            String warpName = warpInfo[4];
+            FactionRank factionRank = FactionRank.values()[Integer.parseInt(warpInfo[5])];
+
+
+            Location location = new Location(Bukkit.getWorld(worldName),x,y,z);
+            FWarp warp = new FWarp(warpName,location, factionRank);
+            toReturn.add(warp);
+        }
+        return toReturn;
+    }
+
+
 }

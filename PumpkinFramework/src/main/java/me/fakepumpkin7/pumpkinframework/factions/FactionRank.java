@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinfactions.struct;
+package me.fakepumpkin7.pumpkinframework.factions;
 
 public enum FactionRank {
     MEMBER,

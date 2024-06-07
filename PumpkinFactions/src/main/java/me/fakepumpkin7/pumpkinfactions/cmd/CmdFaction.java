@@ -1,12 +1,10 @@
 package me.fakepumpkin7.pumpkinfactions.cmd;
 
-import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
-import me.fakepumpkin7.pumpkinfactions.struct.Faction;
-import me.fakepumpkin7.pumpkinfactions.struct.FactionHandler;
-import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
+import me.fakepumpkin7.pumpkinframework.factions.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -27,10 +25,10 @@ public class CmdFaction implements CommandExecutor {
         String subCommand = strings[0];
 
 
-        if(subCommand.equals("help")){
+        if(subCommand.equalsIgnoreCase("help")){
             runHelpCommand(player);
         }
-        if(subCommand.equals("create")){
+        if(subCommand.equalsIgnoreCase("create")){
             if(strings.length != 2){
                 ChatUtils.info(player,"/f create <name>");
             } else {
@@ -38,7 +36,7 @@ public class CmdFaction implements CommandExecutor {
                 runCreateCommand(player, name);
             }
         }
-        if (subCommand.equals("who") || subCommand.equals("f")) {
+        if (subCommand.equalsIgnoreCase("who") || subCommand.equalsIgnoreCase("f")) {
             if(strings.length != 2){
                 runWhoCommand(player,player.getName());
             } else {
@@ -46,7 +44,7 @@ public class CmdFaction implements CommandExecutor {
                 runWhoCommand(player,name);
             }
         }
-        if (subCommand.equals("join")) {
+        if (subCommand.equalsIgnoreCase("join")) {
             if(strings.length != 2){
                 ChatUtils.info(player,"/f join <player/faction>");
             } else {
@@ -54,7 +52,7 @@ public class CmdFaction implements CommandExecutor {
                 runJoinCommand(player,name);
             }
         }
-        if (subCommand.equals("invite") || subCommand.equals("inv")) {
+        if (subCommand.equalsIgnoreCase("invite") || subCommand.equalsIgnoreCase("inv")) {
             if(strings.length != 2){
                 ChatUtils.info(player,"/f invite <player>");
             } else {
@@ -62,7 +60,7 @@ public class CmdFaction implements CommandExecutor {
                 runInviteCommand(player,name);
             }
         }
-        if (subCommand.equals("kick")) {
+        if (subCommand.equalsIgnoreCase("kick")) {
             if(strings.length != 2){
                 ChatUtils.info(player,"/f kick <player>");
             } else {
@@ -70,7 +68,7 @@ public class CmdFaction implements CommandExecutor {
                 runKickCommand(player,name);
             }
         }
-        if (subCommand.equals("promote")) {
+        if (subCommand.equalsIgnoreCase("promote")) {
             if(strings.length != 2){
                 ChatUtils.info(player,"/f promote <player>");
             } else {
@@ -78,7 +76,7 @@ public class CmdFaction implements CommandExecutor {
                 runPromoteCommand(player,name);
             }
         }
-        if (subCommand.equals("demote")) {
+        if (subCommand.equalsIgnoreCase("demote")) {
             if(strings.length != 2){
                 ChatUtils.info(player,"/f demote <player>");
             } else {
@@ -86,20 +84,42 @@ public class CmdFaction implements CommandExecutor {
                 runDemoteCommand(player,name);
             }
         }
-        if (subCommand.equals("leave")) {
+        if (subCommand.equalsIgnoreCase("leave")) {
             runLeaveCommand(player);
         }
-        if (subCommand.equals("toggleopen")) {
+        if (subCommand.equalsIgnoreCase("toggleopen")) {
             runToggleOpen(player);
         }
-        if (subCommand.equals("map")) {
+        if (subCommand.equalsIgnoreCase("map")) {
             runMap(player);
         }
-        if (subCommand.equals("claim")) {
+        if (subCommand.equalsIgnoreCase("claim")) {
             runClaim(player);
         }
-        if (subCommand.equals("unclaim")) {
+        if (subCommand.equalsIgnoreCase("unclaim")) {
             runUnClaim(player);
+        }
+        if (subCommand.equalsIgnoreCase("sethome")) {
+            runSetWarpCommand(player, "home");
+        }
+        if (subCommand.equalsIgnoreCase("home")) {
+            runWarpCommand(player, "home");
+        }
+        if (subCommand.equalsIgnoreCase("warp")) {
+            if(strings.length != 2){
+                ChatUtils.info(player,"/f warp <warpname>");
+            } else {
+                String warpName = strings[1];
+                runWarpCommand(player, warpName);
+            }
+        }
+        if (subCommand.equalsIgnoreCase("setwarp")) {
+            if(strings.length != 2){
+                ChatUtils.info(player,"/f setwarp <warpname>");
+            } else {
+                String warpName = strings[1];
+                runSetWarpCommand(player,warpName);
+            }
         }
         return true;
     }
@@ -157,7 +177,7 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player,"You are not in a faction");
             return;
         }
-        if(faction.isAtLeastMod(player)){
+        if(faction.isAtLeast(player, FactionRank.MODERATOR)){
 
             Player toInvite = Bukkit.getPlayer(name);
             if(toInvite == null){
@@ -176,7 +196,7 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player,"You are not in a faction");
             return;
         }
-        if(!faction.isAtLeastMod(player)){
+        if(!faction.isAtLeast(player, FactionRank.MODERATOR)){
             ChatUtils.info(player,"You do not have permission to use this.");
             return;
         }
@@ -211,7 +231,7 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player,"You are not in a faction");
             return;
         }
-        if(!faction.isAtLeastCo(player)){
+        if(!faction.isAtLeast(player, FactionRank.COLEADER)){
             ChatUtils.info(player,"You do not have permission to use this.");
             return;
         }
@@ -244,7 +264,7 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player,"You are not in a faction");
             return;
         }
-        if(!faction.isAtLeastCo(player)){
+        if(!faction.isAtLeast(player, FactionRank.COLEADER)){
             ChatUtils.info(player,"You do not have permission to use this.");
             return;
         }
@@ -334,7 +354,7 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player,"You are not in a faction");
             return;
         }
-        if(!faction.isAtLeastMod(player)){
+        if(!faction.isAtLeast(player, FactionRank.MODERATOR)){
             ChatUtils.info(player,"You do not have permission to use this.");
             return;
         }
@@ -353,7 +373,7 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player,"You are not in a faction");
             return;
         }
-        if(!faction.isAtLeastMod(player)){
+        if(!faction.isAtLeast(player, FactionRank.MODERATOR)){
             ChatUtils.info(player,"You do not have permission to use this.");
             return;
         }
@@ -364,6 +384,72 @@ public class CmdFaction implements CommandExecutor {
         }
         FactionHandler.factionUnClaimLand(faction,chunk);
         ChatUtils.notify(player,"Successfully unclaimed land.");
+    }
+
+    private void runSetWarpCommand(Player player, String warpName){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction");
+            return;
+        }
+        if(!faction.isAtLeast(player, FactionRank.COLEADER)){
+            ChatUtils.info(player,"You do not have permission to use this.");
+            return;
+        }
+
+
+        Location location = player.getLocation();
+        FChunk chunk = new FChunk(location.getChunk());
+
+        if(warpName.equalsIgnoreCase("home")){
+            //setting fac home
+            if(faction.getWarpByName(warpName) != null){
+                ChatUtils.info(player,"Faction already has a home.");
+                return;
+            }
+            if(FactionHandler.getClaimAt(chunk) == null || !FactionHandler.getClaimAt(chunk).equals(faction)){
+                ChatUtils.info(player,"Faction home can only be set in a chunk your faction owns.");
+                return;
+            }
+            faction.setHome(location);
+            ChatUtils.notify(player,"Successfully set faction home.");
+        } else {
+            //setting a fac warp
+            if(faction.getWarpByName(warpName) != null){
+                ChatUtils.info(player,"A warp with this name already exists.");
+                return;
+            }
+            if(FactionHandler.getClaimAt(chunk) == null || !FactionHandler.getClaimAt(chunk).equals(faction)){
+                ChatUtils.info(player,"Faction warps can only be set in chunks your faction owns.");
+                return;
+            }
+
+            FWarp warp = new FWarp(warpName,location, FactionRank.MODERATOR);
+
+            faction.addWarp(warp);
+            ChatUtils.notify(player,"Successfully set warp to " + warpName);
+        }
+
+
+
+    }
+    private void runWarpCommand(Player player, String warpName){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction");
+            return;
+        }
+        FWarp warp = faction.getWarpByName(warpName);
+        if(warp == null){
+            ChatUtils.info(player,"Could not find a warp with this name.");
+            return;
+        }
+        if(!faction.isAtLeast(player, warp.getRankNeeded())){
+            ChatUtils.info(player,"You do not have permission to use this.");
+            return;
+        }
+        warp.warpHere(player);
     }
 
 

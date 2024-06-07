@@ -1,15 +1,13 @@
-package me.fakepumpkin7.pumpkinfactions.struct;
+package me.fakepumpkin7.pumpkinframework.factions;
 
 import lombok.Getter;
-import me.fakepumpkin7.pumpkinfactions.PumpkinFactions;
+import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Faction {
 
@@ -24,6 +22,8 @@ public class Faction {
     List<UUID> currentlyInvited = new ArrayList<>();
     @Getter
     private List<FChunk> claims = new ArrayList<>();
+    @Getter
+    private List<FWarp> warps = new ArrayList<>();
 
     //use FactionHandler to create new factions
     //FactionHandler should probably re-create the factions on startup, and save them to config
@@ -114,7 +114,7 @@ public class Faction {
         currentlyInvited.add(player.getUniqueId());
         ChatUtils.notify(player, "You received an invite from "+ this.getName() + ", \"/f join "+ this.getName() +"\" to accept.");
         //remove invite after 30 seconds
-        Bukkit.getScheduler().runTaskLater(PumpkinFactions.getInstance(),
+        Bukkit.getScheduler().runTaskLater(PumpkinFramework.getInstance(),
                 () -> {
                     if(currentlyInvited.contains(player.getUniqueId())){
                         deleteInvite(player);
@@ -149,16 +149,9 @@ public class Faction {
         }
         return false;
     }
-    public boolean isAtLeastMod(Player player){
+    public boolean isAtLeast(Player player, FactionRank factionRank){
         if(membersAndRank.get(player.getUniqueId()) == null) return false;
-        if(membersAndRank.get(player.getUniqueId()) != FactionRank.MEMBER){
-            return true;
-        }
-        return false;
-    }
-    public boolean isAtLeastCo(Player player){
-        if(membersAndRank.get(player.getUniqueId()) == null) return false;
-        if(membersAndRank.get(player.getUniqueId()).ordinal() >= FactionRank.COLEADER.ordinal()){
+        if(membersAndRank.get(player.getUniqueId()).ordinal() >= factionRank.ordinal()){
             return true;
         }
         return false;
@@ -181,5 +174,45 @@ public class Faction {
             }
         }
         return list;
+    }
+
+    public void setHome(Location location){
+        removeWarpByName("home");
+        FWarp home = new FWarp("home",location, FactionRank.MEMBER);
+        addWarp(home);
+    }
+    public void addWarp(FWarp warp){
+        warps.add(warp);
+    }
+    public void removeWarp(FWarp warp){
+        warps.remove(warp);
+    }
+    public FWarp getWarpByName(String warpName){
+        for(FWarp warp : warps){
+            if (warp.getName().equalsIgnoreCase(warpName)){
+                return warp;
+            }
+        }
+        return null;
+    }
+    public void removeWarpByName(String name){
+        Collection<FWarp> toRemove = new ArrayList<>();
+
+        for(FWarp warp : warps){
+            if(warp.getName().equals(name)){
+                toRemove.add(warp);
+            }
+        }
+        warps.removeAll(toRemove);
+    }
+    public void removeWarpsInChunk(FChunk chunk){
+        Collection<FWarp> toRemove = new ArrayList<>();
+        for(FWarp warp : warps){
+            FChunk warpChunk = new FChunk(warp.getLocation().getChunk());
+            if(warpChunk.equals(chunk)){
+                toRemove.add(warp);
+            }
+        }
+        warps.removeAll(toRemove);
     }
 }
