@@ -109,7 +109,7 @@ public class FactionConfigHandler {
     private static List<FChunk> deserializeFChunks(String chunksStr){
         List<FChunk> toReturn = new ArrayList<>();
 
-        if(chunksStr == null){
+        if(chunksStr == null || chunksStr.equals("")){
             return toReturn;
         }
 
@@ -146,7 +146,7 @@ public class FactionConfigHandler {
     private static List<FWarp> deserializeFWarps(String warpsStr){
         List<FWarp> toReturn = new ArrayList<>();
 
-        if(warpsStr == null){
+        if(warpsStr == null || warpsStr.equals("")){
             return toReturn;
         }
 
