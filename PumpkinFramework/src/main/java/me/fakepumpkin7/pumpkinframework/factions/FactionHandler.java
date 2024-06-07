@@ -108,6 +108,21 @@ public class FactionHandler {
         return getClaimAt(chunk);
     }
 
+    public static boolean isClaimBorder(FChunk chunk, Faction owner){
+        int x = chunk.getX();
+        int y = chunk.getY();
+        String worldName = chunk.getWorldName();
+
+        for(int i = -1; i < 2; i++){
+            for(int j = -1; j < 2; j++){
+                FChunk toCheck = new FChunk(worldName, x+i,y+j);
+                if(getClaimAt(toCheck) == null || !getClaimAt(toCheck).getName().equals(owner.getName())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
 

@@ -20,13 +20,21 @@ public class CmdFaction implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if(!(commandSender instanceof Player)) return false;
         Player player = (Player) commandSender;
-        if(strings.length == 0) return false;
+        if(strings.length == 0) {
+            runHelpCommand(player, "1");
+            return true;
+        }
 
         String subCommand = strings[0];
 
 
         if(subCommand.equalsIgnoreCase("help")){
-            runHelpCommand(player);
+            if(strings.length != 2){
+                runHelpCommand(player,"1");
+            } else {
+                String pageStr = strings[1];
+                runHelpCommand(player, pageStr);
+            }
         }
         if(subCommand.equalsIgnoreCase("create")){
             if(strings.length != 2){
@@ -125,9 +133,9 @@ public class CmdFaction implements CommandExecutor {
     }
 
 
-    private void runHelpCommand(Player player){
-        player.sendMessage("Faction Help!");
-        player.sendMessage("/f create");
+    private void runHelpCommand(Player player, String page){
+        int pageNo = Integer.parseInt(page);
+        printHelp(player, pageNo);
     }
     private void runCreateCommand(Player player, String name){
         if(FactionHandler.getPlayersFaction(player.getUniqueId()) != null){
@@ -359,8 +367,38 @@ public class CmdFaction implements CommandExecutor {
             return;
         }
         FChunk chunk = new FChunk(player.getLocation().getChunk());
+        if(FactionHandler.getClaimAt(chunk) != null && faction.getName().equals(FactionHandler.getClaimAt(chunk))){
+            ChatUtils.info(player,"This is already your claim.");
+            return;
+        }
+
+        if(faction.getClaims().size() >= faction.getPower()){
+            ChatUtils.info(player,"Your faction does not have enough power to claim this land.");
+            return;
+        }
+
+
         if(FactionHandler.getClaimAt(chunk) != null){
-            ChatUtils.info(player,"This land is already claimed.");
+            Faction factionWithClaim = FactionHandler.getClaimAt(chunk);
+
+            if(factionWithClaim.getClaims().size() >= factionWithClaim.getPower()){
+
+                //faction over-claimable, but can only claim on border
+                if(!FactionHandler.isClaimBorder(chunk, factionWithClaim)){
+                    ChatUtils.info(player,"You can only over-claim border claims.");
+                    return;
+                }
+
+                //land over-claimable
+                ChatUtils.notify(player,"Over-claimed land from " + factionWithClaim.getName());
+
+                FactionHandler.factionUnClaimLand(factionWithClaim, chunk);
+                FactionHandler.factionClaimLand(faction, chunk);
+            } else {
+
+                //faction has enough power
+                ChatUtils.info(player,"This faction cannot be over-claimed.");
+            }
             return;
         }
         FactionHandler.factionClaimLand(faction, chunk);
@@ -453,40 +491,98 @@ public class CmdFaction implements CommandExecutor {
     }
 
 
-    private void printWho(Player player, Faction faction){
+    private void printWho(Player player, Faction faction) {
 
         player.sendMessage(faction.getName());
 
-        if(faction.isInviteOnly()){
+        if (faction.isInviteOnly()) {
             player.sendMessage("Invite Only");
         } else {
             player.sendMessage("Open");
         }
 
-        if(faction.getAlly() != null){
+        if (faction.getAlly() != null) {
             player.sendMessage("Allied with: " + faction.getAlly().getName());
         }
+
+        player.sendMessage("Claims: " + faction.getClaims().size());
+        player.sendMessage("Power: " + faction.getPower());
+
         List<Player> onlineMembers = faction.getOnlineMembers();
-        player.sendMessage("Online (" + onlineMembers.size() + "/" + faction.getMembersAndRank().size()+"):");
+        player.sendMessage("Online (" + onlineMembers.size() + "/" + faction.getMembersAndRank().size() + "):");
         String msg = "";
-        for(Player p : onlineMembers){
+        for (Player p : onlineMembers) {
             msg = msg.concat(faction.getMembersAndRank().get(p.getUniqueId()).getPrefix() + p.getName() + ", ");
         }
-        if(msg.length() > 2){
-            msg = msg.substring(0,msg.length() - 2);
+        if (msg.length() > 2) {
+            msg = msg.substring(0, msg.length() - 2);
         }
         player.sendMessage(msg);
         player.sendMessage("Offline:");
         msg = "";
-        for(String name : faction.getOfflineMembersNames()){
+        for (String name : faction.getOfflineMembersNames()) {
             msg = msg.concat(faction.getMembersAndRank().get(Bukkit.getOfflinePlayer(name).getUniqueId()).getPrefix() + name + ", ");
         }
-        if(msg.length() > 2){
-            msg = msg.substring(0,msg.length() - 2);
+        if (msg.length() > 2) {
+            msg = msg.substring(0, msg.length() - 2);
         }
         player.sendMessage(msg);
-
     }
+    private void printHelp(Player player, int page){
+        int totalPages = 3;
+        if(page == 1){
+            player.sendMessage("------------------------------------------------------");
+            player.sendMessage("Factions Information and Commands (1/"+totalPages+")");
+
+            player.sendMessage("/f create <faction name> - Create a faction.");
+            player.sendMessage("/f invite <player name> - Invite this player to your faction.");
+            player.sendMessage("/f join <faction name> - Join a faction.");
+            player.sendMessage("/f kick <player name> - Kick a player from your faction.");
+            player.sendMessage("/f leave - Leave current faction ");
+            player.sendMessage("/f toggleopen - Toggle the faction being invite only and joinable.");
+
+            player.sendMessage("The max faction size is " + Faction.getMaxMembers());
+
+            player.sendMessage("/f who <player/faction name> - View information about a faction.");
+
+            player.sendMessage("/f help <page number> - View help contents");
+            player.sendMessage("------------------------------------------------------");
+        }
+        if(page == 2){
+            player.sendMessage("------------------------------------------------------");
+            player.sendMessage("Factions Information and Commands (2/"+totalPages+")");
+
+            player.sendMessage("/f claim - Claim a chunk for your faction.");
+            player.sendMessage("/f unclaim - Remove a claim from a chunk.");
+            player.sendMessage("/f map - View claim information around current location.");
+
+
+            player.sendMessage("/f sethome - Set a faction home for all members to tp to.");
+            player.sendMessage("/f home - Teleport to faction home.");
+
+            player.sendMessage("/f setwarp <warp name> - Set a faction warp.");
+            player.sendMessage("/f warp <warp name> - Teleport to the specified faction warp.");
+
+            player.sendMessage("A faction gets " + Faction.getPowerPerMember() +" power per member, up to a max of " + Faction.getMaxPower());
+            player.sendMessage("If a faction has more chunks claimed than power, their chunks can be over-claimed.");
+            player.sendMessage("A faction can set 1 f home and up to TODO other warps");
+
+            player.sendMessage("------------------------------------------------------");
+        }
+        if(page == 3){
+            player.sendMessage("------------------------------------------------------");
+            player.sendMessage("Factions Information and Commands (3/"+totalPages+")");
+
+            player.sendMessage("/f promote <player name> - Promote player to the next rank within a faction");
+            player.sendMessage("/f demote <player name> - Demote player to the previous rank within a faction ");
+            player.sendMessage("The faction ranks are: Member, Moderator(*), Co-Leader(**), Leader(***)");
+            player.sendMessage("A faction can only have one leader");
+
+
+            player.sendMessage("------------------------------------------------------");
+        }
+    }
+
     public void tryJoin(Faction faction, Player player){
         if(faction.isInviteOnly()){
             if(faction.isInvited(player)){

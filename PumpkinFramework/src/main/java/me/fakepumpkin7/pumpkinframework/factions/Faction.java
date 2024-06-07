@@ -20,6 +20,13 @@ public class Faction {
     @Getter
     boolean isInviteOnly = true;
     List<UUID> currentlyInvited = new ArrayList<>();
+
+    @Getter
+    static final int maxMembers = 15;
+    @Getter
+    private static final int maxPower = 100;
+    @Getter
+    private static final int powerPerMember = 20;
     @Getter
     private List<FChunk> claims = new ArrayList<>();
     @Getter
@@ -36,13 +43,18 @@ public class Faction {
         this.membersAndRank = map;
     }
 
+    public int getPower(){
+        return Math.min(membersAndRank.keySet().size() * powerPerMember, maxPower);
+    }
 
     public void addMember(Player player){
         if(FactionHandler.getPlayersFaction(player.getUniqueId()) != null){
-            ChatUtils.error(player,"You already have a Faction!");
+            ChatUtils.info(player,"You already have a Faction!");
+        } else if (membersAndRank.keySet().size() >= maxMembers) {
+            ChatUtils.info(player,"This Faction is full");
         } else {
             membersAndRank.put(player.getUniqueId(), FactionRank.MEMBER);
-            ChatUtils.success(player,"Successfully joined " + name);
+            ChatUtils.notify(player,"Successfully joined " + name);
         }
     }
 
