@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 public class CmdFaction implements CommandExecutor {
     @Override
@@ -129,6 +128,14 @@ public class CmdFaction implements CommandExecutor {
                 runSetWarpCommand(player,warpName);
             }
         }
+        if (subCommand.equalsIgnoreCase("ally")) {
+            if(strings.length != 2){
+                ChatUtils.info(player,"/f ally <player/fac name>");
+            } else {
+                String name = strings[1];
+                runAllyCommand(player,name);
+            }
+        }
         return true;
     }
 
@@ -222,7 +229,7 @@ public class CmdFaction implements CommandExecutor {
         ChatUtils.info(player,"Kicked " + toKick.getName());
         faction.forceKickMember(toKick.getUniqueId());
         if(toKick.isOnline()){
-            ChatUtils.info(Bukkit.getPlayer(toKick.getUniqueId()),"You have been kicked from" + faction.getName());
+            ChatUtils.info(Bukkit.getPlayer(toKick.getUniqueId()),"You have been kicked from " + faction.getName());
         }
     }
 
@@ -314,6 +321,7 @@ public class CmdFaction implements CommandExecutor {
     }
 
     private void runMap(Player player) {
+        ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
         FChunk currentChunk = new FChunk(player.getLocation().getChunk());
         String world = currentChunk.getWorldName();
         Faction playerFac = FactionHandler.getPlayersFaction(player.getUniqueId());
@@ -333,8 +341,8 @@ public class CmdFaction implements CommandExecutor {
                 if(claimed != null) {
                     if (claimed.equals(playerFac)) {
                         chatColour = ChatColor.GREEN.toString();
-                    } else if (claimed.equals(playerFac.getAlly())) {
-                        chatColour = ChatColor.DARK_PURPLE.toString();
+                    } else if (claimed.getAlly() != null && claimed.getAlly().equals(playerFac)) {
+                        chatColour = ChatColor.LIGHT_PURPLE.toString();
                     }
 
                     identifier = claimed.getName().charAt(0);
@@ -355,6 +363,7 @@ public class CmdFaction implements CommandExecutor {
             msg2 = msg2 + c + ": " + identifierAndFacName.get(c);
         }
         player.sendMessage(msg2);
+        ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
     }
     private void runClaim(Player player){
         Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
@@ -489,10 +498,34 @@ public class CmdFaction implements CommandExecutor {
         }
         warp.warpHere(player);
     }
-
+    private void runAllyCommand(Player player, String name){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction");
+            return;
+        }
+        if(!faction.isAtLeast(player, FactionRank.COLEADER)){
+            ChatUtils.info(player,"You do not have permission to use this.");
+            return;
+        }
+        Faction toAlly = FactionHandler.getFactionFromName(name);
+        if(toAlly == null){
+            toAlly = FactionHandler.getPlayersFaction(name);
+        }
+        if(toAlly == null){
+            ChatUtils.info(player,"Cannot find faction or player with name " + name + ".");
+            return;
+        }
+        if(toAlly.equals(faction)){
+            ChatUtils.info(player,"You cannot ally your own faction.");
+            return;
+        }
+        faction.inviteAlly(toAlly);
+        return;
+    }
 
     private void printWho(Player player, Faction faction) {
-
+        ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
         player.sendMessage(faction.getName());
 
         if (faction.isInviteOnly()) {
@@ -527,11 +560,12 @@ public class CmdFaction implements CommandExecutor {
             msg = msg.substring(0, msg.length() - 2);
         }
         player.sendMessage(msg);
+        ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
     }
     private void printHelp(Player player, int page){
         int totalPages = 3;
         if(page == 1){
-            player.sendMessage("------------------------------------------------------");
+            ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
             player.sendMessage("Factions Information and Commands (1/"+totalPages+")");
 
             player.sendMessage("/f create <faction name> - Create a faction.");
@@ -546,10 +580,10 @@ public class CmdFaction implements CommandExecutor {
             player.sendMessage("/f who <player/faction name> - View information about a faction.");
 
             player.sendMessage("/f help <page number> - View help contents");
-            player.sendMessage("------------------------------------------------------");
+            ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
         }
         if(page == 2){
-            player.sendMessage("------------------------------------------------------");
+            ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
             player.sendMessage("Factions Information and Commands (2/"+totalPages+")");
 
             player.sendMessage("/f claim - Claim a chunk for your faction.");
@@ -567,10 +601,10 @@ public class CmdFaction implements CommandExecutor {
             player.sendMessage("If a faction has more chunks claimed than power, their chunks can be over-claimed.");
             player.sendMessage("A faction can set 1 f home and up to TODO other warps");
 
-            player.sendMessage("------------------------------------------------------");
+            ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
         }
         if(page == 3){
-            player.sendMessage("------------------------------------------------------");
+            ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
             player.sendMessage("Factions Information and Commands (3/"+totalPages+")");
 
             player.sendMessage("/f promote <player name> - Promote player to the next rank within a faction");
@@ -579,7 +613,7 @@ public class CmdFaction implements CommandExecutor {
             player.sendMessage("A faction can only have one leader");
 
 
-            player.sendMessage("------------------------------------------------------");
+            ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
         }
     }
 

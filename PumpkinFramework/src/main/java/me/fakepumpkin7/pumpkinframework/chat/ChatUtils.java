@@ -20,6 +20,9 @@ public class ChatUtils {
     public static void success(Player player, String message){
         player.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "(!) "+ ChatColor.GREEN + message);
     }
+    public static void sendDivider(Player player, String colour){
+        player.sendMessage(colour + "------------------------------------------------------");
+    }
 
 
 

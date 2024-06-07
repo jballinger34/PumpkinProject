@@ -3,6 +3,8 @@ package me.fakepumpkin7.pumpkinframework.factions;
 import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
+import me.fakepumpkin7.pumpkinframework.factions.event.FactionClaimChangeEvent;
+import me.fakepumpkin7.pumpkinframework.factions.event.FactionMemberJoinLeaveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -31,6 +33,7 @@ public class Faction {
     private List<FChunk> claims = new ArrayList<>();
     @Getter
     private List<FWarp> warps = new ArrayList<>();
+    private List<Faction> factionsRequestingAlly = new ArrayList<>();
 
     //use FactionHandler to create new factions
     //FactionHandler should probably re-create the factions on startup, and save them to config
@@ -55,6 +58,7 @@ public class Faction {
         } else {
             membersAndRank.put(player.getUniqueId(), FactionRank.MEMBER);
             ChatUtils.notify(player,"Successfully joined " + name);
+            Bukkit.getPluginManager().callEvent(new FactionMemberJoinLeaveEvent(this));
         }
     }
 
@@ -68,12 +72,16 @@ public class Faction {
         }
         ChatUtils.notify(player, "Successfully left " + name);
         membersAndRank.remove(player.getUniqueId());
+
+
+        Bukkit.getPluginManager().callEvent(new FactionMemberJoinLeaveEvent(this));
     }
     public void forceKickMember(UUID uuid){
         if(membersAndRank.get(uuid) == null ){
             return;
         }
         membersAndRank.remove(uuid);
+        Bukkit.getPluginManager().callEvent(new FactionMemberJoinLeaveEvent(this));
     }
     public void demoteMember(UUID memberID){
         if(membersAndRank.get(memberID) == null) return;
@@ -118,6 +126,13 @@ public class Faction {
 
         this.ally = toAlly;
         toAlly.ally = this;
+
+        for(Player player : toAlly.getOnlineMembers()){
+            ChatUtils.notify(player, "Your faction is now allied with " + getName());
+        }
+        for(Player player : getOnlineMembers()){
+            ChatUtils.notify(player, "Your faction is now allied with " + toAlly.getName());
+        }
     }
     public void setInviteOnly(boolean inviteOnly){
         this.isInviteOnly = inviteOnly;
@@ -226,5 +241,26 @@ public class Faction {
             }
         }
         warps.removeAll(toRemove);
+    }
+
+    public void inviteAlly(Faction faction){
+        if(faction.equals(this)){
+            return;
+        }
+
+        if(factionsRequestingAlly.contains(faction)){
+            //faction has already sent request, running this accepts it
+            //setAlly will notify all online players of now being allied
+            faction.setAlly(this);
+            return;
+        }
+        for(Player player : getOnlineMembers()){
+            ChatUtils.notify(player, "Your faction has requested to be allied with "+ faction.getName()+".");
+        }
+        for(Player player : faction.getOnlineMembers()){
+            ChatUtils.notify(player, "You received a request to be allied with "+ this.getName() + " /f ally " + this.getName() +" to accept.");
+        }
+        faction.factionsRequestingAlly.add(this);
+
     }
 }

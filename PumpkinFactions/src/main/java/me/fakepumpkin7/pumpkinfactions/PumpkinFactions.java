@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.fakepumpkin7.pumpkinfactions.cmd.CmdFaction;
 import me.fakepumpkin7.pumpkinfactions.config.FactionConfigHandler;
 import me.fakepumpkin7.pumpkinfactions.listener.ClaimChangeListener;
+import me.fakepumpkin7.pumpkinfactions.listener.JoinLeaveListener;
 import me.fakepumpkin7.pumpkinfactions.listener.PlayerAttackPlayerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,6 +35,7 @@ public final class PumpkinFactions extends JavaPlugin {
     private void registerListeners(){
         Bukkit.getPluginManager().registerEvents(new PlayerAttackPlayerListener(), this);
         Bukkit.getPluginManager().registerEvents(new ClaimChangeListener(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinLeaveListener(), this);
     }
 
 }
