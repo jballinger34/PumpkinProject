@@ -62,14 +62,16 @@ public class FactionConfigHandler {
         }
         ConfigurationSection factionSection = section.getConfigurationSection(factionName);
 
-        if(factionSection.getConfigurationSection("faction-members") == null){
-            factionSection.createSection("faction-members");
-        }
-        ConfigurationSection membersSection = factionSection.getConfigurationSection("faction-members");
+        //deal with members and their ranks.
+        //as this isnt a serialised string, we have to wipe all and readd
+        factionSection.set("faction-members", null);
+        ConfigurationSection membersSection = factionSection.createSection("faction-members");
+
         for(UUID member : faction.getMembersAndRank().keySet()){
             membersSection.set(member.toString(), faction.getMembersAndRank().get(member).ordinal());
         }
 
+        //deal with claims
         if(factionSection.getConfigurationSection("faction-claims") == null){
             factionSection.createSection("faction-claims");
         }
@@ -77,7 +79,7 @@ public class FactionConfigHandler {
 
         claimsSection.set("claims-string", serializeFChunks(faction.getClaims()));
 
-
+        //deal with warps
         if(factionSection.getConfigurationSection("faction-warps") == null){
             factionSection.createSection("faction-warps");
         }
