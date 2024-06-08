@@ -12,5 +12,9 @@
 /PumpkinFactions/gradle/
 /PumpkinFactions/.idea/
 /PumpkinFactions/build/
+/PumpkinCore/.gradle/
+/PumpkinCore/gradle/
+/PumpkinCore/.idea/
+/PumpkinCore/build/
 
 
