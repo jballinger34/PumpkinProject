@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkincore.scoreboard;
+package me.fakepumpkin7.pumpkincore.hud;
 
 import me.fakepumpkin7.pumpkincore.PumpkinCore;
 import org.bukkit.Bukkit;
@@ -11,12 +11,6 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 public class Board implements Runnable{
-
-    private final static Board instance = new Board();
-
-    private Board(){
-
-    }
 
     @Override
     public void run(){
@@ -62,9 +56,6 @@ public class Board implements Runnable{
     }
 
 
-    public static Board getInstance(){
-        return instance;
-    }
 
 
 }
