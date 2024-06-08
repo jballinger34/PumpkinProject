@@ -1,8 +1,14 @@
 package me.fakepumpkin7.pumpkincore;
 
+import lombok.Getter;
+import me.fakepumpkin7.pumpkincore.scoreboard.Board;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PumpkinCore extends JavaPlugin {
+
+    @Getter
+    static PumpkinCore instance;
 
     //clear lag
     //handle reboot
@@ -10,7 +16,6 @@ public final class PumpkinCore extends JavaPlugin {
     //tablist
     //format chat
     //defence/health over hotbar
-    //combat tag
     //permissions?
 
 
@@ -18,6 +23,9 @@ public final class PumpkinCore extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        instance = this;
+        //updates every 5 seconds
+        Bukkit.getScheduler().runTaskTimer(this, Board.getInstance(),0,100);
 
     }
 

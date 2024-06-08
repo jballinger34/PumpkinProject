@@ -7,6 +7,10 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'D:/Users/balli/Desktop/PumpkinProject/libraries'
+        dirs 'C:/Users/Dad/IdeaProjects/PumpkinProject/libraries'
+    }
     maven {
         name = "spigotmc-repo"
         url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
@@ -15,10 +19,24 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
 }
 
 dependencies {
-    compileOnly "org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT"
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    compileOnly name: "spigot-1.8.8"
+    compileOnly name: "PumpkinFramework"
+    compileOnly name: "item-nbt-api-plugin-2.11.1"
+    compileOnly "com.destroystokyo.paper:paper-api:1.12-R0.1-SNAPSHOT"
 }
 
 def targetJavaVersion = 8
