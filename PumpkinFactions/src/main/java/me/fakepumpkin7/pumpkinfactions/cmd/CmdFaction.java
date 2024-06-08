@@ -120,6 +120,10 @@ public class CmdFaction implements CommandExecutor {
                 runWarpCommand(player, warpName);
             }
         }
+        if (subCommand.equalsIgnoreCase("warps") || subCommand.equalsIgnoreCase("warpinfo")) {
+            runWarpInfoCommand(player);
+        }
+
         if (subCommand.equalsIgnoreCase("setwarp")) {
             if(strings.length != 2){
                 ChatUtils.info(player,"/f setwarp <warpname>");
@@ -127,6 +131,17 @@ public class CmdFaction implements CommandExecutor {
                 String warpName = strings[1];
                 runSetWarpCommand(player,warpName);
             }
+        }
+        if (subCommand.equalsIgnoreCase("delwarp")) {
+            if(strings.length != 2){
+                ChatUtils.info(player,"/f delwarp <warpname>");
+            } else {
+                String warpName = strings[1];
+                runDelWarpCommand(player,warpName);
+            }
+        }
+        if (subCommand.equalsIgnoreCase("delhome")) {
+            runDelWarpCommand(player, "home");
         }
         if (subCommand.equalsIgnoreCase("ally")) {
             if(strings.length != 2){
@@ -136,6 +151,19 @@ public class CmdFaction implements CommandExecutor {
                 runAllyCommand(player,name);
             }
         }
+        if (subCommand.equalsIgnoreCase("unally")) {
+            runUnAllyCommand(player);
+        }
+        if(subCommand.equalsIgnoreCase("disband")){
+            runDisbandCommand(player);
+        }
+
+
+        //f map <on/off>
+        //f claim radius <size>
+        //f claim auto <on/off>
+
+
         return true;
     }
 
@@ -477,8 +505,34 @@ public class CmdFaction implements CommandExecutor {
             faction.addWarp(warp);
             ChatUtils.notify(player,"Successfully set warp to " + warpName);
         }
+    }
 
+    private void runDelWarpCommand(Player player, String warpName){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
 
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction");
+            return;
+        }
+        if(!faction.isAtLeast(player, FactionRank.COLEADER)){
+            ChatUtils.info(player,"You do not have permission to use this.");
+            return;
+        }
+        FWarp fWarp = faction.getWarpByName(warpName);
+        if(fWarp == null){
+            if(warpName.equals("home")){
+                ChatUtils.info(player,"Your faction does not have a faction home set. /f sethome to set one.");
+                return;
+            }
+            ChatUtils.info(player,"Your faction does not have a warp with this name, /f warps for info.");
+            return;
+        }
+        faction.removeWarp(fWarp);
+        if(warpName.equals("home")){
+            ChatUtils.notify(player,"Successfully removed faction home.");
+            return;
+        }
+        ChatUtils.notify(player,"Successfully removed warp "+ warpName);
 
     }
     private void runWarpCommand(Player player, String warpName){
@@ -497,6 +551,30 @@ public class CmdFaction implements CommandExecutor {
             return;
         }
         warp.warpHere(player);
+    }
+    private void runWarpInfoCommand(Player player){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction.");
+            return;
+        }
+        if(faction.getWarps().size() == 0){
+            ChatUtils.info(player,"Your faction does not have any warps.");
+            return;
+        }
+        String msg = "";
+        for(FWarp warp : faction.getWarps()){
+            msg = msg + warp.getName() +": x: "
+                    + Math.round(warp.getLocation().getX()) + ", y: "
+                    + Math.round(warp.getLocation().getY()) + ", z: "
+                    + Math.round(warp.getLocation().getZ()) + "\n";
+        }
+        ChatUtils.sendDivider(player, ChatColor.GREEN.toString() + ChatColor.BOLD);
+        player.sendMessage(msg);
+        ChatUtils.sendDivider(player, ChatColor.GREEN.toString() + ChatColor.BOLD);
+
+
+
     }
     private void runAllyCommand(Player player, String name){
         Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
@@ -522,6 +600,41 @@ public class CmdFaction implements CommandExecutor {
         }
         faction.inviteAlly(toAlly);
         return;
+    }
+    private void runUnAllyCommand(Player player){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction");
+            return;
+        }
+        if(!faction.isAtLeast(player, FactionRank.COLEADER)){
+            ChatUtils.info(player,"You do not have permission to use this.");
+            return;
+        }
+        if(faction.getAlly() == null){
+            ChatUtils.info(player,"You do not currently have an ally.");
+            return;
+        }
+        Faction ally = faction.getAlly();
+        for(Player allyPlayer : ally.getOnlineMembers()){
+            ChatUtils.notify(allyPlayer,"Your faction is no longer allies with "+ faction.getName() + ".");
+        }
+        for(Player facPlayer : faction.getOnlineMembers()){
+            ChatUtils.notify(facPlayer,"Your faction is no longer allies with "+ ally.getName() + ".");
+        }
+        faction.resetAlly();
+    }
+    private void runDisbandCommand(Player player){
+        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        if(faction == null) {
+            ChatUtils.info(player,"You are not in a faction");
+            return;
+        }
+        if(!faction.isAtLeast(player, FactionRank.LEADER)){
+            ChatUtils.info(player,"You must be the faction's leader to disband it.");
+            return;
+        }
+        FactionHandler.disbandFaction(faction);
     }
 
     private void printWho(Player player, Faction faction) {
