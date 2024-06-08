@@ -94,7 +94,10 @@ public class FactionConfigHandler {
             saveToConfig(faction);
         }
     }
-
+    public static void removeFaction(String factionName){
+        PumpkinFactions.getInstance().getConfig().getConfigurationSection("factions").set(factionName, null);
+        PumpkinFactions.getInstance().saveConfig();
+    }
     private static String serializeFChunks(List<FChunk> chunkList){
         String toReturn = "";
         for(FChunk chunk : chunkList){

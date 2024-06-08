@@ -3,6 +3,8 @@ package me.fakepumpkin7.pumpkinframework.factions;
 
 import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.factions.event.FactionClaimChangeEvent;
+import me.fakepumpkin7.pumpkinframework.factions.event.FactionDisbandEvent;
+import me.fakepumpkin7.pumpkinframework.factions.event.FactionMemberJoinLeaveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -20,6 +22,7 @@ public class FactionHandler {
     public static void createNewFaction(Player leader, String name){
         Faction faction = new Faction(leader, name);
         allFactions.add(faction);
+        Bukkit.getPluginManager().callEvent(new FactionMemberJoinLeaveEvent(faction));
     }
     public static void loadFactionFromDisk(String name, HashMap<UUID, FactionRank> playerRankMap){
         Faction faction = new Faction(name, playerRankMap);
@@ -125,9 +128,9 @@ public class FactionHandler {
     }
     public static void disbandFaction(Faction faction){
         //might need to do more here, but garbagecollector should deal w this.
+        Bukkit.getPluginManager().callEvent(new FactionDisbandEvent(faction.getName()));
+
         allFactions.remove(faction);
-
-
     }
 
 

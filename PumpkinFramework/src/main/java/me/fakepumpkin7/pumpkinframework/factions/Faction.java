@@ -40,6 +40,7 @@ public class Faction {
     protected Faction(Player leader, String name){
         this.membersAndRank.put(leader.getUniqueId(), FactionRank.LEADER);
         this.name = name;
+
     }
     protected Faction(String name, HashMap<UUID,FactionRank> map){
         this.name = name;
