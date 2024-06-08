@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkinframework.factions;
 
 import lombok.Getter;
+import me.fakepumpkin7.pumpkinframework.player.teleport.TeleportUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -17,7 +18,7 @@ public class FWarp {
     }
 
     public void warpHere(Player player){
-        player.teleport(location);
+        TeleportUtils.timedTeleport(player, location);
     }
 
 }

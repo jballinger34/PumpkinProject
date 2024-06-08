@@ -123,7 +123,12 @@ public class FactionHandler {
         }
         return false;
     }
+    public static void disbandFaction(Faction faction){
+        //might need to do more here, but garbagecollector should deal w this.
+        allFactions.remove(faction);
 
+
+    }
 
 
 

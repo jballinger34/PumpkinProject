@@ -9,7 +9,7 @@ public class ChatUtils {
         player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "(!) "+ ChatColor.RED + message);
     }
     public static void warn(Player player, String message){
-        player.sendMessage(ChatColor.YELLOW + ChatColor.BOLD.toString() + "(!) "+ ChatColor.YELLOW + message);
+        player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "(!) "+ ChatColor.WHITE + message);
     }
     public static void info(Player player, String message){
         player.sendMessage(ChatColor.YELLOW + ChatColor.BOLD.toString() + "(!) "+ ChatColor.WHITE + message);
