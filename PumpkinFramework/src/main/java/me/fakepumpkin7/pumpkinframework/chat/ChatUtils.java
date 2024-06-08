@@ -1,9 +1,16 @@
 package me.fakepumpkin7.pumpkinframework.chat;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class ChatUtils {
+
+    public static void broadcast(String message){
+        for(Player player : Bukkit.getOnlinePlayers()){
+            player.sendMessage(message);
+        }
+    }
 
     public static void error(Player player, String message){
         player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "(!) "+ ChatColor.RED + message);
