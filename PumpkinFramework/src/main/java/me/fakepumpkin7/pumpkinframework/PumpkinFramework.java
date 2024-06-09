@@ -33,6 +33,7 @@ public final class PumpkinFramework extends JavaPlugin {
     }
 
     private void registerTasks() {
+
         Bukkit.getScheduler().runTaskTimer(this, new ArmorTask(), 5,5);
         Bukkit.getScheduler().runTaskTimer(this, new CombatMonitorTask(), 10,10);
     }

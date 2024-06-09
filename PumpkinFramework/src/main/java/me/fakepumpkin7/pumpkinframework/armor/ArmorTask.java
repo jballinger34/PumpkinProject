@@ -7,15 +7,22 @@ import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.net.http.WebSocket;
 import java.util.Hashtable;
 import java.util.UUID;
 
-public class ArmorTask implements Runnable {
+public class ArmorTask implements Runnable, Listener {
 
     @Getter private static Hashtable<UUID, ItemStack[]> playerEquipment = new Hashtable<>();
 
+    public ArmorTask(){
+        Bukkit.getPluginManager().registerEvents(this, PumpkinFramework.getInstance());
+    }
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -62,6 +69,14 @@ public class ArmorTask implements Runnable {
             return true;
         }
         return false;
+    }
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event){
+        //remove players uuid from table.
+        //means when player joins, their armour is not compared with what their armour used to be
+        //so armourchangeevent called and stats are applied on join by this.
+        Player player = event.getPlayer();
+        playerEquipment.remove(player.getUniqueId());
     }
 
 }

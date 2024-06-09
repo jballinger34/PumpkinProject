@@ -15,30 +15,13 @@ public class InitPlayerStatsListener implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
-        initStats(player);
 
-        ItemStack[] armour = player.getEquipment().getArmorContents();
-
-        for(ItemStack item : armour){
-            if(item != null && item.getAmount() != 0  && item.getType() != Material.AIR){
-                initArmourStats(player,item);
-            }
-        }
-    }
-
-
-    private void initStats(Player player){
         CombatUtils.setEntityBaseDamage(player,1);
         CombatUtils.setEntityDefence(player,0);
         CombatUtils.setEntityMaxHealth(player, 20);
         CombatUtils.setPlayerSpeed(player,0.2);
-    }
 
-    private void initArmourStats(Player player, ItemStack item){
-        CombatUtils.addEntityBaseDamage(player, CombatUtils.getItemBaseDamage(item));
-        CombatUtils.addEntityDefence(player, CombatUtils.getItemDefence(item));
-        CombatUtils.addEntityHealth(player, CombatUtils.getItemMaxHealth(item));
-        CombatUtils.addPlayerSpeed(player, CombatUtils.getItemSpeed(item));
+        //armourchangeevent is called when a player joins!
+        //this is nice!
     }
-
 }
