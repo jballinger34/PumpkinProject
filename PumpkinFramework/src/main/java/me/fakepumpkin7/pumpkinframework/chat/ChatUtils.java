@@ -32,5 +32,7 @@ public class ChatUtils {
     }
 
 
-
+    public static String color(String message){
+        return message != null && !message.isEmpty() ? ChatColor.translateAlternateColorCodes('&', message) : message;
+    }
 }
