@@ -16,6 +16,7 @@ public final class PumpkinCore extends JavaPlugin {
     //tablist
     //format chat
     //permissions?
+    // /warp /tpa
 
 
 
