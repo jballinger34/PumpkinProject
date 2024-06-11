@@ -6,6 +6,7 @@ import me.fakepumpkin7.pumpkineconomy.cmd.CmdPay;
 import me.fakepumpkin7.pumpkineconomy.cmd.CmdWithdraw;
 import me.fakepumpkin7.pumpkineconomy.config.EconomyConfigHandler;
 import me.fakepumpkin7.pumpkineconomy.listener.JoinLeaveListener;
+import me.fakepumpkin7.pumpkineconomy.listener.MoneyNoteListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,6 +36,7 @@ public final class PumpkinEconomy extends JavaPlugin {
 
     private void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new JoinLeaveListener(),this);
+        Bukkit.getPluginManager().registerEvents(new MoneyNoteListener(),this);
     }
     private void registerCommands(){
         this.getCommand("balance").setExecutor(new CmdBal());
