@@ -1,6 +1,8 @@
 package me.fakepumpkin7.pumpkinenchants;
 import com.rit.sucy.EnchantPlugin;
 import com.rit.sucy.EnchantmentAPI;
+import me.fakepumpkin7.pumpkinenchants.cmd.CmdEnchItem;
+import org.bukkit.Bukkit;
 
 public final class PumpkinEnchants extends EnchantPlugin {
 
@@ -11,8 +13,9 @@ public final class PumpkinEnchants extends EnchantPlugin {
         instance = this;
 
         System.out.println("Registering Enchants");
-        this.registerEnchantments();
-
+        registerEnchantments();
+        registerListeners();
+        registerCommands();
 
     }
 
@@ -27,6 +30,12 @@ public final class PumpkinEnchants extends EnchantPlugin {
         for (EnchantType enchantment : EnchantType.values()) {
             EnchantmentAPI.registerCustomEnchantment(enchantment.getEnchant());
         }
+    }
+    private void registerListeners(){
+        Bukkit.getPluginManager().registerEvents(new EnchantListener(), this);
+    }
+    private void registerCommands(){
+        this.getCommand("enchitem").setExecutor(new CmdEnchItem());
     }
     public static PumpkinEnchants getInstance() {
         return instance;
