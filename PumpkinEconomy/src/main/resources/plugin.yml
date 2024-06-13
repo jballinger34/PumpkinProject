@@ -7,6 +7,9 @@ commands:
     usage: /balance <player>
     aliases:
       - bal
+  balancetop:
+    aliases:
+      - baltop
   pay:
     usage: /pay <player> <amount>
   withdraw:
