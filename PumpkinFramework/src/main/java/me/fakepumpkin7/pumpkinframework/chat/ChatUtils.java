@@ -30,9 +30,7 @@ public class ChatUtils {
     public static void sendDivider(Player player, String colour){
         player.sendMessage(colour + "------------------------------------------------------");
     }
-
-
-    public static String color(String message){
+    public static String colour(String message){
         return message != null && !message.isEmpty() ? ChatColor.translateAlternateColorCodes('&', message) : message;
     }
 }
