@@ -18,7 +18,7 @@ public class CmdBal implements CommandExecutor {
         if(!(commandSender instanceof Player)){
             System.out.println("Only a player can use this command.");
             return false;
-        }
+        } 
         Player player = (Player) commandSender;
         if(strings.length == 0){
             double balance = Bank.getBalance(player.getUniqueId());

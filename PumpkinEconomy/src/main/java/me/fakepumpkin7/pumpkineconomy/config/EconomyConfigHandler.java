@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class EconomyConfigHandler implements Listener {
@@ -40,9 +41,23 @@ public class EconomyConfigHandler implements Listener {
             return balancesSection.getDouble(uuid.toString());
         }
         return null;
+    }
 
+    public static HashMap<String, Double> getAllBalancesFromConfig(){
+        FileConfiguration config = PumpkinEconomy.getInstance().getConfig();
+        if(config.getConfigurationSection(balanceSectionString) == null){
+            System.out.println("Balance section of PumpkinEconomy config doesn't exist, it should.");
+            return null;
+        }
+        HashMap<String, Double> toReturn = new HashMap<>();
+        ConfigurationSection balancesSection = config.getConfigurationSection(balanceSectionString);
 
-
+        for(String key : balancesSection.getKeys(false)){
+            String str = key;
+            Double balance = balancesSection.getDouble(key);
+            toReturn.put(str,balance);
+        }
+        return toReturn;
 
     }
 
