@@ -17,6 +17,12 @@ public class PlayerAttackPlayerListener implements Listener {
             if(FactionHandler.isInSameFaction(attacker, target)){
                 ChatUtils.info(attacker,"You cannot attack your faction members!");
                 event.setCancelled(true);
+                return;
+            }
+            if(FactionHandler.isAlly(attacker, target)){
+                ChatUtils.info(attacker,"You cannot attack your allies!");
+                event.setCancelled(true);
+                return;
             }
         }
     }
