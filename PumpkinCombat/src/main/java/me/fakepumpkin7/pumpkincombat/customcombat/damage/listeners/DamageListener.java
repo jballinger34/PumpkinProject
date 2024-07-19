@@ -1,7 +1,6 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.damage.listeners;
 
-import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
-import me.fakepumpkin7.pumpkinframework.event.combat.CustomVanillaDamageEvent;
+import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
@@ -21,7 +20,7 @@ public class DamageListener implements Listener {
             return;
         }
 
-        Bukkit.getPluginManager().callEvent( new CustomVanillaDamageEvent(e.getEntity(), e.getCause() ,e.getDamage()) );
+        Bukkit.getPluginManager().callEvent( new CustomDamageEvent(e.getCause(),null ,e.getEntity(), e.getDamage()) );
 
         e.setDamage(0);
         e.setCancelled(true);
@@ -34,7 +33,8 @@ public class DamageListener implements Listener {
             attacker = (Entity) ((Projectile) e.getDamager()).getShooter();
         }
 
-        Bukkit.getPluginManager().callEvent(  new CustomDamageEvent(e.getCause(), attacker, e.getEntity()) );
+
+        Bukkit.getPluginManager().callEvent(  new CustomDamageEvent(e.getCause(), attacker, e.getEntity(), 0 ));
 
         e.setDamage(0);
         e.setCancelled(true);

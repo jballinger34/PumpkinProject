@@ -1,6 +1,6 @@
 package me.fakepumpkin7.pumpkincombat;
 
-import me.fakepumpkin7.pumpkinframework.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

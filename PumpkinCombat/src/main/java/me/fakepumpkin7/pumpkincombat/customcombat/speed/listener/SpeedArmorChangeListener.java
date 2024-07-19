@@ -1,9 +1,9 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.speed.listener;
 
 import me.fakepumpkin7.pumpkincombat.customcombat.speed.CustomSpeed;
-import me.fakepumpkin7.pumpkinframework.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;
+import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

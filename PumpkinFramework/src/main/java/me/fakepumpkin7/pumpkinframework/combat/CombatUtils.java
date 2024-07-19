@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkinframework.combat;
 
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
+import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -24,6 +25,14 @@ public class CombatUtils {
 
             double damageToDeal = finalDamage*le.getMaxHealth() / getEntityMaxHealth(target);
             le.damage(damageToDeal);
+
+            if (target instanceof Player) {
+                Player player = (Player) target;
+                ChatUtils.info(player,"Health stat " + getEntityCustomHealth(player));
+                ChatUtils.info(player,"Hearts stat " + player.getHealth());
+
+            }
+
         }
 
         if(target instanceof Item){

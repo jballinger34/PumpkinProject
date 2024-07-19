@@ -16,27 +16,25 @@ public class CustomDamageEvent extends Event implements Cancellable {
 
     private boolean isCancelled;
 
-    public CustomDamageEvent(EntityDamageEvent.DamageCause cause, Entity attacker, Entity target){
+    public CustomDamageEvent(EntityDamageEvent.DamageCause cause, Entity attacker, Entity target, double vanillaDamage){
 
         this.damageCause = cause;
 
         this.attacker = attacker;
-<<<<<<< HEAD
 
         this.target = target;
 
-        this.damage = workOutDamage(attacker);
+        if(attacker != null) {
+            this.damage = workOutDamage(attacker);
 
-        this.knockback = workOutKnockback(attacker,target);
-=======
+            this.knockback = workOutKnockback(attacker, target);
+        } else {
+            this.damage = vanillaDamage;
+        }
+
 
         this.target = target;
 
-        double damage = workOutDamage(attacker);
-
-        this.knockback = workOutKnockback(attacker,target);
-
->>>>>>> origin/HAROLD
     }
 
 

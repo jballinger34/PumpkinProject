@@ -1,7 +1,7 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.health.listener;
 
 import me.fakepumpkin7.pumpkincombat.PumpkinCombat;
-import me.fakepumpkin7.pumpkinframework.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

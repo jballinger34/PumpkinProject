@@ -1,6 +1,6 @@
 package me.fakepumpkin7.pumpkincore.hud;
 
-import me.fakepumpkin7.pumpkinframework.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.hud.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

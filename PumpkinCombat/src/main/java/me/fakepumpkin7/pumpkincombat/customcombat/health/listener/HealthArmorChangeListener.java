@@ -1,7 +1,7 @@
 package me.fakepumpkin7.pumpkincombat.customcombat.health.listener;
 
 import me.fakepumpkin7.pumpkincombat.customcombat.health.CustomHealth;
-import me.fakepumpkin7.pumpkinframework.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;
 import org.bukkit.entity.Player;
