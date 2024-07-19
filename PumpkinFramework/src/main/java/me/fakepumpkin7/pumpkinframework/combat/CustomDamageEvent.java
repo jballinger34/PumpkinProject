@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkinframework.combat;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -16,18 +17,16 @@ public class CustomDamageEvent extends Event implements Cancellable {
     private boolean isCancelled;
 
     public CustomDamageEvent(EntityDamageEvent.DamageCause cause, Entity attacker, Entity target){
+
         this.damageCause = cause;
 
         this.attacker = attacker;
-        this.target = target;
 
+        this.target = target;
 
         double damage = workOutDamage(attacker);
 
-
-
         this.knockback = workOutKnockback(attacker,target);
-
 
     }
 
@@ -37,14 +36,14 @@ public class CustomDamageEvent extends Event implements Cancellable {
     @Getter
     protected Entity target;
 
-    @Getter
+    @Getter @Setter
     protected double damage;
     @Getter
     private Entity attacker;
     @Getter
     private double knockback;
 
-    public double workOutFinalDamage(){
+    public double workOutDamageAfterDefence(){
         double scaled = damage* (1-(CombatUtils.getEntityDefence(target)/1000));
         return damage;
     }

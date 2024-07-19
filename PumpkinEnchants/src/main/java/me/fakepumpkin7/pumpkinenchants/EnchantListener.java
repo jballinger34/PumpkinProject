@@ -5,7 +5,6 @@ import com.rit.sucy.EnchantmentAPI;
 import com.rit.sucy.service.ERomanNumeral;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.chat.FancyText;
 import me.fakepumpkin7.pumpkinframework.particle.ParticleEffect;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;

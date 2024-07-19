@@ -2,20 +2,20 @@ package me.fakepumpkin7.pumpkinenchants.enchants.weapons;
 
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
-import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityDamageEvent;
 
-
-public class Lifesteal extends BaseEnchant {
-    public Lifesteal() {
-        super("Lifesteal","Steals Life :D",3, EnchantmentGroup.WEAPONS);
+public class Sharpness extends BaseEnchant {
+    public Sharpness() {
+        super("Sharpness","Makes sword sharp :D",8, EnchantmentGroup.WEAPONS);
     }
-    double healthPerProc = 5;
+    double damagebonus = 0.1;
 
     @Override
     public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, CustomDamageEvent event) {
-        CombatUtils.healEntity(user,enchantLevel*healthPerProc);
+        double damage = event.getDamage();
+        event.setDamage(damage*(1+(damagebonus*enchantLevel)));
     }
 
 }

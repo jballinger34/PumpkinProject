@@ -3,7 +3,7 @@ package me.fakepumpkin7.pumpkinenchants.enchants.armour;
 
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
-import me.fakepumpkin7.pumpkinframework.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import org.bukkit.entity.Player;
 
 
