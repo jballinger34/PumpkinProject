@@ -20,11 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
-import me.fakepumpkin7.pumpkinframework.event.combat.CustomVanillaDamageEvent;
+import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import net.minecraft.server.v1_8_R3.EnchantmentDurability;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -32,7 +30,6 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -41,9 +38,6 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
@@ -71,7 +65,7 @@ public class EListener implements Listener {
                 ignoreCancelled = true
     )
     public void onCDE(CustomDamageEvent event){
-        if (!excuse && event.getDamageCause() != DamageCause.CUSTOM && !(event.getFinalDamage() <= 0.0)) {
+        if (!excuse && event.getDamageCause() != DamageCause.CUSTOM && !(event.getDamage() <= 0.0)) {
             if (event.getTarget() instanceof LivingEntity) {
                 if (event.getDamageCause() == DamageCause.ENTITY_ATTACK || event.getDamageCause() == DamageCause.PROJECTILE) {
 

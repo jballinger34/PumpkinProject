@@ -10,16 +10,14 @@ import com.rit.sucy.util.PostToolEffectRunnable;
 import com.rit.sucy.util.TreeMultiMap;
 import com.rit.sucy.service.ENameParser;
 import com.rit.sucy.service.ERomanNumeral;
-import com.rit.sucy.service.MaterialClass;
-import com.rit.sucy.service.MaterialsParser;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import me.fakepumpkin7.pumpkinenchants.EnchantType;
-import me.fakepumpkin7.pumpkinframework.event.combat.AbstractCustomDamageEvent;
+import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -192,10 +190,10 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
         return this.name().compareTo(customEnchantment.name());
     }
 
-    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, AbstractCustomDamageEvent event) {
+    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, CustomDamageEvent event) {
     }
 
-    public void applyDefenseEffect(LivingEntity user, LivingEntity attacker, int enchantLevel, AbstractCustomDamageEvent event, TreeMultiMap<PostDefenceEffectRunnable> postRunTasks) {
+    public void applyDefenseEffect(LivingEntity user, LivingEntity attacker, int enchantLevel, CustomDamageEvent event, TreeMultiMap<PostDefenceEffectRunnable> postRunTasks) {
     }
 
     public boolean applyToolEffect(Player player, Block block, List<ItemStack> drops, TreeMultiMap<PostToolEffectRunnable> postRunTasks, int enchantLevel, BlockEvent event) {
