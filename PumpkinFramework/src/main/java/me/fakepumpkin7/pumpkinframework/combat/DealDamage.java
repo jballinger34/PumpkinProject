@@ -10,7 +10,7 @@ public class DealDamage implements Listener {
     public void onACDE(CustomDamageEvent event){
         if(event.isCancelled()) return;
 
-        CombatUtils.dealTrueDamage(event.getTarget(), event.workOutFinalDamage());
+        CombatUtils.dealTrueDamage(event.getTarget(), event.workOutDamageAfterDefence());
         CombatUtils.dealKnockback(event.getTarget(), event.getAttacker(), event.getKnockback());
     }
 }

@@ -3,6 +3,7 @@ package me.fakepumpkin7.pumpkinenchants;
 import lombok.Getter;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.Healthy;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.Lifesteal;
+import me.fakepumpkin7.pumpkinenchants.enchants.weapons.Sharpness;
 import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ public enum EnchantType {
 
     HEALTHY(new Healthy(), ItemRarity.MYTHIC),
     LIFESTEAL(new Lifesteal(), ItemRarity.MYTHIC),
+    SHARPNESS(new Sharpness(), ItemRarity.MYTHIC),
 
     ;
 
