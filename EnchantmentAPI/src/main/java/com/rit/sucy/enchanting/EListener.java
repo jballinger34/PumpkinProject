@@ -66,8 +66,6 @@ public class EListener implements Listener {
     }
 
 
-    //cde is damage with attacker entity
-    //cvde is damage with no attacker
     @EventHandler(
         priority = EventPriority.NORMAL,
                 ignoreCancelled = true
@@ -123,32 +121,6 @@ public class EListener implements Listener {
             }
         } else {
             excuse = false;
-        }
-    }
-    @EventHandler(
-        priority = EventPriority.NORMAL,
-                ignoreCancelled = true
-    )
-    public void onCVDE(CustomVanillaDamageEvent event){
-        if (!(event.getFinalDamage() <= 0.0) && event.getTarget() instanceof LivingEntity) {
-            LivingEntity damaged = (LivingEntity)event.getTarget();
-            TreeMultiMap<PostDefenceEffectRunnable> postRunTasks = new TreeMultiMap((o1, o2) -> {
-                return -Integer.compare((Integer) o1,(Integer) o2);
-            });
-            Iterator var4 = this.getValidEnchantments(this.getItems(damaged)).entrySet().iterator();
-
-            while(var4.hasNext()) {
-                Map.Entry<CustomEnchantment, Integer> entry = (Map.Entry)var4.next();
-                ((CustomEnchantment)entry.getKey()).applyDefenseEffect(damaged, null, (Integer)entry.getValue(), event, postRunTasks);
-            }
-
-            var4 = postRunTasks.getAll().iterator();
-
-            while(var4.hasNext()) {
-                PostDefenceEffectRunnable runnable = (PostDefenceEffectRunnable)var4.next();
-                runnable.execute(damaged, (LivingEntity)null, event);
-            }
-
         }
     }
 

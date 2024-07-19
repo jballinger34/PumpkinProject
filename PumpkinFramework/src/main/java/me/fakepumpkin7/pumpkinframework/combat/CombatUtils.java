@@ -42,9 +42,6 @@ public class CombatUtils {
     }
 
     public static void dealKnockback(Entity target, Entity attacker, double knockback){
-        if(knockback == 0){
-            return;
-        }
         if(attacker == null){
             return;
         }

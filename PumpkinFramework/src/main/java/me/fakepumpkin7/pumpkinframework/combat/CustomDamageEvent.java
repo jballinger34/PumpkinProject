@@ -19,16 +19,12 @@ public class CustomDamageEvent extends Event implements Cancellable {
         this.damageCause = cause;
 
         this.attacker = attacker;
+
         this.target = target;
 
-
-        double damage = workOutDamage(attacker);
-
-
+        this.damage = workOutDamage(attacker);
 
         this.knockback = workOutKnockback(attacker,target);
-
-
     }
 
 
