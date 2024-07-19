@@ -2,7 +2,7 @@ package me.fakepumpkin7.pumpkinframework.items;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import me.fakepumpkin7.pumpkinframework.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.ChatColor;

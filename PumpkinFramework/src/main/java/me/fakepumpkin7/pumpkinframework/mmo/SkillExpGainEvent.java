@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinframework.event.mmo;
+package me.fakepumpkin7.pumpkinframework.mmo;
 
 
 import lombok.Getter;

@@ -69,7 +69,7 @@ public class EListener implements Listener {
     //cde is damage with attacker entity
     //cvde is damage with no attacker
     @EventHandler(
-        priority = EventPriority.MONITOR,
+        priority = EventPriority.NORMAL,
                 ignoreCancelled = true
     )
     public void onCDE(CustomDamageEvent event){
@@ -126,7 +126,7 @@ public class EListener implements Listener {
         }
     }
     @EventHandler(
-        priority = EventPriority.MONITOR,
+        priority = EventPriority.NORMAL,
                 ignoreCancelled = true
     )
     public void onCVDE(CustomVanillaDamageEvent event){

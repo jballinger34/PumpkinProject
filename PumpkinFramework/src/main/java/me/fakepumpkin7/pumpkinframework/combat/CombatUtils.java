@@ -1,5 +1,6 @@
-package me.fakepumpkin7.pumpkinframework;
+package me.fakepumpkin7.pumpkinframework.combat;
 
+import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -41,6 +42,9 @@ public class CombatUtils {
     }
 
     public static void dealKnockback(Entity target, Entity attacker, double knockback){
+        if(knockback == 0){
+            return;
+        }
         if(attacker == null){
             return;
         }

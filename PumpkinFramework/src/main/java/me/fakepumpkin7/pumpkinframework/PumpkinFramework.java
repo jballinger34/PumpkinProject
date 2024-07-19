@@ -2,7 +2,7 @@ package me.fakepumpkin7.pumpkinframework;
 
 import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.armor.ArmorTask;
-import me.fakepumpkin7.pumpkinframework.event.combat.DealDamage;
+import me.fakepumpkin7.pumpkinframework.combat.DealDamage;
 import me.fakepumpkin7.pumpkinframework.player.combattag.CombatMonitorTask;
 import me.fakepumpkin7.pumpkinframework.player.combattag.CombatTagListener;
 import org.bukkit.Bukkit;

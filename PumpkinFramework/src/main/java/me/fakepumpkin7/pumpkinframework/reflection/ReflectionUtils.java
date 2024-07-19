@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinframework;
+package me.fakepumpkin7.pumpkinframework.reflection;
 
 import java.lang.reflect.Field;
 

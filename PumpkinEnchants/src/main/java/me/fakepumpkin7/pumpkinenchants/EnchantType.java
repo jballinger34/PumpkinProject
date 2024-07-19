@@ -13,7 +13,6 @@ public enum EnchantType {
     HEALTHY(new Healthy(), ItemRarity.MYTHIC),
     LIFESTEAL(new Lifesteal(), ItemRarity.MYTHIC),
 
-
     ;
 
     @Getter

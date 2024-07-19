@@ -2,8 +2,7 @@ package me.fakepumpkin7.pumpkinframework.player.combattag;
 
 
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
-import org.bukkit.ChatColor;
+import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +15,7 @@ public class CombatTagListener implements Listener {
 
     @EventHandler
     public void onCDE(CustomDamageEvent event){
-        if(event.getFinalDamage() <= 0) return;
+        if(event.getDamage() <= 0) return;
 
         if(event.getAttacker() instanceof Player){
             CombatTagUtils.flagCombat((Player) event.getAttacker());
