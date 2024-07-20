@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import me.fakepumpkin7.pumpkinframework.event.combat.CustomDamageEvent;
-import me.fakepumpkin7.pumpkinframework.event.combat.CustomVanillaDamageEvent;
+import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import net.minecraft.server.v1_8_R3.EnchantmentDurability;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
