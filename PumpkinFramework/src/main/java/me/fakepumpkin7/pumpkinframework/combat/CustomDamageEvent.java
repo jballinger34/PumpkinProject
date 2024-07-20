@@ -51,8 +51,8 @@ public class CustomDamageEvent extends Event implements Cancellable {
     private double knockback;
 
     public double workOutDamageAfterDefence(){
-        double scaled = damage* (1-(CombatUtils.getEntityDefence(target)/1000));
-        return damage;
+        double scaled = damage * (100/(CombatUtils.getEntityDefence(target)+100));
+        return scaled;
     }
     @Override
     public HandlerList getHandlers() {
