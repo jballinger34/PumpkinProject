@@ -1,0 +1,3 @@
+name: PumpkinCrates
+version: '${version}'
+main: me.fakepumpkin7.pumpkincrates.PumpkinCrates
