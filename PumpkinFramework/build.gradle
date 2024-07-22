@@ -27,6 +27,8 @@ dependencies {
 
     implementation name: 'item-nbt-api-plugin-2.11.1'
 
+
+    compileOnly name: 'PumpkinArmour'
     compileOnly name: 'EnchantmentAPI'
 
     compileOnly name: "spigot-1.8.8"

@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinframework.armor;
+package me.fakepumpkin7.pumpkinframework.armor.events;
 
 import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;

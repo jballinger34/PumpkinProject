@@ -4,7 +4,7 @@ import com.rit.sucy.EnchantmentAPI;
 import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.inventory.ItemStack;
 
-public class EnchantUtils {
+public class EnchantAPI {
 
     //these methods are the same as the ones in EnchantmentAPI
     //just as this is in framework it gives access to other places in the code

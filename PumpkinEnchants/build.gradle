@@ -1,4 +1,5 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
 }
 
@@ -28,7 +29,7 @@ dependencies {
     compileOnly name: "spigot-1.8.8"
     compileOnly name: "PumpkinFramework"
     compileOnly name: "item-nbt-api-plugin-2.11.1"
-    compileOnly name: "EnchantmentAPI"
+    implementation name: "EnchantmentAPI"
 }
 
 def targetJavaVersion = 8
@@ -55,3 +56,5 @@ processResources {
         expand props
     }
 }
+
+buildDependents.dependsOn shadowJar
