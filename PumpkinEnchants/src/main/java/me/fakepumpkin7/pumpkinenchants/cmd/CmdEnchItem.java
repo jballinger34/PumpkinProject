@@ -30,7 +30,7 @@ public class CmdEnchItem implements CommandExecutor {
         Player player = (Player) sender;
 
         if (args.length != 1 && args.length != 2) {
-            ChatUtils.info(player, "/enchrune <enchant> <optional:level>");
+            ChatUtils.info(player, "/enchitem <enchant> <optional:level>");
             return true;
         }
 
