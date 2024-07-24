@@ -8,6 +8,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemUtil {
 
+    public static boolean isValid(ItemStack item){
+        if(item == null || item.getAmount() == 0 || item.getType() == Material.AIR){
+            return false;
+        }
+        return true;
+    }
+
+
     public static ItemStack hideAttributes(ItemStack item){
         ItemMeta meta = item.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

@@ -13,6 +13,7 @@ public class NbtUtil {
         }
         return getNbtItem(item).hasKey(key);
     }
+
     public static NBTItem getNbtItem(ItemStack item) {
         return new NBTItem(item);
     }
@@ -20,8 +21,6 @@ public class NbtUtil {
     public static String getNbtString(ItemStack item, String key) {
         return getNbtItem(item).getString(key);
     }
-
-
 
     public static Integer getNbtInt(ItemStack item, String key) {
         return getNbtItem(item).getInteger(key);

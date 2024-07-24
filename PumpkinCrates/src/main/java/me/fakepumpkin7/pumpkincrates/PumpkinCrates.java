@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkincrates;
 
-import me.fakepumpkin7.pumpkincrates.temp.TempCrate;
+import me.fakepumpkin7.pumpkincrates.cmd.CmdGiveCrate;
+import me.fakepumpkin7.pumpkincrates.listeners.CrateListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,11 +15,18 @@ public final class PumpkinCrates extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
 
-        Bukkit.getPluginManager().registerEvents(new TempCrate(), this);
+        registerListeners();
+        registerCommands();
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+    private void registerListeners(){
+        Bukkit.getPluginManager().registerEvents(new CrateListener(), this);
+    }
+    private void registerCommands(){
+        this.getCommand("givecrate").setExecutor(new CmdGiveCrate());
     }
 }

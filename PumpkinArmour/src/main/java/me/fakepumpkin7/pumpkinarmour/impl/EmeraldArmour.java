@@ -8,6 +8,8 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class EmeraldArmour extends ArmourSet {
 
     public EmeraldArmour(){
@@ -28,6 +30,8 @@ public class EmeraldArmour extends ArmourSet {
 
         pieces.add(new ItemBuilder(Material.SKULL_ITEM)
                 .addNBT("pumpkin-armour-id", id)
+                //add a random uuid otherwise this item will be stackable as its a skull
+                .addNBT("uuid", UUID.randomUUID().toString())
                 .setName(ChatColor.GREEN + "Emerald Helmet")
                 .setDefence(4)
                 .skullTexture("http://textures.minecraft.net/texture/8926c1f2c3c14d086c40cfc235fe938694f4a51067ada4726b486ea1c87b03e2")
