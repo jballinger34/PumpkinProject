@@ -16,5 +16,10 @@
 /PumpkinCore/gradle/
 /PumpkinCore/.idea/
 /PumpkinCore/build/
+/PumpkinCrates/.gradle/
+/PumpkinCrates/gradle/
+/PumpkinCrates/.idea/
+/PumpkinCrates/build/
+
 
 
