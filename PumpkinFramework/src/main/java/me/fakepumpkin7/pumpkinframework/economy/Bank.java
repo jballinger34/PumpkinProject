@@ -32,12 +32,16 @@ public class Bank {
         bank.remove(uuid);
     }
 
+    public static ItemStack createMoneyNote(Double amount){
+        return createMoneyNote("Server", amount);
+    }
+
 
     public static ItemStack createMoneyNote(String signer, Double amount){
         return new ItemBuilder(Material.PAPER)
                 .setName(ChatColor.GOLD.toString() + ChatColor.BOLD + "Money Note")
-                .addLoreLine(ChatColor.WHITE.toString() +"Amount: " + amount)
-                .addLoreLine(ChatColor.WHITE.toString() +"Signed by " + signer)
+                .addLoreLine(ChatColor.GRAY +"Amount: " + amount)
+                .addLoreLine(ChatColor.GRAY + "Signed by " + signer)
                 .addNBT(moneyNoteNBT, amount)
                 .build();
     }

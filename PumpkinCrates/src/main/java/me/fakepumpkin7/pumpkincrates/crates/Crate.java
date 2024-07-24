@@ -99,7 +99,7 @@ public class Crate {
             return;
         }
         PlayerUtils.addItems(player, drops);
-        ChatUtils.success(player, "Opened " + name + ChatColor.GREEN +"!");
+        ChatUtils.success(player, "Opened " + name);
 
 
     }
