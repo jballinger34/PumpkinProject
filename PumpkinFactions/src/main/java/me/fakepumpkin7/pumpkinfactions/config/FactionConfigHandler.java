@@ -21,17 +21,21 @@ public class FactionConfigHandler {
 
             ConfigurationSection membersConfig = facSection.getConfigurationSection("faction-members");
 
-            HashMap<UUID,FactionRank> memberRankMap = new HashMap();
+            HashMap<UUID,FactionRank> memberRankMap = new HashMap<>();
 
-            for(String uuidStr : membersConfig.getKeys(false)){
-                UUID uuid = UUID.fromString(uuidStr);
-                FactionRank factionRank = FactionRank.values()[membersConfig.getInt(uuidStr)];
-                memberRankMap.put(uuid,factionRank);
+            //warzone members may be null
+            if(membersConfig != null){
+                for(String uuidStr : membersConfig.getKeys(false)){
+                    UUID uuid = UUID.fromString(uuidStr);
+                    FactionRank factionRank = FactionRank.values()[membersConfig.getInt(uuidStr)];
+                    memberRankMap.put(uuid,factionRank);
+                }
             }
             FactionHandler.loadFactionFromDisk(facName, memberRankMap);
             Faction faction = FactionHandler.getFactionFromName(facName);
             if(faction == null){
                 System.out.println("Problem Loading Faction From Disk");
+                break;
             }
 
             ConfigurationSection claimsConfig = facSection.getConfigurationSection("faction-claims");

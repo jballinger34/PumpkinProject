@@ -61,6 +61,8 @@ public class PlayerEnterClaimListener implements Listener {
         ChatColor color = ChatColor.WHITE;
         if(newFac.equals(playerFac)){
             color = ChatColor.GREEN;
+        } else if(newFac.getName().equalsIgnoreCase("warzone")){
+            color = ChatColor.DARK_RED;
         } else if (newFac.getAlly() != null && newFac.getAlly().equals(playerFac)){
             color = ChatColor.DARK_PURPLE;
         }
