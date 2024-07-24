@@ -25,7 +25,7 @@ public class Reflect extends BaseEnchant {
         double chance = 0.05;
 
         if (random <= chance) {
-            event.setDamage(event.getDamage());
+            CombatUtils.dealTrueDamage(attacker, event.workOutDamageAfterDefence()*(ReflectionPerLevel*enchantLevel));
         }
     }
 }
