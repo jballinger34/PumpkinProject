@@ -38,7 +38,9 @@ public class Faction {
     //use FactionHandler to create new factions
     //FactionHandler should probably re-create the factions on startup, and save them to config
     protected Faction(Player leader, String name){
-        this.membersAndRank.put(leader.getUniqueId(), FactionRank.LEADER);
+        if(leader != null){
+            this.membersAndRank.put(leader.getUniqueId(), FactionRank.LEADER);
+        }
         this.name = name;
 
     }
@@ -48,6 +50,9 @@ public class Faction {
     }
 
     public int getPower(){
+        if(name.equalsIgnoreCase("warzone")){
+            return 10000;
+        }
         return Math.min(membersAndRank.keySet().size() * powerPerMember, maxPower);
     }
 

@@ -1,14 +1,19 @@
 package me.fakepumpkin7.pumpkinframework.items.nbt;
 
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import de.tr7zw.nbtapi.NBTItem;
 
 public class NbtUtil {
 
     public static boolean hasNbt(ItemStack item, String key) {
+        if(item == null || item.getAmount() == 0 || item.getType()== Material.AIR) {
+            return false;
+        }
         return getNbtItem(item).hasKey(key);
     }
+
     public static NBTItem getNbtItem(ItemStack item) {
         return new NBTItem(item);
     }
@@ -16,8 +21,6 @@ public class NbtUtil {
     public static String getNbtString(ItemStack item, String key) {
         return getNbtItem(item).getString(key);
     }
-
-
 
     public static Integer getNbtInt(ItemStack item, String key) {
         return getNbtItem(item).getInteger(key);

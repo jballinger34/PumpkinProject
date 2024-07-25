@@ -47,6 +47,10 @@ public abstract class ArmourSet {
         }
     }
 
+    public List<ItemStack> getPieces(){
+        return pieces;
+    }
+
 
 
 

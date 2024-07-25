@@ -3,7 +3,6 @@ version: '${version}'
 main: me.fakepumpkin7.pumpkinenchants.PumpkinEnchants
 depend:
   - PumpkinFramework
-  - EnchantmentAPI
 commands:
   enchitem:
     usage: /enchitem <enchant> <level>

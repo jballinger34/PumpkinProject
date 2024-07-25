@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.rit.sucy'
+group = 'me.fakepumpkin7'
 version = ''
 
 repositories {
@@ -25,12 +25,13 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    compileOnly name: "spigot-1.8.8"
+    implementation name: 'item-nbt-api-plugin-2.11.1'
     compileOnly name: "PumpkinFramework"
-    compileOnly name: "PumpkinEnchants"
+
+    compileOnly name: "spigot-1.8.8"
 }
 
-def targetJavaVersion = 8
+def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -54,4 +55,3 @@ processResources {
         expand props
     }
 }
-

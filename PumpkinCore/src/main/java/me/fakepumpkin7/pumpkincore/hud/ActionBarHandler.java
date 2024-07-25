@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 
 public class ActionBarHandler implements Runnable{
 
-
-
     @Override
     public void run() {
         for(Player player : Bukkit.getOnlinePlayers()){

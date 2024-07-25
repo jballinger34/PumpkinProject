@@ -11,15 +11,13 @@ import com.rit.sucy.enchanting.EListener;
 import com.rit.sucy.service.ENameParser;
 import com.rit.sucy.service.ERomanNumeral;
 import com.rit.sucy.service.IModule;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 import me.fakepumpkin7.pumpkinenchants.EnchantType;
+import me.fakepumpkin7.pumpkinenchants.EnchantItem;
+import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -36,6 +34,7 @@ public class EnchantmentAPI extends JavaPlugin {
 
     private final Map<Class<? extends IModule>, IModule> modules = new HashMap();
     private static String TAG = "[EnchantAPI]";
+    private static Random random = new Random();
 
     public EnchantmentAPI() {
     }
@@ -228,7 +227,29 @@ public class EnchantmentAPI extends JavaPlugin {
             return item;
         }
     }
+    public static ItemStack getEnchantItem(String name){
+        CustomEnchantment ench = EnchantType.getEnchantmentTypeFromName(name).getEnchant();
+        if(ench == null){
+            return null;
+        }
+        return EnchantItem.getEnchantItem(ench, random.nextInt(ench.max) + 1);
+    }
+    public static ItemStack getEnchantItem(ItemRarity rarity){
+        //line below grabs all enchants of this rarity in a list
+        List<EnchantType> possibleEnchants = Arrays.stream(EnchantType.values()).filter(enchantType -> enchantType.getRarity() == rarity).collect(Collectors.toList());
+        if (possibleEnchants.isEmpty()) return null;
 
+        String selectedEnchantName = possibleEnchants.get(random.nextInt(possibleEnchants.size())).getEnchant().enchantName;
+        return getEnchantItem(selectedEnchantName);
+    }
+    public static ItemStack getEnchantItem(){
+        List<EnchantType> possibleEnchants = Arrays.asList(EnchantType.values());
+        if (possibleEnchants.isEmpty()) return null;
+
+        String selectedEnchantName = possibleEnchants.get(random.nextInt(possibleEnchants.size())).getEnchant().enchantName;
+        return getEnchantItem(selectedEnchantName);
+
+    }
     public String getTag() {
         return TAG;
     }

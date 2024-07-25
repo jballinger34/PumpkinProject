@@ -17,5 +17,4 @@ public class Sharpness extends BaseEnchant {
         double damage = event.getDamage();
         event.setDamage(damage*(1+(damagebonus*enchantLevel)));
     }
-
 }

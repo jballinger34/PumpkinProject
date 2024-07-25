@@ -1,17 +1,10 @@
 package me.fakepumpkin7.pumpkinframework.hud;
 
-import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Iterator;
-import java.util.Objects;
 
 public class ActionBar {
 

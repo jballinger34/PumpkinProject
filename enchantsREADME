@@ -1,0 +1,26 @@
+Commands:
+    /enchitem <enchant_name> <level>
+    to get a random enchant book.
+    /enchantapi <enchant name> <level>
+    to force apply enchant to item.
+
+How Enchants Work:
+    Something happens in game, game event is called
+    (in case of damage, this is cancelled and new custom event called)
+    EnchantAPI listens for event
+    (at Normal priority for damage, at Monitor priority for anything else)
+    then it calls specific CustomEnchantment method (applyEffect, applyDefenceEffect, etc...)
+    for each valid enchant (see how stacking works below).
+
+
+How Stacking Works:
+    If an enchant called se stacks (in constructor super, stacks param is true)
+    , then when se's methods are called it'll treat
+    se's enchantLevel as the sum of everywhere it is found
+
+
+Other Notes:
+    Enchants on the wrong type of item will still work
+    i.e a boots enchant on a helmet will work as expected
+    But the enchant items (book/emerald or whatever we choose)
+    will only be able to be applied to their enchants EnchantGroup.

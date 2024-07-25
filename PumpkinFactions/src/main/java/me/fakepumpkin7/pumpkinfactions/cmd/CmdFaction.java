@@ -183,6 +183,12 @@ public class CmdFaction implements CommandExecutor {
         }
     }
     private void runWhoCommand(Player player, String name){
+        if(name.equalsIgnoreCase("warzone")){
+            printWarZoneWho(player);
+            return;
+        }
+
+
         if(FactionHandler.getPlayersFaction(name) == null){
             //no faction has player with this name
             //check for factions with this name
@@ -369,13 +375,19 @@ public class CmdFaction implements CommandExecutor {
                 if(claimed != null) {
                     if (claimed.equals(playerFac)) {
                         chatColour = ChatColor.GREEN.toString();
+                    } else if (claimed.getName().equalsIgnoreCase("warzone")){
+                        chatColour = ChatColor.DARK_RED.toString();
                     } else if (claimed.getAlly() != null && claimed.getAlly().equals(playerFac)) {
                         chatColour = ChatColor.LIGHT_PURPLE.toString();
                     }
 
+
                     identifier = claimed.getName().charAt(0);
                     while (identifierAndFacName.containsKey(identifier) && !identifierAndFacName.get(identifier).equals(claimed.getName())) {
                         identifier++;
+                    }
+                    if(claimed.getName().equalsIgnoreCase("warzone")){
+                        identifier = '+';
                     }
                     identifierAndFacName.put(identifier, claimed.getName());
                 }
@@ -388,7 +400,7 @@ public class CmdFaction implements CommandExecutor {
         String msg2 = "";
         player.sendMessage("Key:");
         for(Character c: identifierAndFacName.keySet()){
-            msg2 = msg2 + c + ": " + identifierAndFacName.get(c);
+            msg2 = msg2 + c + ": " + identifierAndFacName.get(c)+ " ";
         }
         player.sendMessage(msg2);
         ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
@@ -399,11 +411,25 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player,"You are not in a faction");
             return;
         }
+
+        FChunk chunk = new FChunk(player.getLocation().getChunk());
+
+        //for warzone, deals with warzone fac overclaiming other land
+        if(faction.getName().equalsIgnoreCase("warzone")){
+            if(FactionHandler.getClaimAt(chunk) != null) {
+                Faction factionWithClaim = FactionHandler.getClaimAt(chunk);
+                FactionHandler.factionUnClaimLand(factionWithClaim,chunk);
+            }
+            FactionHandler.factionClaimLand(faction, chunk);
+
+        }
+        //below deals with normal faction claiming/overclaiming logic
+
         if(!faction.isAtLeast(player, FactionRank.MODERATOR)){
             ChatUtils.info(player,"You do not have permission to use this.");
             return;
         }
-        FChunk chunk = new FChunk(player.getLocation().getChunk());
+
         if(FactionHandler.getClaimAt(chunk) != null && faction.getName().equals(FactionHandler.getClaimAt(chunk))){
             ChatUtils.info(player,"This is already your claim.");
             return;
@@ -448,11 +474,17 @@ public class CmdFaction implements CommandExecutor {
             ChatUtils.info(player,"You are not in a faction");
             return;
         }
+        FChunk chunk = new FChunk(player.getLocation().getChunk());
+
+        if(faction.getName().equalsIgnoreCase("warzone")){
+            FactionHandler.factionUnClaimLand(faction, chunk);
+        }
+
         if(!faction.isAtLeast(player, FactionRank.MODERATOR)){
             ChatUtils.info(player,"You do not have permission to use this.");
             return;
         }
-        FChunk chunk = new FChunk(player.getLocation().getChunk());
+
         if(FactionHandler.getClaimAt(chunk) == null || !FactionHandler.getClaimAt(chunk).equals(faction)){
             ChatUtils.info(player,"You do not own this land to unclaim it.");
             return;
@@ -675,6 +707,11 @@ public class CmdFaction implements CommandExecutor {
         player.sendMessage(msg);
         ChatUtils.sendDivider(player, ""+ChatColor.GREEN + ChatColor.BOLD);
     }
+    private void printWarZoneWho(Player player){
+        ChatUtils.sendDivider(player, ""+ChatColor.DARK_RED + ChatColor.BOLD);
+        player.sendMessage(""+ChatColor.DARK_RED + ChatColor.BOLD + "WarZone");
+        ChatUtils.sendDivider(player, ""+ChatColor.DARK_RED + ChatColor.BOLD);
+    }
     private void printHelp(Player player, int page){
         int totalPages = 3;
         if(page == 1){
@@ -731,6 +768,16 @@ public class CmdFaction implements CommandExecutor {
     }
 
     public void tryJoin(Faction faction, Player player){
+        if(faction.getName().equalsIgnoreCase("warzone")){
+            if(player.isOp()){
+                faction.addMember(player);
+            } else {
+                ChatUtils.warn(player, "You cannot join this faction.");
+            }
+        }
+
+
+
         if(faction.isInviteOnly()){
             if(faction.isInvited(player)){
                 faction.addMember(player);
