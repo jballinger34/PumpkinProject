@@ -23,7 +23,10 @@ public enum EnchantType {
     CACTUS(new Cactus(), ItemRarity.UNCOMMON),
     DIVINE(new Divine(), ItemRarity.RARE),
     BLOCK(new Block(), ItemRarity.UNCOMMON),
-
+    Fire_Resistance(new FireResistance(), ItemRarity.UNCOMMON),
+    SPEEDY(new Speedy(), ItemRarity.UNCOMMON),
+    FORTIFY(new Fortify(), ItemRarity.RARE),
+    NIGHT_VISION(new NightVision(), ItemRarity.COMMON),
     ;
 
     @Getter
