@@ -57,4 +57,10 @@ processResources {
     }
 }
 
+
+shadowJar {
+    relocate 'com.rit.sucy.*','me.fakepumpkin7.pumpkinenchants.imports.enchantmentapi'
+}
+
+
 buildDependents.dependsOn shadowJar

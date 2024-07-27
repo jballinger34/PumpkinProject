@@ -1,6 +1,10 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
 }
+
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: 'java'
 
 group = 'com.rit.sucy'
 version = ''
@@ -27,7 +31,7 @@ dependencies {
 
     compileOnly name: "spigot-1.8.8"
     compileOnly name: "PumpkinFramework"
-    compileOnly name: "PumpkinEnchants"
+    implementation name: "PumpkinEnchants"
 }
 
 def targetJavaVersion = 8
@@ -54,4 +58,12 @@ processResources {
         expand props
     }
 }
+
+shadowJar {
+    relocate 'me.fakepumpkin7.pumpkinenchants', 'com.rit.sucy.imports.pumpkinenchants'
+}
+
+
+buildDependents.dependsOn shadowJar
+
 
