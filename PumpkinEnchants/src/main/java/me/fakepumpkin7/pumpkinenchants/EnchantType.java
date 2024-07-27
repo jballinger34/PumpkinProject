@@ -1,10 +1,9 @@
 package me.fakepumpkin7.pumpkinenchants;
 
 import lombok.Getter;
-import me.fakepumpkin7.pumpkinenchants.enchants.armour.Healthy;
-import me.fakepumpkin7.pumpkinenchants.enchants.armour.LifeEssence;
-import me.fakepumpkin7.pumpkinenchants.enchants.armour.Protection;
-import me.fakepumpkin7.pumpkinenchants.enchants.armour.Reflect;
+import me.fakepumpkin7.pumpkinenchants.enchants.armour.*;
+import me.fakepumpkin7.pumpkinenchants.enchants.weapons.Block;
+import me.fakepumpkin7.pumpkinenchants.enchants.weapons.Divine;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.Lifesteal;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.Sharpness;
 import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
@@ -20,7 +19,10 @@ public enum EnchantType {
     SHARPNESS(new Sharpness(), ItemRarity.MYTHIC),
     REFLECT(new Reflect(), ItemRarity.MYTHIC),
     PROTECTION(new Protection(), ItemRarity.MYTHIC),
-    LIFEESSENCE(new LifeEssence(), ItemRarity.MYTHIC),
+    LIFE_ESSENCE(new LifeEssence(), ItemRarity.MYTHIC),
+    CACTUS(new Cactus(), ItemRarity.UNCOMMON),
+    DIVINE(new Divine(), ItemRarity.RARE),
+    BLOCK(new Block(), ItemRarity.UNCOMMON),
 
     ;
 
