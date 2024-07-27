@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinenchants.enchants.armour;
+package me.fakepumpkin7.pumpkinenchants.enchants.armour.boots;
 
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
@@ -7,19 +7,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class FireResistance extends BaseEnchant {
+public class Speedy extends BaseEnchant {
 
-    public FireResistance() {
-        super("Fire Resistance","Negates fire damage" , EnchantmentGroup.LEGGINGS, 1,false);
+    public Speedy() {
+        super("Speedy","Gives speed" , EnchantmentGroup.BOOTS, 3,false);
     }
+
+    double SpeedPerLevel = 0.04;
 
     @Override
     public void applyEquipEffect(Player player, int enchantLevel) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,999999999,0));
+        CombatUtils.addPlayerSpeed(player,(enchantLevel*SpeedPerLevel));
     }
 
     @Override
     public void applyUnequipEffect(Player player, int enchantLevel) {
-        player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
+        CombatUtils.addPlayerSpeed(player,-(enchantLevel*SpeedPerLevel));
     }
 }

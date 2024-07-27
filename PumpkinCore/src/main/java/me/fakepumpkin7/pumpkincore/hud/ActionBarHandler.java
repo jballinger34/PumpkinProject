@@ -20,7 +20,7 @@ public class ActionBarHandler implements Runnable{
         long baseDmg = Math.round(CombatUtils.getEntityBaseDamage(player));
         long defence = Math.round(CombatUtils.getEntityDefence(player));
         long maxHealth = Math.round(CombatUtils.getEntityMaxHealth(player));
-        long speed = Math.round(CombatUtils.getPlayerSpeed(player));
+        long speed = Math.round(100*CombatUtils.getPlayerSpeed(player));
 
         String message = "" + ChatColor.AQUA + baseDmg + "\u2694 Damage " +ChatColor.GREEN + defence + "\u2748 Defence  " +  ChatColor.RED +maxHealth+ "\u2764 Max-Health  "+ ChatColor.WHITE +speed+ "\u2726 Speed  " ;
         return message;

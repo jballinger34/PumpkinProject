@@ -1,50 +1,45 @@
-package me.fakepumpkin7.pumpkinenchants.enchants.armour;
+package me.fakepumpkin7.pumpkinenchants.enchants.armour.stacks;
 
 import com.rit.sucy.util.PostDefenceEffectRunnable;
 import com.rit.sucy.util.TreeMultiMap;
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
 import me.fakepumpkin7.pumpkinenchants.PumpkinEnchants;
-import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Fortify extends BaseEnchant {
+public class Spectral extends BaseEnchant {
 
-    //Check in Adrenaline for rundown on how this works
+    String metadataTag = "spectral-active";
 
-
-    String metadataTag = "fortify-proc";
-
-    public Fortify() {
-        super("Fortify","Gain defence at low health" , EnchantmentGroup.ARMOR, 5,false);
+    public Spectral() {
+        super("Spectral","Chance to go invisible and invincible" , EnchantmentGroup.ARMOR, 7,true);
     }
 
-    double defencePerLevel = 5;
-
-    double durationTicks = 20;
+    double procChance = 0.01;
+    int durationTicksPerLevel = 10;
 
     @Override
     public void applyDefenseEffect(LivingEntity user, LivingEntity attacker, int enchantLevel, CustomDamageEvent event, TreeMultiMap<PostDefenceEffectRunnable> postRunTasks) {
-
         if (user.hasMetadata(metadataTag) && user.getMetadata(metadataTag).get(0).asLong() >= System.currentTimeMillis()){
+            event.setCancelled(true);
             return;
         }
 
-        if (CombatUtils.getEntityCustomHealth(user) < (CombatUtils.getEntityMaxHealth(user)/5)){
-            double defenceToAdd = enchantLevel*defencePerLevel;
-            CombatUtils.addEntityDefence(user,defenceToAdd);
 
+        double random = Math.random();
+        double chance = procChance;
+        if (random < chance) {
+            //convert the ticks to ms by multiply by 1000/20
+            int activeTimeTicks = durationTicksPerLevel*enchantLevel;
+            int activeTimeMS = 1000*(activeTimeTicks)/20;
 
-            double activeTimeMS = 1000*durationTicks/20;
+            user.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, activeTimeTicks, 0));
             user.setMetadata(metadataTag, new FixedMetadataValue(PumpkinEnchants.getInstance(), System.currentTimeMillis() + activeTimeMS));
-            Bukkit.getScheduler().runTaskLater(PumpkinEnchants.getInstance(), () -> CombatUtils.addEntityBaseDamage(user, -defenceToAdd), (int) durationTicks);
+
         }
     }
-
 }

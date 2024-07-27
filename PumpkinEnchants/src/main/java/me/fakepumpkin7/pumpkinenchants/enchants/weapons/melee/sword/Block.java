@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinenchants.enchants.weapons;
+package me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.sword;
 
 import com.rit.sucy.util.PostDefenceEffectRunnable;
 import com.rit.sucy.util.TreeMultiMap;
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class Block extends BaseEnchant {
     public Block() {
-        super("Block","Gain damage reduction when blocking",3, EnchantmentGroup.WEAPONS);
+        super("Block","Gain damage reduction when blocking", EnchantmentGroup.SWORD, 3);
     }
 
     private double damageReductionPerLevel = 0.1;

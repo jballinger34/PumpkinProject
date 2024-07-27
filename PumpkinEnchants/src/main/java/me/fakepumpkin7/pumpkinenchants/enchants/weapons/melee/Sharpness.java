@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinenchants.enchants.weapons;
+package me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee;
 
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
@@ -8,7 +8,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class Sharpness extends BaseEnchant {
     public Sharpness() {
-        super("Sharpness","Makes sword sharp :D",8, EnchantmentGroup.WEAPONS);
+        super("Sharpness","Makes sword sharp :D", EnchantmentGroup.WEAPONS,8);
     }
     double damagebonus = 0.1;
 
