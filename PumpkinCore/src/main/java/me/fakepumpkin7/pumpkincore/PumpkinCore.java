@@ -1,6 +1,7 @@
 package me.fakepumpkin7.pumpkincore;
 
 import lombok.Getter;
+import me.fakepumpkin7.pumpkincore.features.PearlCooldown;
 import me.fakepumpkin7.pumpkincore.hud.ActionBarHandler;
 import me.fakepumpkin7.pumpkincore.patches.ClearLag;
 import me.fakepumpkin7.pumpkincore.hud.Board;
@@ -38,6 +39,7 @@ public final class PumpkinCore extends JavaPlugin {
 
     private void registerListeners(){
         Bukkit.getPluginManager().registerEvents(new DisableDefaultEnchanting(), this);
+        Bukkit.getPluginManager().registerEvents(new PearlCooldown(), this);
     }
 
     private void registerTasks(){
