@@ -16,6 +16,10 @@ public class UpdateCustomSpeedTask extends BukkitRunnable {
     @Override
     public void run() {
         for(Player player : Bukkit.getOnlinePlayers()){
+            if(CombatUtils.isStun(player)){
+                player.setWalkSpeed(0);
+                continue;
+            }
 
             double speed = CombatUtils.getPlayerSpeed(player);
             player.setWalkSpeed((float) speed);

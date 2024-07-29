@@ -229,5 +229,22 @@ public class CombatUtils {
         return speed;
     }
 
+    public static boolean isStun(Player player){
+        if(player.hasMetadata("pumpkin-stun") && player.getMetadata("pumpkin-stun").get(0).asLong() >= System.currentTimeMillis()){
+            return true;
+        }
+        return false;
+    }
+
+    public static void addStun(Player player, double seconds){
+        long currentStun = System.currentTimeMillis();
+        long stunToAdd = (long) (seconds*1000);
+        if(CombatUtils.isStun(player)){
+            currentStun = player.getMetadata("pumpkin-stun").get(0).asLong();
+        }
+        player.setMetadata("pumpkin-stun",new FixedMetadataValue(PumpkinFramework.getInstance(), currentStun + stunToAdd));
+    }
+
+
 }
 
