@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class Trickshot extends BaseEnchant {
 
     public Trickshot() {
-        super("Trickshot","Chance to get a second, delayed damage event.", EnchantmentGroup.WEAPONS, 5);
+        super("Trickshot","Chance to get a second, delayed damage event.", EnchantmentGroup.MELEE_WEAPONS, 5);
     }
 
     double procChance = 0.01;

@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class DuelWield extends BaseEnchant {
     public DuelWield() {
-        super("Duel Wield","Chance to proc a second damage event.", EnchantmentGroup.WEAPONS, 3);
+        super("Duel Wield","Chance to proc a second damage event.", EnchantmentGroup.MELEE_WEAPONS, 3);
     }
 
     double procChance = 0.01;

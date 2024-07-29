@@ -4,17 +4,17 @@ import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
 import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.entity.EntityDamageEvent;
 
-public class Sharpness extends BaseEnchant {
-    public Sharpness() {
-        super("Sharpness","Makes sword sharp :D", EnchantmentGroup.MELEE_WEAPONS,8);
+public class FireAspect extends BaseEnchant {
+    public FireAspect() {
+        super("FireAspect","Sets victim on fire", EnchantmentGroup.MELEE_WEAPONS,3);
     }
-    double damagebonus = 0.1;
+
+    int ticksPerLevel = 30;
 
     @Override
     public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, CustomDamageEvent event) {
-        double damage = event.getDamage();
-        event.setDamage(damage*(1+(damagebonus*enchantLevel)));
+        target.setFireTicks(ticksPerLevel* enchantLevel);
+
     }
 }

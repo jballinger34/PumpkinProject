@@ -9,9 +9,9 @@ import me.fakepumpkin7.pumpkinenchants.enchants.armour.leggings.Arsonist;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.Cactus;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.stacks.*;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.*;
-import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.DuelWield;
-import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.Sharpness;
-import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.Trickshot;
+import me.fakepumpkin7.pumpkinenchants.enchants.weapons.bow.ArrowRain;
+import me.fakepumpkin7.pumpkinenchants.enchants.weapons.bow.Snare;
+import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.*;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.sword.Block;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.sword.Divine;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.sword.Lifesteal;
@@ -45,6 +45,12 @@ public enum EnchantType {
     TRICKSHOT(new Trickshot(), ItemRarity.MYTHIC),
     DUEL_WIELD(new DuelWield(), ItemRarity.MYTHIC),
     SOUL_HARVEST(new SoulHarvest(), ItemRarity.UNCOMMON),
+    PICKPOCKET(new Pickpocket(), ItemRarity.RARE),
+    FIRE_ASPECT(new FireAspect(), ItemRarity.COMMON),
+    HELLISH(new Hellish(), ItemRarity.MYTHIC),
+    BLEED(new Bleed(), ItemRarity.UNCOMMON),
+    ARROW_RAIN(new ArrowRain(), ItemRarity.RARE),
+    SNARE(new Snare(),ItemRarity.RARE),
     ;
 
     @Getter
