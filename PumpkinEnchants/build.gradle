@@ -9,8 +9,7 @@ version = ''
 repositories {
     mavenCentral()
     flatDir{
-        dirs 'D:/Users/balli/Desktop/PumpkinProject/libraries'
-        dirs 'C:/Users/44748/IdeaProjects/PumpkinProject/libraries'
+        dirs '/../libraries'
     }
     maven {
         name = "spigotmc-repo"
