@@ -49,7 +49,7 @@ public enum EnchantType {
     FIRE_ASPECT(new FireAspect(), ItemRarity.COMMON),
     HELLISH(new Hellish(), ItemRarity.MYTHIC),
     BLEED(new Bleed(), ItemRarity.UNCOMMON),
-    ARROW_RAIN(new ArrowRain(), ItemRarity.RARE),
+    //ARROW_RAIN(new ArrowRain(), ItemRarity.RARE),
     SNARE(new Snare(),ItemRarity.RARE),
     ;
 

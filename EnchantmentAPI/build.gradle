@@ -31,7 +31,6 @@ dependencies {
 
     compileOnly name: "spigot-1.8.8"
     compileOnly name: "PumpkinFramework"
-    implementation name: "PumpkinEnchants"
 }
 
 def targetJavaVersion = 8

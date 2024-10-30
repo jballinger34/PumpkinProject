@@ -1,6 +1,8 @@
 name: EnchantmentAPI
 main: com.rit.sucy.EnchantmentAPI
 version: 4.28
+depend:
+  - PumpkinFramework
 commands:
   enchantapi:
     description: root command

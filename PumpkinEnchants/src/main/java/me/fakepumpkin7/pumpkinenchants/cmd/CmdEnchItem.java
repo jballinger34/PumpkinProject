@@ -56,7 +56,7 @@ public class CmdEnchItem implements CommandExecutor {
         }
 
 
-        ItemStack toAdd = EnchantItem.getEnchantItem(enchantment, level);
+        ItemStack toAdd = EnchantItem.getInstance().getEnchantItem(enchantment, level);
 
         PlayerUtils.addItems(player,toAdd);
         return true;

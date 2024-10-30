@@ -1,4 +1,6 @@
 package me.fakepumpkin7.pumpkinenchants;
+
+import com.rit.sucy.EnchantItemManager;
 import com.rit.sucy.EnchantPlugin;
 import com.rit.sucy.EnchantmentAPI;
 import me.fakepumpkin7.pumpkinenchants.cmd.CmdEnchItem;
@@ -13,6 +15,9 @@ public final class PumpkinEnchants extends EnchantPlugin {
         instance = this;
 
         System.out.println("Registering Enchants");
+
+        EnchantItemManager.setEnchantItem(EnchantItem.getInstance());
+
         registerEnchantments();
         registerListeners();
         registerCommands();
