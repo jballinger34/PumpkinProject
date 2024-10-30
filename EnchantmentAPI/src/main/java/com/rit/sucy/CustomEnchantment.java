@@ -16,8 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import me.fakepumpkin7.pumpkinenchants.EnchantType;
 import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
+import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -37,6 +37,7 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
     protected String description;
     protected Material[] naturalItems;
     protected int max;
+    protected ItemRarity rarity;
     protected boolean stacks;
 
     public CustomEnchantment(String name, String description, Material[] naturalItems, int max, boolean stacks) {
@@ -55,6 +56,7 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
     public String getDescription() {
         return this.description;
     }
+    public ItemRarity getRarity(){return this.rarity;}
 
     public boolean canStack(){
         return stacks;
@@ -123,7 +125,7 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
         Validate.notNull(meta);
         List<String> metaLore = meta.getLore() == null ? new ArrayList() : meta.getLore();
         String thisName = this.name();
-        ChatColor enchantmentColour = EnchantType.getEnchantmentTypeFromName(this.enchantName).getRarity().getColor();
+        ChatColor enchantmentColour = this.getRarity().getColor();
         Iterator var7 = EnchantmentAPI.getEnchantments(meta).entrySet().iterator();
 
         while(var7.hasNext()) {

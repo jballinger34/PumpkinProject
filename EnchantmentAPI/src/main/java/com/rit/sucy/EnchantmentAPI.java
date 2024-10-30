@@ -13,10 +13,9 @@ import com.rit.sucy.service.ERomanNumeral;
 import com.rit.sucy.service.IModule;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import me.fakepumpkin7.pumpkinenchants.EnchantType;
-import me.fakepumpkin7.pumpkinenchants.EnchantItem;
+import me.fakepumpkin7.pumpkinframework.enchants.EnchantAPI;
+import me.fakepumpkin7.pumpkinframework.enchants.EnchantManager;
 import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -25,11 +24,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class EnchantmentAPI extends JavaPlugin {
+public class EnchantmentAPI extends JavaPlugin implements EnchantAPI {
     private static Hashtable<String, CustomEnchantment> enchantments = new Hashtable();
 
     private final Map<Class<? extends IModule>, IModule> modules = new HashMap();
@@ -40,8 +38,12 @@ public class EnchantmentAPI extends JavaPlugin {
     }
 
     public void onEnable() {
+        EnchantManager.setEnchantAPI(this);
+
         this.getCommand("enchantapi").setExecutor(new Commander(this));
         this.reload();
+
+
     }
 
     public void onDisable() {
@@ -89,8 +91,11 @@ public class EnchantmentAPI extends JavaPlugin {
         return enchantments.containsKey(enchantmentName.toUpperCase());
     }
 
+    public void addEnchant(String enchName, int level, ItemStack toAdd){
+        getEnchantment(enchName).addToItem(toAdd,level);
+    }
     public static CustomEnchantment getEnchantment(String name) {
-        return (CustomEnchantment)enchantments.get(name.toUpperCase());
+        return enchantments.get(name.toUpperCase());
     }
 
     public static Set<String> getEnchantmentNames() {
@@ -219,7 +224,7 @@ public class EnchantmentAPI extends JavaPlugin {
 
             while(var3.hasNext()) {
                 Map.Entry<CustomEnchantment, Integer> entry = (Map.Entry)var3.next();
-                lore.remove(EnchantType.getEnchantmentTypeFromName(((CustomEnchantment)entry.getKey()).name()).getRarity().getColor() + ((CustomEnchantment)entry.getKey()).name() + " " + ERomanNumeral.numeralOf((Integer)entry.getValue()));
+                lore.remove(entry.getKey().getRarity().getColor() + ((CustomEnchantment)entry.getKey()).name() + " " + ERomanNumeral.numeralOf((Integer)entry.getValue()));
             }
 
             meta.setLore(lore);
@@ -227,27 +232,49 @@ public class EnchantmentAPI extends JavaPlugin {
             return item;
         }
     }
-    public static ItemStack getEnchantItem(String name){
-        CustomEnchantment ench = EnchantType.getEnchantmentTypeFromName(name).getEnchant();
-        if(ench == null){
+
+    public ItemStack getEnchantItem(CustomEnchantment ce, int level){
+        return EnchantItemManager.getEnchantItem(ce, level);
+    }
+    public ItemStack getEnchantItem(String name, int level){
+        CustomEnchantment ce = getEnchantment(name);
+        if(ce == null){
             return null;
         }
-        return EnchantItem.getEnchantItem(ench, random.nextInt(ench.max) + 1);
+
+        if(level == -1){
+            level = random.nextInt(ce.max) + 1;
+        }
+
+        return getEnchantItem(ce, level);
     }
-    public static ItemStack getEnchantItem(ItemRarity rarity){
+    public ItemStack getEnchantItem(ItemRarity rarity, int level){
+
+
         //line below grabs all enchants of this rarity in a list
-        List<EnchantType> possibleEnchants = Arrays.stream(EnchantType.values()).filter(enchantType -> enchantType.getRarity() == rarity).collect(Collectors.toList());
+        List<CustomEnchantment> possibleEnchants = new ArrayList<>();
+        for(CustomEnchantment ce : enchantments.values()){
+            if(ce.getRarity() == rarity){
+                possibleEnchants.add(ce);
+            }
+        }
         if (possibleEnchants.isEmpty()) return null;
 
-        String selectedEnchantName = possibleEnchants.get(random.nextInt(possibleEnchants.size())).getEnchant().enchantName;
-        return getEnchantItem(selectedEnchantName);
+        CustomEnchantment ce = possibleEnchants.get(random.nextInt(possibleEnchants.size()));
+
+        if(level == -1){
+            level = random.nextInt(ce.max) + 1;
+        }
+
+
+        return getEnchantItem(ce, level);
     }
-    public static ItemStack getEnchantItem(){
-        List<EnchantType> possibleEnchants = Arrays.asList(EnchantType.values());
+    public ItemStack getEnchantItem(){
+        List<CustomEnchantment> possibleEnchants = (List<CustomEnchantment>) enchantments.values();
         if (possibleEnchants.isEmpty()) return null;
 
-        String selectedEnchantName = possibleEnchants.get(random.nextInt(possibleEnchants.size())).getEnchant().enchantName;
-        return getEnchantItem(selectedEnchantName);
+        CustomEnchantment ce = possibleEnchants.get(random.nextInt(possibleEnchants.size()));
+        return getEnchantItem(ce, random.nextInt(ce.max) + 1);
 
     }
     public String getTag() {

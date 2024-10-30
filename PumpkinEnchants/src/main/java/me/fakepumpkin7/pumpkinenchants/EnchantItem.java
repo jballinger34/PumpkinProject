@@ -11,18 +11,25 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class EnchantItem {
+public class EnchantItem implements com.rit.sucy.EnchantItem {
+
+    private static EnchantItem instance = new EnchantItem();
+
+    public static EnchantItem getInstance() {
+        return instance;
+    }
 
     private static final Random random = new Random();
     public static final Material enchantMaterial = Material.BOOK;
     public static final String enchantNBT = "isEnchItem";
     public static final int maxEnchantsOnItem = 8;
 
-    public static ItemStack getEnchantItem(CustomEnchantment ench, int level) {
+    public ItemStack getEnchantItem(CustomEnchantment ench, int level) {
         return getEnchantItem(ench, level, random.nextInt(100), random.nextInt(100));
     }
 

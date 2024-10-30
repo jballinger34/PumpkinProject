@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkinframework.armor;
 
-import me.fakepumpkin7.pumpkinarmour.struct.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ArmourSetsAPI {
 
-    private static Random random = new Random();
+    /*private static Random random = new Random();
 
     public static ItemStack getArmourItem(){
         List<ArmourSetRegistry> allSets = Arrays.asList(ArmourSetRegistry.values());
@@ -23,7 +22,7 @@ public class ArmourSetsAPI {
         }
     }
 
-
+*/
 
 
 
