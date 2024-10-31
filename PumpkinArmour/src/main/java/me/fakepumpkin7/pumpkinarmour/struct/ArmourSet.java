@@ -34,7 +34,7 @@ public abstract class ArmourSet {
     public String getId() {
         return id;
     }
-    public void initSet(){
+    protected void initSet(){
     }
 
     public ItemRarity getRarity() {

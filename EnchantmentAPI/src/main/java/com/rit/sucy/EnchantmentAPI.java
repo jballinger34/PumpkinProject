@@ -270,7 +270,7 @@ public class EnchantmentAPI extends JavaPlugin implements EnchantAPI {
         return getEnchantItem(ce, level);
     }
     public ItemStack getEnchantItem(){
-        List<CustomEnchantment> possibleEnchants = (List<CustomEnchantment>) enchantments.values();
+        List<CustomEnchantment> possibleEnchants = new ArrayList<>(enchantments.values());
         if (possibleEnchants.isEmpty()) return null;
 
         CustomEnchantment ce = possibleEnchants.get(random.nextInt(possibleEnchants.size()));

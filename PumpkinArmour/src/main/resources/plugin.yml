@@ -1,6 +1,8 @@
 name: PumpkinArmour
 version: '${version}'
 main: me.fakepumpkin7.pumpkinarmour.PumpkinArmour
+depend:
+  - PumpkinFramework
 commands:
   givearmourset:
     usage: /givearmourset <setid>
