@@ -1,6 +1,8 @@
 package me.fakepumpkin7.pumpkinarmour.impl;
 
 import me.fakepumpkin7.pumpkinarmour.struct.ArmourSet;
+import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
+import me.fakepumpkin7.pumpkinframework.enchants.EnchantManager;
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
 import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.ChatColor;
@@ -9,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
+
+import static me.fakepumpkin7.pumpkinarmour.PumpkinArmour.PUMPKIN_ARMOUR_ID;
 
 public class EmeraldArmour extends ArmourSet {
 
@@ -29,7 +33,7 @@ public class EmeraldArmour extends ArmourSet {
     public void initSet(){
 
         pieces.add(new ItemBuilder(Material.SKULL_ITEM)
-                .addNBT("pumpkin-armour-id", id)
+                .addNBT(PUMPKIN_ARMOUR_ID, id)
                 //add a random uuid otherwise this item will be stackable as its a skull
                 .addNBT("uuid", UUID.randomUUID().toString())
                 .setName(ChatColor.GREEN + "Emerald Helmet")
@@ -40,7 +44,7 @@ public class EmeraldArmour extends ArmourSet {
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_CHESTPLATE)
-                .addNBT("pumpkin-armour-id", id)
+                .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GREEN + "Emerald Chestplate")
                 .setDefence(7)
                 .dyeLeather(Color.LIME)
@@ -49,7 +53,7 @@ public class EmeraldArmour extends ArmourSet {
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_LEGGINGS)
-                .addNBT("pumpkin-armour-id", id)
+                .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GREEN + "Emerald Leggings")
                 .setDefence(6)
                 .dyeLeather(Color.LIME)
@@ -58,7 +62,7 @@ public class EmeraldArmour extends ArmourSet {
                 .build());
 
         pieces.add(new ItemBuilder(Material.LEATHER_BOOTS)
-                .addNBT("pumpkin-armour-id", id)
+                .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GREEN + "Emerald Boots")
                 .setDefence(3)
                 .dyeLeather(Color.LIME)

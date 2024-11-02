@@ -8,6 +8,8 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import static me.fakepumpkin7.pumpkinarmour.PumpkinArmour.PUMPKIN_ARMOUR_ID;
+
 public class MidasArmour extends ArmourSet {
 
     public MidasArmour(){
@@ -26,7 +28,7 @@ public class MidasArmour extends ArmourSet {
     @Override
     public void initSet(){
         pieces.add(new ItemBuilder(Material.GOLD_HELMET)
-                .addNBT("pumpkin-armour-id", id)
+                .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Helmet")
                 .setDefence(6)
                 .addStatsLore()
@@ -34,7 +36,7 @@ public class MidasArmour extends ArmourSet {
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_CHESTPLATE)
-                .addNBT("pumpkin-armour-id", id)
+                .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Chestplate")
                 .setDefence(10)
                 .addStatsLore()
@@ -42,7 +44,7 @@ public class MidasArmour extends ArmourSet {
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_LEGGINGS)
-                .addNBT("pumpkin-armour-id", id)
+                .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Leggings")
                 .setDefence(9)
                 .addStatsLore()
@@ -50,7 +52,7 @@ public class MidasArmour extends ArmourSet {
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_BOOTS)
-                .addNBT("pumpkin-armour-id", id)
+                .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Boots")
                 .setDefence(6)
                 .addStatsLore()
