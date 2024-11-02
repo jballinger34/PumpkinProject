@@ -35,7 +35,6 @@ dependencies {
 
     compileOnly name: "spigot-1.8.8"
     compileOnly name: "PumpkinFramework"
-    compileOnly name: "item-nbt-api-plugin-2.11.1"
     compileOnly "com.destroystokyo.paper:paper-api:1.12-R0.1-SNAPSHOT"
 }
 

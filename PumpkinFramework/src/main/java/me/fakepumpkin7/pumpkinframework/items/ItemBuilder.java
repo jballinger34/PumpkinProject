@@ -3,8 +3,10 @@ package me.fakepumpkin7.pumpkinframework.items;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
+import me.fakepumpkin7.pumpkinframework.enchants.EnchantManager;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import net.minecraft.server.v1_8_R3.Packet;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -105,6 +107,14 @@ public class ItemBuilder {
 
         return lore;
     }
+
+    public ItemBuilder hideAttributes(ItemStack item){
+        ItemMeta meta = item.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        item.setItemMeta(meta);
+        return this;
+    }
+
 
     public ItemBuilder addGlow(){
         if(item.getType() == Material.FISHING_ROD){
@@ -250,6 +260,10 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder addEnchant(String name, int level){
+        EnchantManager.getEnchantAPI().addEnchant(name,level,this.item);
+        return this;
+    }
 
     public ItemStack build(){
         return this.item;

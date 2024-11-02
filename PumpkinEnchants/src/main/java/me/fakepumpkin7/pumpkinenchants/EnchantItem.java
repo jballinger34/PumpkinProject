@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

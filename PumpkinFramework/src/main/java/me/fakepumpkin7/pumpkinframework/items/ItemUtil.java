@@ -16,23 +16,45 @@ public class ItemUtil {
     }
 
 
-    public static ItemStack hideAttributes(ItemStack item){
-        ItemMeta meta = item.getItemMeta();
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        item.setItemMeta(meta);
-        return item;
+    public static boolean isHelmet(ItemStack item){
+        if(!isValid(item)) return false;
+        Material type = item.getType();
+        if(     type == Material.DIAMOND_HELMET || type == Material.IRON_HELMET ||
+                type == Material.CHAINMAIL_HELMET || type == Material.GOLD_HELMET ||
+                type == Material.LEATHER_HELMET ||
+                type == Material.SKULL_ITEM || type == Material.SKULL
+        ) return true;
+        return false;
     }
-    public static ItemStack addGlow(ItemStack item){
-        if(item.getType() == Material.FISHING_ROD){
-            item.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        } else {
-            item.addUnsafeEnchantment(Enchantment.LURE, 1);
-        }
-        ItemMeta meta = item.getItemMeta();
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
-        item.setItemMeta(meta);
-        return item;
+    public static boolean isChestplate(ItemStack item){
+        if(!isValid(item)) return false;
+        Material type = item.getType();
+        if(     type == Material.DIAMOND_CHESTPLATE || type == Material.IRON_CHESTPLATE||
+                type == Material.CHAINMAIL_CHESTPLATE || type == Material.GOLD_CHESTPLATE ||
+                type == Material.LEATHER_CHESTPLATE
+        ) return true;
+        return false;
+    }
+
+    public static boolean isLeggings(ItemStack item){
+        if(!isValid(item)) return false;
+        Material type = item.getType();
+        if(     type == Material.DIAMOND_LEGGINGS || type == Material.IRON_LEGGINGS ||
+                type == Material.CHAINMAIL_LEGGINGS || type == Material.GOLD_LEGGINGS ||
+                type == Material.LEATHER_LEGGINGS
+        ) return true;
+        return false;
+    }
+
+    public static boolean isBoots(ItemStack item){
+        if(!isValid(item)) return false;
+        Material type = item.getType();
+        if(     type == Material.DIAMOND_BOOTS || type == Material.IRON_BOOTS ||
+                type == Material.CHAINMAIL_BOOTS || type == Material.GOLD_BOOTS ||
+                type == Material.LEATHER_BOOTS
+        ) return true;
+        return false;
     }
 
 }
