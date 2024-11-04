@@ -7,3 +7,11 @@ depend:
 commands:
   enchitem:
     usage: /enchitem <enchant> <level>
+  enchants:
+    usage: /enchants
+    aliases:
+      - enchant
+      - enchantments
+      - enchantment
+      - rune
+      - runes

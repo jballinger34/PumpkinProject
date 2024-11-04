@@ -7,7 +7,7 @@ import org.bukkit.entity.LivingEntity;
 
 public class FireAspect extends BaseEnchant {
     public FireAspect() {
-        super("FireAspect","Sets victim on fire", EnchantmentGroup.MELEE_WEAPONS,3);
+        super("Fire Aspect","Sets victim on fire", EnchantmentGroup.MELEE_WEAPONS,3);
     }
 
     int ticksPerLevel = 30;

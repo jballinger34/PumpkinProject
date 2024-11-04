@@ -5,6 +5,7 @@ import me.fakepumpkin7.pumpkinenchants.enchants.armour.*;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.boots.Leap;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.boots.Speedy;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.helmet.Clarity;
+import me.fakepumpkin7.pumpkinenchants.enchants.armour.helmet.Oxygen;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.leggings.Arsonist;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.Cactus;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.stacks.*;
@@ -35,7 +36,7 @@ public enum EnchantType {
     SPEEDY(new Speedy(), ItemRarity.UNCOMMON),
     FORTIFY(new Fortify(), ItemRarity.RARE),
     CLARITY(new Clarity(), ItemRarity.COMMON),
-    OXYGEN(new Clarity(), ItemRarity.COMMON),
+    OXYGEN(new Oxygen(), ItemRarity.COMMON),
     PYROMANIAC(new Pyromaniac(), ItemRarity.UNCOMMON),
     SPECTRAL(new Spectral(), ItemRarity.MYTHIC),
     MARKSMAN(new Marksman(), ItemRarity.MYTHIC),

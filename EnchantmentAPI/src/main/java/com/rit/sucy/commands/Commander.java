@@ -26,23 +26,17 @@ public class Commander extends CommandHandler {
     }
 
     public boolean noArgs(CommandSender sender, Command command, String label) {
+        if(!sender.isOp()) return true;
+
         sender.sendMessage(ChatColor.GRAY + "========= " + ChatColor.RED + this.plugin.getName() + ChatColor.GRAY + " =========");
         sender.sendMessage(" /enchantapi");
         sender.sendMessage("    help         " + ChatColor.YELLOW + "- Show the help menu");
-        if (sender.isOp()) {
-            sender.sendMessage("    list          " + ChatColor.YELLOW + "- List all enchantments");
-            sender.sendMessage("    list <page> " + ChatColor.YELLOW + "- List a page of enchantments with descriptions");
-        }
-
-        if (sender.isOp()) {
-            sender.sendMessage("    book        " + ChatColor.YELLOW + "- Gives a book with enchantment descriptions");
-        }
-
-        if (sender.isOp()) {
-            sender.sendMessage("    reload      " + ChatColor.YELLOW + "- Reload the plugin");
-            sender.sendMessage("    add          " + ChatColor.YELLOW + "- Add an enchantment to an item");
-            sender.sendMessage("    remove          " + ChatColor.YELLOW + "- Remove an enchantment from an item");
-        }
+        sender.sendMessage("    list          " + ChatColor.YELLOW + "- List all enchantments");
+        sender.sendMessage("    list <page> " + ChatColor.YELLOW + "- List a page of enchantments with descriptions");
+        sender.sendMessage("    book        " + ChatColor.YELLOW + "- Gives a book with enchantment descriptions");
+        sender.sendMessage("    reload      " + ChatColor.YELLOW + "- Reload the plugin");
+        sender.sendMessage("    add          " + ChatColor.YELLOW + "- Add an enchantment to an item");
+        sender.sendMessage("    remove          " + ChatColor.YELLOW + "- Remove an enchantment from an item");
 
         return true;
     }

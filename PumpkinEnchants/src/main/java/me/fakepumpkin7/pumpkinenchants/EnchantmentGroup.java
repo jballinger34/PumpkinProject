@@ -144,4 +144,8 @@ public enum EnchantmentGroup {
         }
         return m;
     }
+
+    public List<EnchantmentGroup> getApplicableGroups() {
+        return children;
+    }
 }
