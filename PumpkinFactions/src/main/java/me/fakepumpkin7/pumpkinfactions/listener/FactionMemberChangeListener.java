@@ -1,9 +1,8 @@
 package me.fakepumpkin7.pumpkinfactions.listener;
 
 import me.fakepumpkin7.pumpkinfactions.config.FactionConfigHandler;
-import me.fakepumpkin7.pumpkinframework.factions.Faction;
-import me.fakepumpkin7.pumpkinframework.factions.event.FactionDisbandEvent;
-import me.fakepumpkin7.pumpkinframework.factions.event.FactionMemberJoinLeaveEvent;
+import me.fakepumpkin7.pumpkinfactions.event.FactionDisbandEvent;
+import me.fakepumpkin7.pumpkinfactions.event.FactionMemberJoinLeaveEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

@@ -1,8 +1,11 @@
 package me.fakepumpkin7.pumpkinfactions.config;
 
+import me.fakepumpkin7.pumpkinfactions.Faction;
+import me.fakepumpkin7.pumpkinfactions.FactionHandler;
 import me.fakepumpkin7.pumpkinfactions.PumpkinFactions;
-import me.fakepumpkin7.pumpkinframework.factions.*;
-import me.fakepumpkin7.pumpkinframework.factions.Faction;
+import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
+import me.fakepumpkin7.pumpkinfactions.struct.FWarp;
+import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -21,7 +24,7 @@ public class FactionConfigHandler {
 
             ConfigurationSection membersConfig = facSection.getConfigurationSection("faction-members");
 
-            HashMap<UUID,FactionRank> memberRankMap = new HashMap<>();
+            HashMap<UUID, FactionRank> memberRankMap = new HashMap<>();
 
             //warzone members may be null
             if(membersConfig != null){

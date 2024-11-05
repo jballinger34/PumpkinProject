@@ -1,4 +1,5 @@
-package me.fakepumpkin7.pumpkinframework.factions;
+package me.fakepumpkin7.pumpkinfactions.struct;
+
 
 import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.player.teleport.TeleportUtils;

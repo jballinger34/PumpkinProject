@@ -4,8 +4,6 @@ import lombok.Getter;
 import me.fakepumpkin7.pumpkinfactions.cmd.CmdFaction;
 import me.fakepumpkin7.pumpkinfactions.config.FactionConfigHandler;
 import me.fakepumpkin7.pumpkinfactions.listener.*;
-import me.fakepumpkin7.pumpkinframework.factions.Faction;
-import me.fakepumpkin7.pumpkinframework.factions.FactionHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

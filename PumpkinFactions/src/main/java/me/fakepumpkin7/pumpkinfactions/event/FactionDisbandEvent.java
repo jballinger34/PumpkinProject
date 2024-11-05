@@ -1,7 +1,7 @@
-package me.fakepumpkin7.pumpkinframework.factions.event;
+package me.fakepumpkin7.pumpkinfactions.event;
+
 
 import lombok.Getter;
-import me.fakepumpkin7.pumpkinframework.factions.Faction;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

@@ -1,14 +1,12 @@
 package me.fakepumpkin7.pumpkinfactions.listener;
 
+
+import me.fakepumpkin7.pumpkinfactions.Faction;
+import me.fakepumpkin7.pumpkinfactions.FactionHandler;
+import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.factions.FChunk;
-import me.fakepumpkin7.pumpkinframework.factions.Faction;
-import me.fakepumpkin7.pumpkinframework.factions.FactionHandler;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,9 +15,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
 
 public class FactionBlockProtectListener implements Listener {
 

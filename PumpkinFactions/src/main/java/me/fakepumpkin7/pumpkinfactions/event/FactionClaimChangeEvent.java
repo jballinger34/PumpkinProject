@@ -1,11 +1,12 @@
-package me.fakepumpkin7.pumpkinframework.factions.event;
+package me.fakepumpkin7.pumpkinfactions.event;
 
 import lombok.Getter;
-import me.fakepumpkin7.pumpkinframework.factions.Faction;
+import me.fakepumpkin7.pumpkinfactions.Faction;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class FactionMemberJoinLeaveEvent extends Event {
+
+public class FactionClaimChangeEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
 
     @Getter
@@ -13,7 +14,7 @@ public class FactionMemberJoinLeaveEvent extends Event {
 
 
 
-    public FactionMemberJoinLeaveEvent(Faction faction){
+    public FactionClaimChangeEvent(Faction faction){
         this.faction = faction;
     }
 
@@ -24,5 +25,6 @@ public class FactionMemberJoinLeaveEvent extends Event {
     }
 
     public static HandlerList getHandlerList(){return HANDLERS;}
+
 
 }

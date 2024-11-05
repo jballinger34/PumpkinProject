@@ -1,10 +1,12 @@
-package me.fakepumpkin7.pumpkinframework.factions;
+package me.fakepumpkin7.pumpkinfactions;
 
 
 import lombok.Getter;
-import me.fakepumpkin7.pumpkinframework.factions.event.FactionClaimChangeEvent;
-import me.fakepumpkin7.pumpkinframework.factions.event.FactionDisbandEvent;
-import me.fakepumpkin7.pumpkinframework.factions.event.FactionMemberJoinLeaveEvent;
+import me.fakepumpkin7.pumpkinfactions.event.FactionClaimChangeEvent;
+import me.fakepumpkin7.pumpkinfactions.event.FactionDisbandEvent;
+import me.fakepumpkin7.pumpkinfactions.event.FactionMemberJoinLeaveEvent;
+import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
+import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

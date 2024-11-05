@@ -1,7 +1,11 @@
 package me.fakepumpkin7.pumpkinfactions.cmd;
 
+import me.fakepumpkin7.pumpkinfactions.Faction;
+import me.fakepumpkin7.pumpkinfactions.FactionHandler;
+import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
+import me.fakepumpkin7.pumpkinfactions.struct.FWarp;
+import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.factions.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

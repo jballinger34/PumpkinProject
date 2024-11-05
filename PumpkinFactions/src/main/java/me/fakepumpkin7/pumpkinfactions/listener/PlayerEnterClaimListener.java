@@ -1,10 +1,9 @@
 package me.fakepumpkin7.pumpkinfactions.listener;
 
+import me.fakepumpkin7.pumpkinfactions.Faction;
+import me.fakepumpkin7.pumpkinfactions.FactionHandler;
+import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.factions.FChunk;
-import me.fakepumpkin7.pumpkinframework.factions.Faction;
-import me.fakepumpkin7.pumpkinframework.factions.FactionHandler;
-import me.fakepumpkin7.pumpkinframework.hud.Title;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
