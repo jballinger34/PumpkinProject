@@ -1,7 +1,7 @@
 package me.fakepumpkin7.pumpkinfactions;
 
 import lombok.Getter;
-import me.fakepumpkin7.pumpkinfactions.cmd.CmdFaction;
+import me.fakepumpkin7.pumpkinfactions.cmd.faction.CmdFaction;
 import me.fakepumpkin7.pumpkinfactions.config.FactionConfigHandler;
 import me.fakepumpkin7.pumpkinfactions.listener.*;
 import org.bukkit.Bukkit;

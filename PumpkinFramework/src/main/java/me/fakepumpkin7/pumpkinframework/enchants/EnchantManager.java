@@ -5,8 +5,6 @@ import org.bukkit.inventory.ItemStack;
 public class EnchantManager {
     private static EnchantAPI enchantAPI;
 
-    //in
-
 
     public static void setEnchantAPI(EnchantAPI api) {
         enchantAPI = api;
