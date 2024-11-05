@@ -14,15 +14,23 @@ import java.util.*;
 
 public class FactionConfigHandler {
 
+    //Strings used in config layout
+    private static String configSectionString = "factions";
+    private static String claimsSectionString = "faction-claims";
+    private static String claimsStringName = "claims-string";
+    private static String membersSectionString = "faction-members";
+    private static String warpsSectionString = "faction-warps";
+    private static String warpsStringName = "all-warps";
+
     public static void loadFromConfig(){
-        ConfigurationSection cs = PumpkinFactions.getInstance().getConfig().getConfigurationSection("factions");
+        ConfigurationSection cs = PumpkinFactions.getInstance().getConfig().getConfigurationSection(configSectionString);
         if(cs == null) return;
 
         for(String facName : cs.getKeys(false)){
             ConfigurationSection facSection = cs.getConfigurationSection(facName);
             if(facSection == null) continue;
 
-            ConfigurationSection membersConfig = facSection.getConfigurationSection("faction-members");
+            ConfigurationSection membersConfig = facSection.getConfigurationSection(membersSectionString);
 
             HashMap<UUID, FactionRank> memberRankMap = new HashMap<>();
 
@@ -41,68 +49,76 @@ public class FactionConfigHandler {
                 break;
             }
 
-            ConfigurationSection claimsConfig = facSection.getConfigurationSection("faction-claims");
+            ConfigurationSection claimsConfig = facSection.getConfigurationSection(claimsSectionString);
 
-            List<FChunk> chunkList = deserializeFChunks(claimsConfig.getString("claims-string"));
+            List<FChunk> chunkList = deserializeFChunks(claimsConfig.getString(claimsStringName));
             faction.getClaims().addAll(chunkList);
 
-            ConfigurationSection warpsConfig = facSection.getConfigurationSection("faction-warps");
-            List<FWarp> warps = deserializeFWarps(warpsConfig.getString("all-warps"));
+            ConfigurationSection warpsConfig = facSection.getConfigurationSection(warpsSectionString);
+            List<FWarp> warps = deserializeFWarps(warpsConfig.getString(warpsStringName));
             faction.getWarps().addAll(warps);
 
         }
 
     }
 
+
+    public static void saveAllToConfig(){
+        for(Faction faction : FactionHandler.getAllFactions()){
+            saveFactionToConfig(faction);
+        }
+    }
+
+    private static void saveFactionToConfig(Faction faction){
+        ConfigurationSection factionSection = getFactionSection(faction);
+
+        ConfigurationSection claimsSection = getClaimsSection(faction);
+        saveClaims(claimsSection, faction);
+
+        //we deal with members and their ranks differently, so use factionSection.
+        saveMembers(factionSection, faction);
+
+        ConfigurationSection warpsSection = getWarpsSection(faction);
+        saveWarps(warpsSection, faction);
+
+        PumpkinFactions.getInstance().saveConfig();
+    }
+
+    public static void saveClaimsToConfig(Faction faction){
+        saveClaims(getClaimsSection(faction), faction);
+        PumpkinFactions.getInstance().saveConfig();
+    }
+    public static void saveMembersToConfig(Faction faction){
+        saveMembers(getFactionSection(faction), faction);
+        PumpkinFactions.getInstance().saveConfig();
+    }
+    public static void saveWarpsToConfig(Faction faction){
+        saveClaims(getWarpsSection(faction), faction);
+        PumpkinFactions.getInstance().saveConfig();
+    }
+
+
     //TODO WORK ON THIS SO ITS DOESN'T STORE AS MUCH REDUNDANT INFO
     // SPLIT THIS UP INTO SAVE MEMBERS, SAVE CHUNKS, ETC IF ANYTHING ELSE ADDED
     // this will reduce overall load, as this will be called whenever members change, land claimed etc
-    public static void saveToConfig(Faction faction){
-        if(PumpkinFactions.getInstance().getConfig().getConfigurationSection("factions") == null){
-            PumpkinFactions.getInstance().getConfig().createSection("factions");
-        }
-        ConfigurationSection section = PumpkinFactions.getInstance().getConfig().getConfigurationSection("factions");
 
-        String factionName = faction.getName();
-        if(section.getConfigurationSection(factionName) == null){
-            section.createSection(factionName);
-        }
-        ConfigurationSection factionSection = section.getConfigurationSection(factionName);
-
-        //deal with members and their ranks.
-        //as this isnt a serialised string, we have to wipe all and readd
-        factionSection.set("faction-members", null);
-        ConfigurationSection membersSection = factionSection.createSection("faction-members");
+    private static void saveClaims(ConfigurationSection claimsSection, Faction faction){
+        claimsSection.set(claimsStringName, serializeFChunks(faction.getClaims()));
+    }
+    private static void saveMembers(ConfigurationSection factionSection, Faction faction){
+        factionSection.set(membersSectionString, null);
+        ConfigurationSection membersSection = factionSection.createSection(membersSectionString);
 
         for(UUID member : faction.getMembersAndRank().keySet()){
             membersSection.set(member.toString(), faction.getMembersAndRank().get(member).ordinal());
         }
-
-        //deal with claims
-        if(factionSection.getConfigurationSection("faction-claims") == null){
-            factionSection.createSection("faction-claims");
-        }
-        ConfigurationSection claimsSection = factionSection.getConfigurationSection("faction-claims");
-
-        claimsSection.set("claims-string", serializeFChunks(faction.getClaims()));
-
-        //deal with warps
-        if(factionSection.getConfigurationSection("faction-warps") == null){
-            factionSection.createSection("faction-warps");
-        }
-        ConfigurationSection warpsSection = factionSection.getConfigurationSection("faction-warps");
-
-        warpsSection.set("all-warps", serializeFWarps(faction.getWarps()));
-
-        PumpkinFactions.getInstance().saveConfig();
     }
-    public static void saveAllToConfig(){
-        for(Faction faction : FactionHandler.getAllFactions()){
-            saveToConfig(faction);
-        }
+    private static void saveWarps(ConfigurationSection warpsSection, Faction faction){
+        warpsSection.set(warpsStringName, serializeFWarps(faction.getWarps()));
     }
+
     public static void removeFaction(String factionName){
-        PumpkinFactions.getInstance().getConfig().getConfigurationSection("factions").set(factionName, null);
+        PumpkinFactions.getInstance().getConfig().getConfigurationSection(configSectionString).set(factionName, null);
         PumpkinFactions.getInstance().saveConfig();
     }
     private static String serializeFChunks(List<FChunk> chunkList){
@@ -180,6 +196,39 @@ public class FactionConfigHandler {
         }
         return toReturn;
     }
+
+
+    private static ConfigurationSection getConfigSection(Faction faction){
+        if(PumpkinFactions.getInstance().getConfig().getConfigurationSection(configSectionString) == null){
+            PumpkinFactions.getInstance().getConfig().createSection(configSectionString);
+        }
+        return PumpkinFactions.getInstance().getConfig().getConfigurationSection(configSectionString);
+    }
+    private static ConfigurationSection getFactionSection(Faction faction){
+        ConfigurationSection section = getConfigSection(faction);
+
+        String factionName = faction.getName();
+        if(section.getConfigurationSection(factionName) == null){
+            section.createSection(factionName);
+        }
+        return section.getConfigurationSection(factionName);
+    }
+    private static ConfigurationSection getClaimsSection(Faction faction){
+        ConfigurationSection factionSection = getFactionSection(faction);
+        if(factionSection.getConfigurationSection(claimsSectionString) == null){
+            factionSection.createSection(claimsSectionString);
+        }
+        return factionSection.getConfigurationSection(claimsSectionString);
+    }
+    private static ConfigurationSection getWarpsSection(Faction faction) {
+        ConfigurationSection factionSection = getFactionSection(faction);
+        if(factionSection.getConfigurationSection(warpsSectionString) == null){
+            factionSection.createSection(warpsSectionString);
+        }
+        return factionSection.getConfigurationSection(warpsSectionString);
+
+    }
+
 
 
 }

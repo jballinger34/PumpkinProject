@@ -2,6 +2,8 @@ name: PumpkinEconomy
 version: '${version}'
 main: me.fakepumpkin7.pumpkineconomy.PumpkinEconomy
 api-version: '1.8.9'
+depend:
+  - PumpkinFramework
 commands:
   balance:
     usage: /balance <player>

@@ -10,7 +10,7 @@ public class FactionMemberChangeListener implements Listener {
 
     @EventHandler
     public void onJoinLeave(FactionMemberJoinLeaveEvent event){
-        FactionConfigHandler.saveToConfig(event.getFaction());
+        FactionConfigHandler.saveMembersToConfig(event.getFaction());
     }
     @EventHandler
     public void onDisband(FactionDisbandEvent event){

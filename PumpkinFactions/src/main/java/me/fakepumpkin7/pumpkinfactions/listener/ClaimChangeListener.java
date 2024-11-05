@@ -11,6 +11,6 @@ public class ClaimChangeListener implements Listener {
 
     @EventHandler
     public void onClaimChange(FactionClaimChangeEvent event){
-        FactionConfigHandler.saveToConfig(event.getFaction());
+        FactionConfigHandler.saveClaimsToConfig(event.getFaction());
     }
 }
