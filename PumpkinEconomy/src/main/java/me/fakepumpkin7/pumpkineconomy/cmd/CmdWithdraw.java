@@ -1,8 +1,7 @@
 package me.fakepumpkin7.pumpkineconomy.cmd;
 
+import me.fakepumpkin7.pumpkineconomy.Bank;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.economy.Bank;
-import me.fakepumpkin7.pumpkinframework.items.ItemUtil;
 import me.fakepumpkin7.pumpkinframework.player.PlayerUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,14 +36,14 @@ public class CmdWithdraw implements CommandExecutor {
             ChatUtils.info(player, "Invalid amount, withdraw at least 1000.");
             return true;
         }
-        if(!Bank.hasFunds(player.getUniqueId(), amount)){
+        if(!Bank.getInstance().hasFunds(player.getUniqueId(), amount)){
             ChatUtils.info(player, "You do not have adequate funds.");
             return true;
         }
 
         ChatUtils.notify(player, "Successfully withdrew " + amount);
-        Bank.addBalance(player.getUniqueId(), -amount);
-        ItemStack moneyNote = Bank.createMoneyNote(player.getName(), amount);
+        Bank.getInstance().addBalance(player.getUniqueId(), -amount);
+        ItemStack moneyNote = Bank.getInstance().createMoneyNote(player.getName(), amount);
         PlayerUtils.addItems(player, moneyNote);
 
 

@@ -1,7 +1,7 @@
 package me.fakepumpkin7.pumpkineconomy.listener;
 
+import me.fakepumpkin7.pumpkineconomy.Bank;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.economy.Bank;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +26,7 @@ public class MoneyNoteListener implements Listener {
             item.setAmount(stackSize - 1);
             player.setItemInHand(item);
 
-            Bank.addBalance(player.getUniqueId(), moneyValue);
+            Bank.getInstance().addBalance(player.getUniqueId(), moneyValue);
             ChatUtils.notify(player, "Redeemed money note worth " + moneyValue);
         }
     }

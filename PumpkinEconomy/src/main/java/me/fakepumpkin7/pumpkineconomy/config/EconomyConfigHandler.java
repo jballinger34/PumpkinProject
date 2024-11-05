@@ -1,7 +1,7 @@
 package me.fakepumpkin7.pumpkineconomy.config;
 
+import me.fakepumpkin7.pumpkineconomy.Bank;
 import me.fakepumpkin7.pumpkineconomy.PumpkinEconomy;
-import me.fakepumpkin7.pumpkinframework.economy.Bank;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,7 +16,7 @@ public class EconomyConfigHandler implements Listener {
     static String balanceSectionString = "balances";
 
     public static void updateBalanceInConfig(UUID uuid){
-        double currentBal = Bank.getBalance(uuid);
+        double currentBal = Bank.getInstance().getBalance(uuid);
 
         FileConfiguration config = PumpkinEconomy.getInstance().getConfig();
         if(config.getConfigurationSection(balanceSectionString) == null){

@@ -1,8 +1,8 @@
 package me.fakepumpkin7.pumpkineconomy.cmd;
 
+import me.fakepumpkin7.pumpkineconomy.Bank;
 import me.fakepumpkin7.pumpkineconomy.config.EconomyConfigHandler;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.economy.Bank;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -21,7 +21,7 @@ public class CmdBal implements CommandExecutor {
         } 
         Player player = (Player) commandSender;
         if(strings.length == 0){
-            double balance = Bank.getBalance(player.getUniqueId());
+            double balance = Bank.getInstance().getBalance(player.getUniqueId());
             ChatUtils.notify(player, "Your balance is: " + balance);
             return true;
         }
@@ -36,8 +36,8 @@ public class CmdBal implements CommandExecutor {
             }
 
             UUID uuid = offlinePlayer.getUniqueId();
-            if(Bank.getBalance(uuid) != null){
-                double balance = Bank.getBalance(uuid);
+            if(Bank.getInstance().getBalance(uuid) != null){
+                double balance = Bank.getInstance().getBalance(uuid);
                 ChatUtils.notify(player, name + "'s balance is: " + balance);
                 return true;
             }

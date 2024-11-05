@@ -1,7 +1,7 @@
 package me.fakepumpkin7.pumpkineconomy.cmd;
 
+import me.fakepumpkin7.pumpkineconomy.Bank;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.economy.Bank;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -50,13 +50,13 @@ public class CmdPay implements CommandExecutor {
             return true;
         }
 
-        if(!Bank.hasFunds(sender, amount)){
+        if(!Bank.getInstance().hasFunds(sender, amount)){
             ChatUtils.info(player, "You do not have adequate funds.");
             return true;
         }
 
-        Bank.addBalance(sender,-amount);
-        Bank.addBalance(sendTo,amount);
+        Bank.getInstance().addBalance(sender,-amount);
+        Bank.getInstance().addBalance(sendTo,amount);
 
         ChatUtils.notify(player, "Sent "+ amount + " to " + receiver.getName());
         ChatUtils.notify(receiver, "Recieved "+ amount + " from " + player.getName());

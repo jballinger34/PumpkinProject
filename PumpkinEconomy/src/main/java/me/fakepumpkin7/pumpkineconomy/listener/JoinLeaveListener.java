@@ -1,8 +1,8 @@
 package me.fakepumpkin7.pumpkineconomy.listener;
 
+import me.fakepumpkin7.pumpkineconomy.Bank;
 import me.fakepumpkin7.pumpkineconomy.PumpkinEconomy;
 import me.fakepumpkin7.pumpkineconomy.config.EconomyConfigHandler;
-import me.fakepumpkin7.pumpkinframework.economy.Bank;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -27,14 +27,14 @@ public class JoinLeaveListener implements Listener {
         if(balance == null){
             balance = PumpkinEconomy.initialBalance;
         }
-        Bank.setBalance(uuid,balance);
+        Bank.getInstance().setBalance(uuid,balance);
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event){
         UUID uuid = event.getPlayer().getUniqueId();
         EconomyConfigHandler.updateBalanceInConfig(uuid);
-        Bank.removeEntry(uuid);
+        Bank.getInstance().removeEntry(uuid);
     }
 
 
