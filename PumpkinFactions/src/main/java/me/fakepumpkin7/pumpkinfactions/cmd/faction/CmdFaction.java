@@ -17,15 +17,29 @@ import static me.fakepumpkin7.pumpkinfactions.cmd.faction.subcmds.SubCommandRegi
 
 public class CmdFaction implements CommandExecutor {
 
+    //two ways to run subcommands:
+    //examples both run help command for player with no arguments
+    //
+    //return SubCommandRegistry.run("help", player, null);
+    //and
+    //return CMD_HELP.run(player, null);
+    //
+    //chosen to use 2nd option as doesnt change if aliases for
+    //players running the command change
+    //
+    //i.e if we change /f help to /f helppage (by changing) the alias
+    //in the enum, wed have to change it here as well
+
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if(!(commandSender instanceof Player)) return false;
         Player player = (Player) commandSender;
+
         //run help if no args given (/f)
         if(strings.length == 0) {
             //runs help command with no args, should print help page 1
-            SubCommandRegistry.run("help", player, null);
+            return CMD_HELP.run(player, null);
         }
         //run help, look for page
         String subCommand = strings[0];
@@ -33,7 +47,7 @@ public class CmdFaction implements CommandExecutor {
         //subargs may be null, if this is the case, all we have to deal with it the subcommand
         String[] subArgs = null;
         if(strings.length >= 2) {
-            subArgs = Arrays.copyOfRange(strings, 2, strings.length);
+            subArgs = Arrays.copyOfRange(strings, 1, strings.length);
         }
 
         //cases where a command runs another with a specific argument,
