@@ -57,7 +57,7 @@ public abstract class CustomEnchantment implements Comparable<CustomEnchantment>
         return this.description;
     }
     public ItemRarity getRarity(){return this.rarity;}
-
+    public void setRarity(ItemRarity rarity){this.rarity = rarity;}
     public boolean canStack(){
         return stacks;
     }

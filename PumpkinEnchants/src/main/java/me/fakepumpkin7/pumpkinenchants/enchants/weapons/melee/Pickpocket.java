@@ -3,9 +3,8 @@ package me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee;
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
-import me.fakepumpkin7.pumpkinframework.economy.Bank;
+import me.fakepumpkin7.pumpkinframework.economy.EconomyManager;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
@@ -30,10 +29,10 @@ public class Pickpocket extends BaseEnchant {
             Player attacker = (Player) user;
             Player victim = (Player) target;
 
-            double toAdd = Bank.getBalance(victim.getUniqueId())*(percentOfMoneyStolen/100);
+            double toAdd = EconomyManager.getEconomyAPI().getBalance(victim.getUniqueId())*(percentOfMoneyStolen/100);
 
-            Bank.addBalance(attacker.getUniqueId(), toAdd);
-            Bank.addBalance(victim.getUniqueId(), -toAdd);
+            EconomyManager.getEconomyAPI().addBalance(attacker.getUniqueId(), toAdd);
+            EconomyManager.getEconomyAPI().addBalance(victim.getUniqueId(), -toAdd);
 
             ChatUtils.notify(attacker, "Pickpocket: +" + toAdd);
             ChatUtils.warn(victim, "Pickpocket: -" + toAdd);

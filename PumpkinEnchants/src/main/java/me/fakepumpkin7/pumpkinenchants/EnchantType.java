@@ -70,6 +70,7 @@ public enum EnchantType {
 
     static {
         for (EnchantType enchantmentType : values()) {
+            enchantmentType.getEnchant().setRarity(enchantmentType.rarity);
             nameToEnumMap.put(enchantmentType.name, enchantmentType);
         }
     }
