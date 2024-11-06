@@ -44,7 +44,7 @@ public final class PumpkinCore extends JavaPlugin {
 
     private void registerTasks(){
         Bukkit.getScheduler().runTaskTimer(this, new Board(),0,100);
-        Bukkit.getScheduler().runTaskTimer(this, new ActionBarHandler(),0,40);
+        Bukkit.getScheduler().runTaskTimer(this, new ActionBarHandler(),0,10);
         Bukkit.getScheduler().runTaskTimer(this, new ClearLag(),0,15*60*20);
     }
 }

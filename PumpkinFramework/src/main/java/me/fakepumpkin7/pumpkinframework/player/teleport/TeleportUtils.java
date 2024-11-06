@@ -1,5 +1,6 @@
 package me.fakepumpkin7.pumpkinframework.player.teleport;
 
+import com.google.common.collect.Maps;
 import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
@@ -8,10 +9,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class TeleportUtils {
 
     @Getter
-    private static long defaultTimedTPseconds = 5;
+    static long defaultTimedTPseconds = 5;
+
+    //stores players who are teleporting, and the time they started teleporting
+    private static final Map<Player, TeleportTask> currentlyTeleporting = Maps.newConcurrentMap();
 
     public static void timedTeleport(Player player, Location location){
         timedTeleport(player, location, defaultTimedTPseconds);
@@ -25,6 +33,19 @@ public class TeleportUtils {
 
         TeleportTask tt = new TeleportTask(player, location, seconds);
         tt.runTaskTimer(PumpkinFramework.getInstance(), TeleportTask.interval, TeleportTask.interval);
+        currentlyTeleporting.put(player, tt);
+    }
+
+    public static boolean isTeleporting(Player player){
+        return currentlyTeleporting.containsKey(player);
+    }
+    public static TeleportTask getTask(Player player){
+        return currentlyTeleporting.get(player);
+    }
+
+
+    protected static void endTeleport(Player player){
+        currentlyTeleporting.remove(player);
     }
 
 }

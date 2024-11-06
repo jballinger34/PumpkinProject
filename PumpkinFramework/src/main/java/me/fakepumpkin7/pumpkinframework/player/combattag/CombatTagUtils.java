@@ -9,7 +9,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public class CombatTagUtils {
 
-    protected static String combatTagMetadataTag = "pumpkin-combat-tag";
+    public static final String combatTagMetadataTag = "pumpkin-combat-tag";
 
     protected static long defaultCombatTagSeconds = 15;
     protected static void flagCombat(Player player){
@@ -39,6 +39,12 @@ public class CombatTagUtils {
 
     public static boolean inCombat(Player player) {
         return player.hasMetadata(combatTagMetadataTag);
+    }
+    public static long getWhenCombatStarted(Player player){
+        return CombatMonitorTask.getStartTime(player);
+    }
+    public static long getWhenCombatEnds(Player player) {
+        return player.getMetadata(CombatTagUtils.combatTagMetadataTag).get(0).asLong();
     }
 
 }
