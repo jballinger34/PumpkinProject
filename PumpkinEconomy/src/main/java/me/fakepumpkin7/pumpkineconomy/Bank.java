@@ -49,22 +49,9 @@ public class Bank implements EconomyAPI {
                 .build();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public String getCurrencyString() {
+        return "$";
+    }
 
 
 }

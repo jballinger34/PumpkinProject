@@ -18,5 +18,6 @@ public interface EconomyAPI {
     ItemStack createMoneyNote(Double amount);
 
     ItemStack createMoneyNote(String signer, Double amount);
+    String getCurrencyString();
 
 }
