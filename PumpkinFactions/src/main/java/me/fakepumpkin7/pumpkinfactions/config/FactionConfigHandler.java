@@ -42,8 +42,8 @@ public class FactionConfigHandler {
                     memberRankMap.put(uuid,factionRank);
                 }
             }
-            FactionHandler.loadFactionFromDisk(facName, memberRankMap);
-            Faction faction = FactionHandler.getFactionFromName(facName);
+            FactionHandler.getInstance().loadFactionFromDisk(facName, memberRankMap);
+            Faction faction = FactionHandler.getInstance().getFactionFromName(facName);
             if(faction == null){
                 System.out.println("Problem Loading Faction From Disk");
                 break;
@@ -64,7 +64,7 @@ public class FactionConfigHandler {
 
 
     public static void saveAllToConfig(){
-        for(Faction faction : FactionHandler.getAllFactions()){
+        for(Faction faction : FactionHandler.getInstance().getAllFactions()){
             saveFactionToConfig(faction);
         }
     }

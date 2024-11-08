@@ -22,7 +22,7 @@ public class CmdPromote implements SubCmd {
         return true;
     }
     private void runPromoteCommand(Player player, String name){
-        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        Faction faction = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
         if(faction == null) {
             ChatUtils.info(player,"You are not in a faction");
             return;

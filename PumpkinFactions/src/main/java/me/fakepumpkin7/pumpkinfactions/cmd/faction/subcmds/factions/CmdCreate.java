@@ -19,12 +19,12 @@ public class CmdCreate implements SubCmd {
     }
 
     private void runCreateCommand(Player player, String name){
-        if(FactionHandler.getPlayersFaction(player.getUniqueId()) != null){
+        if(FactionHandler.getInstance().getPlayersFaction(player.getUniqueId()) != null){
             ChatUtils.info(player,"Leave your current faction first");
-        } else if (FactionHandler.getFactionFromName(name) != null){
+        } else if (FactionHandler.getInstance().getFactionFromName(name) != null){
             ChatUtils.info(player,"A faction with this name already exists");
         } else {
-            FactionHandler.createNewFaction(player,name);
+            FactionHandler.getInstance().createNewFaction(player,name);
             ChatUtils.success(player,"Created "+ name);
         }
     }

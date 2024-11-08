@@ -25,7 +25,7 @@ public class CmdSetWarp implements SubCmd {
 
 
     private void runSetWarpCommand(Player player, String warpName){
-        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        Faction faction = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
 
         if(faction == null) {
             ChatUtils.info(player,"You are not in a faction");
@@ -46,7 +46,7 @@ public class CmdSetWarp implements SubCmd {
                 ChatUtils.info(player,"Faction already has a home.");
                 return;
             }
-            if(FactionHandler.getClaimAt(chunk) == null || !FactionHandler.getClaimAt(chunk).equals(faction)){
+            if(FactionHandler.getInstance().getClaimAt(chunk) == null || !FactionHandler.getInstance().getClaimAt(chunk).equals(faction)){
                 ChatUtils.info(player,"Faction home can only be set in a chunk your faction owns.");
                 return;
             }
@@ -58,7 +58,7 @@ public class CmdSetWarp implements SubCmd {
                 ChatUtils.info(player,"A warp with this name already exists.");
                 return;
             }
-            if(FactionHandler.getClaimAt(chunk) == null || !FactionHandler.getClaimAt(chunk).equals(faction)){
+            if(FactionHandler.getInstance().getClaimAt(chunk) == null || !FactionHandler.getInstance().getClaimAt(chunk).equals(faction)){
                 ChatUtils.info(player,"Faction warps can only be set in chunks your faction owns.");
                 return;
             }

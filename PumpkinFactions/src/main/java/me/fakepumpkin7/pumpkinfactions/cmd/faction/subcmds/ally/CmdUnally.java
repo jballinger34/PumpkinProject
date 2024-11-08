@@ -5,6 +5,7 @@ import me.fakepumpkin7.pumpkinfactions.FactionHandler;
 import me.fakepumpkin7.pumpkinfactions.cmd.faction.subcmds.SubCmd;
 import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public class CmdUnally implements SubCmd {
@@ -14,7 +15,7 @@ public class CmdUnally implements SubCmd {
         return true;
     }
     private void runUnAllyCommand(Player player){
-        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        Faction faction = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
         if(faction == null) {
             ChatUtils.info(player,"You are not in a faction");
             return;
@@ -28,11 +29,11 @@ public class CmdUnally implements SubCmd {
             return;
         }
         Faction ally = faction.getAlly();
-        for(Player allyPlayer : ally.getOnlineMembers()){
-            ChatUtils.notify(allyPlayer,"Your faction is no longer allies with "+ faction.getName() + ".");
+        for(OfflinePlayer allyPlayer : ally.getOnlineMembers()){
+            ChatUtils.notify(allyPlayer.getPlayer(),"Your faction is no longer allies with "+ faction.getName() + ".");
         }
-        for(Player facPlayer : faction.getOnlineMembers()){
-            ChatUtils.notify(facPlayer,"Your faction is no longer allies with "+ ally.getName() + ".");
+        for(OfflinePlayer facPlayer : faction.getOnlineMembers()){
+            ChatUtils.notify(facPlayer.getPlayer(),"Your faction is no longer allies with "+ ally.getName() + ".");
         }
         faction.resetAlly();
     }

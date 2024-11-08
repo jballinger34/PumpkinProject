@@ -21,7 +21,7 @@ public class CmdAlly implements SubCmd {
         return true;
     }
     private void runAllyCommand(Player player, String name){
-        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        Faction faction = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
         if(faction == null) {
             ChatUtils.info(player,"You are not in a faction");
             return;
@@ -30,9 +30,9 @@ public class CmdAlly implements SubCmd {
             ChatUtils.info(player,"You do not have permission to use this.");
             return;
         }
-        Faction toAlly = FactionHandler.getFactionFromName(name);
+        Faction toAlly = FactionHandler.getInstance().getFactionFromName(name);
         if(toAlly == null){
-            toAlly = FactionHandler.getPlayersFaction(name);
+            toAlly = FactionHandler.getInstance().getPlayersFaction(name);
         }
         if(toAlly == null){
             ChatUtils.info(player,"Cannot find faction or player with name " + name + ".");

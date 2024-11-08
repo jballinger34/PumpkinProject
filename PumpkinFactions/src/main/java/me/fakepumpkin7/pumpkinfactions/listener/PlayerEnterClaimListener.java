@@ -36,8 +36,8 @@ public class PlayerEnterClaimListener implements Listener {
             //same chunk
             return;
         }
-        Faction oldFac = FactionHandler.getClaimAt(lastChunk);
-        Faction newFac = FactionHandler.getClaimAt(currentChunk);
+        Faction oldFac = FactionHandler.getInstance().getClaimAt(lastChunk);
+        Faction newFac = FactionHandler.getInstance().getClaimAt(currentChunk);
         //wilderness to wilderness
         if(oldFac == null && newFac == null){
             return;
@@ -55,7 +55,7 @@ public class PlayerEnterClaimListener implements Listener {
             return;
         }
         //claim to claim, new fac
-        Faction playerFac = FactionHandler.getPlayersFaction(uuid);
+        Faction playerFac = FactionHandler.getInstance().getPlayersFaction(uuid);
 
         ChatColor color = ChatColor.WHITE;
         if(newFac.equals(playerFac)){

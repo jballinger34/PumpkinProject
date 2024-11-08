@@ -19,14 +19,14 @@ public class CmdJoin implements SubCmd {
     }
     private void runJoinCommand(Player player, String name){
         //check for factions with this name, or factions with player with this name
-        if(FactionHandler.getPlayersFaction(name) == null && FactionHandler.getFactionFromName(name) == null){
+        if(FactionHandler.getInstance().getPlayersFaction(name) == null && FactionHandler.getInstance().getFactionFromName(name) == null){
             //nothing found at all
             ChatUtils.info(player, "No faction/player found with this name.");
             return;
         }
-        Faction faction = FactionHandler.getFactionFromName(name);
+        Faction faction = FactionHandler.getInstance().getFactionFromName(name);
         if(faction == null){
-            faction = FactionHandler.getPlayersFaction(name);
+            faction = FactionHandler.getInstance().getPlayersFaction(name);
         }
         tryJoin(faction, player);
     }

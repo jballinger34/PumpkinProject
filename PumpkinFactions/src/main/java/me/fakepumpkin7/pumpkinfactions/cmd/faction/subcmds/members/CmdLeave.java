@@ -13,10 +13,10 @@ public class CmdLeave implements SubCmd {
     }
 
     private void runLeaveCommand(Player player){
-        if(FactionHandler.getPlayersFaction(player.getUniqueId()) == null){
+        if(FactionHandler.getInstance().getPlayersFaction(player.getUniqueId()) == null){
             ChatUtils.info(player,"You are not in a faction");
         } else {
-            FactionHandler.getPlayersFaction(player.getUniqueId()).removeMember(player);
+            FactionHandler.getInstance().getPlayersFaction(player.getUniqueId()).removeMember(player);
         }
     }
 

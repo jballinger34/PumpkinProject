@@ -30,9 +30,9 @@ public class FactionBlockProtectListener implements Listener {
         if(block == null) return;
 
 
-        Faction claimOwner = FactionHandler.getClaimAt(new FChunk(block.getChunk()));
+        Faction claimOwner = FactionHandler.getInstance().getClaimAt(new FChunk(block.getChunk()));
         if(claimOwner == null) return;
-        if(claimOwner.equals(FactionHandler.getPlayersFaction(breaker.getUniqueId()))){
+        if(claimOwner.equals(FactionHandler.getInstance().getPlayersFaction(breaker.getUniqueId()))){
             return;
         }
 
@@ -48,11 +48,11 @@ public class FactionBlockProtectListener implements Listener {
         if(placer == null) return;
         if(block == null) return;
 
-        Faction claimOwner = FactionHandler.getClaimAt(new FChunk(block.getChunk()));
+        Faction claimOwner = FactionHandler.getInstance().getClaimAt(new FChunk(block.getChunk()));
 
         if(claimOwner == null) return;
 
-        if(claimOwner.equals(FactionHandler.getPlayersFaction(placer.getUniqueId()))){
+        if(claimOwner.equals(FactionHandler.getInstance().getPlayersFaction(placer.getUniqueId()))){
             return;
         }
 
@@ -72,11 +72,11 @@ public class FactionBlockProtectListener implements Listener {
             return;
         }
 
-        Faction claimOwner = FactionHandler.getClaimAt(new FChunk(block.getChunk()));
+        Faction claimOwner = FactionHandler.getInstance().getClaimAt(new FChunk(block.getChunk()));
 
         if(claimOwner == null) return;
 
-        if(claimOwner.equals(FactionHandler.getPlayersFaction(placer.getUniqueId()))){
+        if(claimOwner.equals(FactionHandler.getInstance().getPlayersFaction(placer.getUniqueId()))){
             return;
         }
 
@@ -91,11 +91,11 @@ public class FactionBlockProtectListener implements Listener {
         Block block = event.getBlockClicked();
         Player player = event.getPlayer();
 
-        Faction claimOwner = FactionHandler.getClaimAt(new FChunk(block.getChunk()));
+        Faction claimOwner = FactionHandler.getInstance().getClaimAt(new FChunk(block.getChunk()));
 
         if(claimOwner == null) return;
 
-        if(claimOwner.equals(FactionHandler.getPlayersFaction(player.getUniqueId()))){
+        if(claimOwner.equals(FactionHandler.getInstance().getPlayersFaction(player.getUniqueId()))){
             return;
         }
         event.setCancelled(true);

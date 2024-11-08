@@ -16,7 +16,7 @@ public class CmdUnclaim implements SubCmd {
     }
 
     private void runUnClaim(Player player){
-        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        Faction faction = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
 
         if(faction == null) {
             ChatUtils.info(player,"You are not in a faction");
@@ -25,7 +25,7 @@ public class CmdUnclaim implements SubCmd {
         FChunk chunk = new FChunk(player.getLocation().getChunk());
 
         if(faction.getName().equalsIgnoreCase("warzone")){
-            FactionHandler.factionUnClaimLand(faction, chunk);
+            FactionHandler.getInstance().factionUnClaimLand(faction, chunk);
         }
 
         if(!faction.isAtLeast(player, FactionRank.MODERATOR)){
@@ -33,11 +33,11 @@ public class CmdUnclaim implements SubCmd {
             return;
         }
 
-        if(FactionHandler.getClaimAt(chunk) == null || !FactionHandler.getClaimAt(chunk).equals(faction)){
+        if(FactionHandler.getInstance().getClaimAt(chunk) == null || !FactionHandler.getInstance().getClaimAt(chunk).equals(faction)){
             ChatUtils.info(player,"You do not own this land to unclaim it.");
             return;
         }
-        FactionHandler.factionUnClaimLand(faction,chunk);
+        FactionHandler.getInstance().factionUnClaimLand(faction,chunk);
         ChatUtils.notify(player,"Successfully unclaimed land.");
     }
 

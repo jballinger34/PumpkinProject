@@ -20,7 +20,7 @@ public class CmdMap implements SubCmd {
         ChatUtils.sendDivider(player, ""+ ChatColor.GREEN + ChatColor.BOLD);
         FChunk currentChunk = new FChunk(player.getLocation().getChunk());
         String world = currentChunk.getWorldName();
-        Faction playerFac = FactionHandler.getPlayersFaction(player.getUniqueId());
+        Faction playerFac = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
         int chunkX = currentChunk.getX();
         int chunkY = currentChunk.getY();
 
@@ -28,7 +28,7 @@ public class CmdMap implements SubCmd {
         HashMap<Character, String> identifierAndFacName = new HashMap<>();
         for(int y = -4; y < 5; y++){
             for(int x = -9; x < 10; x++){
-                Faction claimed = FactionHandler.getClaimAt(world,chunkX + x, chunkY + y);
+                Faction claimed = FactionHandler.getInstance().getClaimAt(world,chunkX + x, chunkY + y);
                 String chatColour = ChatColor.WHITE.toString();
                 char identifier = '-';
                 if(x == 0 && y == 0){

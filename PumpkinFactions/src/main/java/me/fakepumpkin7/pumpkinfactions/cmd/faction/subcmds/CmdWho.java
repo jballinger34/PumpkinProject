@@ -5,6 +5,7 @@ import me.fakepumpkin7.pumpkinfactions.FactionHandler;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -27,17 +28,17 @@ public class CmdWho implements SubCmd {
         }
 
 
-        if(FactionHandler.getPlayersFaction(name) == null){
+        if(FactionHandler.getInstance().getPlayersFaction(name) == null){
             //no faction has player with this name
             //check for factions with this name
-            if(FactionHandler.getFactionFromName(name) == null){
+            if(FactionHandler.getInstance().getFactionFromName(name) == null){
                 //nothing found
                 ChatUtils.info(player,"No faction/player found with this name.");
             } else {
-                printWho(player, FactionHandler.getFactionFromName(name));
+                printWho(player, FactionHandler.getInstance().getFactionFromName(name));
             }
         } else {
-            printWho(player, FactionHandler.getPlayersFaction(name));
+            printWho(player, FactionHandler.getInstance().getPlayersFaction(name));
         }
     }
     private void printWarZoneWho(Player player){
@@ -62,10 +63,10 @@ public class CmdWho implements SubCmd {
         player.sendMessage("Claims: " + faction.getClaims().size());
         player.sendMessage("Power: " + faction.getPower());
 
-        List<Player> onlineMembers = faction.getOnlineMembers();
+        List<OfflinePlayer> onlineMembers = faction.getOnlineMembers();
         player.sendMessage("Online (" + onlineMembers.size() + "/" + faction.getMembersAndRank().size() + "):");
         String msg = "";
-        for (Player p : onlineMembers) {
+        for (OfflinePlayer p : onlineMembers) {
             msg = msg.concat(faction.getMembersAndRank().get(p.getUniqueId()).getPrefix() + p.getName() + ", ");
         }
         if (msg.length() > 2) {
@@ -74,8 +75,9 @@ public class CmdWho implements SubCmd {
         player.sendMessage(msg);
         player.sendMessage("Offline:");
         msg = "";
-        for (String name : faction.getOfflineMembersNames()) {
-            msg = msg.concat(faction.getMembersAndRank().get(Bukkit.getOfflinePlayer(name).getUniqueId()).getPrefix() + name + ", ");
+        for (OfflinePlayer p : faction.getOfflineMembers()) {
+            String name = p.getName();
+            msg = msg.concat(faction.getMembersAndRank().get(p.getUniqueId()).getPrefix() + name + ", ");
         }
         if (msg.length() > 2) {
             msg = msg.substring(0, msg.length() - 2);

@@ -16,7 +16,7 @@ public class CmdWarpInfo implements SubCmd {
     }
 
     private void runWarpInfoCommand(Player player){
-        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        Faction faction = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
         if(faction == null) {
             ChatUtils.info(player,"You are not in a faction.");
             return;

@@ -14,8 +14,8 @@ public class CmdToggleOpen implements SubCmd {
         return true;
     }
     private void runToggleOpen(Player player){
-        if(FactionHandler.getPlayersFaction(player.getUniqueId()) != null){
-            Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        if(FactionHandler.getInstance().getPlayersFaction(player.getUniqueId()) != null){
+            Faction faction = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
             if(faction.isLeader(player)){
                 faction.setInviteOnly(!faction.isInviteOnly());
                 String msg = faction.isInviteOnly() ? "invite only" : "open";

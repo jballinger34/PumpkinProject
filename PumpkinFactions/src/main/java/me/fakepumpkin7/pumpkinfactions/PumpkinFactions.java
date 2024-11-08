@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.fakepumpkin7.pumpkinfactions.cmd.faction.CmdFaction;
 import me.fakepumpkin7.pumpkinfactions.config.FactionConfigHandler;
 import me.fakepumpkin7.pumpkinfactions.listener.*;
+import me.fakepumpkin7.pumpkinframework.factions.FactionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,6 +13,8 @@ public final class PumpkinFactions extends JavaPlugin {
     @Getter
     static PumpkinFactions instance;
 
+    private FactionHandler factionHandler = FactionHandler.getInstance();
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -19,6 +22,8 @@ public final class PumpkinFactions extends JavaPlugin {
         registerCommands();
         registerListeners();
 
+
+        FactionManager.setFactionAPI(factionHandler);
 
 
         FactionConfigHandler.loadFromConfig();
@@ -44,8 +49,8 @@ public final class PumpkinFactions extends JavaPlugin {
     }
 
     private void createWarZoneFac(){
-        if(FactionHandler.getFactionFromName("WarZone") == null){
-            FactionHandler.createNewFaction(null,"WarZone");
+        if(factionHandler.getFactionFromName("WarZone") == null){
+            factionHandler.createNewFaction(null,"WarZone");
         }
     }
 }

@@ -18,7 +18,7 @@ public class CmdDisband implements SubCmd {
 
 
     private void runDisbandCommand(Player player){
-        Faction faction = FactionHandler.getPlayersFaction(player.getUniqueId());
+        Faction faction = FactionHandler.getInstance().getPlayersFaction(player.getUniqueId());
         if(faction == null) {
             ChatUtils.info(player,"You are not in a faction");
             return;
@@ -27,7 +27,7 @@ public class CmdDisband implements SubCmd {
             ChatUtils.info(player,"You must be the faction's leader to disband it.");
             return;
         }
-        FactionHandler.disbandFaction(faction);
+        FactionHandler.getInstance().disbandFaction(faction);
         ChatUtils.success(player,"Successfully disbanded faction.");
     }
 

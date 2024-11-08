@@ -7,8 +7,10 @@ import me.fakepumpkin7.pumpkinfactions.struct.FWarp;
 import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
+import me.fakepumpkin7.pumpkinframework.factions.FactionAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -59,7 +61,7 @@ public class Faction {
     }
 
     public void addMember(Player player){
-        if(FactionHandler.getPlayersFaction(player.getUniqueId()) != null){
+        if(FactionHandler.getInstance().getPlayersFaction(player.getUniqueId()) != null){
             ChatUtils.info(player,"You already have a Faction!");
         } else if (membersAndRank.keySet().size() >= maxMembers) {
             ChatUtils.info(player,"This Faction is full");
@@ -135,11 +137,11 @@ public class Faction {
         this.ally = toAlly;
         toAlly.ally = this;
 
-        for(Player player : toAlly.getOnlineMembers()){
-            ChatUtils.notify(player, "Your faction is now allied with " + getName());
+        for(OfflinePlayer player : toAlly.getOnlineMembers()){
+            ChatUtils.notify(player.getPlayer(), "Your faction is now allied with " + getName());
         }
-        for(Player player : getOnlineMembers()){
-            ChatUtils.notify(player, "Your faction is now allied with " + toAlly.getName());
+        for(OfflinePlayer player : getOnlineMembers()){
+            ChatUtils.notify(player.getPlayer(), "Your faction is now allied with " + toAlly.getName());
         }
     }
     public void setInviteOnly(boolean inviteOnly){
@@ -191,22 +193,28 @@ public class Faction {
         }
         return false;
     }
-    public List<Player> getOnlineMembers(){
-        List<Player> list = new ArrayList<>();
-        for(UUID id : membersAndRank.keySet()){
-            if(Bukkit.getOfflinePlayer(id).isOnline()){
-                list.add(Bukkit.getOfflinePlayer(id).getPlayer());
+    public ArrayList<OfflinePlayer> getOnlineMembers(){
+        ArrayList<OfflinePlayer> list = new ArrayList<>();
+        for(UUID id : membersAndRank.keySet()) {
+            if (Bukkit.getOfflinePlayer(id).isOnline()) {
+                list.add(Bukkit.getOfflinePlayer(id));
             }
         }
-
         return list;
     }
-    public List<String> getOfflineMembersNames(){
-        List<String> list = new ArrayList<>();
+    public ArrayList<OfflinePlayer> getOfflineMembers(){
+        ArrayList<OfflinePlayer> list = new ArrayList<>();
         for(UUID id : membersAndRank.keySet()){
             if(!Bukkit.getOfflinePlayer(id).isOnline()){
-                list.add(Bukkit.getOfflinePlayer(id).getName());
+                list.add(Bukkit.getOfflinePlayer(id));
             }
+        }
+        return list;
+    }
+    public ArrayList<OfflinePlayer> getAllMembers(){
+        ArrayList<OfflinePlayer> list = new ArrayList<>();
+        for(UUID id : membersAndRank.keySet()){
+            list.add(Bukkit.getOfflinePlayer(id));
         }
         return list;
     }
@@ -262,11 +270,11 @@ public class Faction {
             faction.setAlly(this);
             return;
         }
-        for(Player player : getOnlineMembers()){
-            ChatUtils.notify(player, "Your faction has requested to be allied with "+ faction.getName()+".");
+        for(OfflinePlayer player : getOnlineMembers()){
+            ChatUtils.notify(player.getPlayer(), "Your faction has requested to be allied with "+ faction.getName()+".");
         }
-        for(Player player : faction.getOnlineMembers()){
-            ChatUtils.notify(player, "You received a request to be allied with "+ this.getName() + " /f ally " + this.getName() +" to accept.");
+        for(OfflinePlayer player : faction.getOnlineMembers()){
+            ChatUtils.notify(player.getPlayer(), "You received a request to be allied with "+ this.getName() + " /f ally " + this.getName() +" to accept.");
         }
         faction.factionsRequestingAlly.add(this);
 
