@@ -1,3 +1,5 @@
 name: PumpkinCore
 version: '${version}'
 main: me.fakepumpkin7.pumpkincore.PumpkinCore
+depend:
+  - PumpkinFramework

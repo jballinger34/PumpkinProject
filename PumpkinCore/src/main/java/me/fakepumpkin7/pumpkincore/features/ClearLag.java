@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkincore.patches;
+package me.fakepumpkin7.pumpkincore.features;
 
 import me.fakepumpkin7.pumpkincore.PumpkinCore;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;

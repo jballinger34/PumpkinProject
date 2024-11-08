@@ -3,13 +3,17 @@ package me.fakepumpkin7.pumpkincore;
 import lombok.Getter;
 import me.fakepumpkin7.pumpkincore.features.PearlCooldown;
 import me.fakepumpkin7.pumpkincore.hud.ActionBarHandler;
-import me.fakepumpkin7.pumpkincore.patches.ClearLag;
+import me.fakepumpkin7.pumpkincore.features.ClearLag;
 import me.fakepumpkin7.pumpkincore.hud.Board;
 import me.fakepumpkin7.pumpkincore.patches.DisableDefaultEnchanting;
+import me.fakepumpkin7.pumpkincore.patches.DisableNaturalMobSpawn;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PumpkinCore extends JavaPlugin {
+
+
+    public static final String serverName = "PumpkinCraft";
 
     @Getter
     static PumpkinCore instance;
@@ -39,7 +43,9 @@ public final class PumpkinCore extends JavaPlugin {
 
     private void registerListeners(){
         Bukkit.getPluginManager().registerEvents(new DisableDefaultEnchanting(), this);
+        Bukkit.getPluginManager().registerEvents(new DisableNaturalMobSpawn(), this);
         Bukkit.getPluginManager().registerEvents(new PearlCooldown(), this);
+
     }
 
     private void registerTasks(){
