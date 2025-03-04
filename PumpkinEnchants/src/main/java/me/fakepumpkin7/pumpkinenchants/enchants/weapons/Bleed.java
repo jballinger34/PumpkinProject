@@ -4,9 +4,9 @@ import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
 import me.fakepumpkin7.pumpkinenchants.PumpkinEnchants;
 import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
-import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -21,7 +21,7 @@ public class Bleed extends BaseEnchant {
     double dps = 1.0;
 
     @Override
-    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, CustomDamageEvent event) {
+    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, EntityDamageByEntityEvent event) {
         if (target.hasMetadata(metadataTag) && target.getMetadata(metadataTag).get(0).asLong() >= System.currentTimeMillis()){
             return;
         }

@@ -19,10 +19,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import net.minecraft.server.v1_8_R3.EnchantmentDurability;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -30,14 +29,23 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
+import org.bukkit.event.entity.EntityDamageByBlockEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
@@ -59,37 +67,39 @@ public class EListener implements Listener {
         this.plugin = plugin;
     }
 
-
     @EventHandler(
-        priority = EventPriority.NORMAL,
-                ignoreCancelled = true
+            priority = EventPriority.MONITOR,
+            ignoreCancelled = true
     )
-    public void onCDE(CustomDamageEvent event){
-        if (!excuse && event.getDamageCause() != DamageCause.CUSTOM && !(event.getDamage() <= 0.0)) {
-            if (event.getTarget() instanceof LivingEntity) {
-                if (event.getDamageCause() == DamageCause.ENTITY_ATTACK || event.getDamageCause() == DamageCause.PROJECTILE) {
-
-                    LivingEntity damaged = (LivingEntity)event.getTarget();
-                    LivingEntity attacker = (LivingEntity)event.getAttacker();
-
+    public void onHit(EntityDamageByEntityEvent event) {
+        if (!excuse && event.getCause() != DamageCause.CUSTOM && !(event.getDamage() <= 0.0)) {
+            if (event.getEntity() instanceof LivingEntity) {
+                if (event.getCause() == DamageCause.ENTITY_ATTACK || event.getCause() == DamageCause.PROJECTILE) {
+                    LivingEntity damaged = (LivingEntity)event.getEntity();
+                    LivingEntity damager = null;
+                    if (event.getDamager() instanceof LivingEntity) {
+                        damager = (LivingEntity)event.getDamager();
+                    } else if (event.getDamager() instanceof Projectile && ((Projectile)event.getDamager()).getShooter() instanceof LivingEntity) {
+                        damager = (LivingEntity)((Projectile)event.getDamager()).getShooter();
+                    }
 
                     Map.Entry entry;
                     Iterator var8;
-                    if (attacker != null) {
+                    if (damager != null) {
                         boolean valid = true;
-                        if (event.getDamageCause() == DamageCause.PROJECTILE && attacker instanceof Player) {
-                            ItemStack itemInHand = ((Player)attacker).getItemInHand();
+                        if (event.getCause() == DamageCause.PROJECTILE && damager instanceof Player) {
+                            ItemStack itemInHand = ((Player)damager).getItemInHand();
                             if (itemInHand == null || itemInHand.getType() != Material.BOW) {
                                 valid = false;
                             }
                         }
 
                         if (valid) {
-                            var8 = this.getValidEnchantments(this.getItems(attacker)).entrySet().iterator();
+                            var8 = this.getValidEnchantments(this.getItems(damager)).entrySet().iterator();
 
                             while(var8.hasNext()) {
                                 entry = (Map.Entry)var8.next();
-                                ((CustomEnchantment)entry.getKey()).applyEffect(attacker, damaged, (Integer)entry.getValue(), event);
+                                ((CustomEnchantment)entry.getKey()).applyEffect(damager, damaged, (Integer)entry.getValue(), event);
                             }
                         }
                     }
@@ -101,20 +111,74 @@ public class EListener implements Listener {
 
                     while(var8.hasNext()) {
                         entry = (Map.Entry)var8.next();
-                        ((CustomEnchantment)entry.getKey()).applyDefenseEffect(damaged, attacker, (Integer)entry.getValue(), event, postRunTasks);
+                        ((CustomEnchantment)entry.getKey()).applyDefenseEffect(damaged, damager, (Integer)entry.getValue(), event, postRunTasks);
                     }
 
                     var8 = postRunTasks.getAll().iterator();
 
                     while(var8.hasNext()) {
                         PostDefenceEffectRunnable runnable = (PostDefenceEffectRunnable)var8.next();
-                        runnable.execute(damaged, attacker, event);
+                        runnable.execute(damaged, damager, event);
                     }
 
                 }
             }
         } else {
             excuse = false;
+        }
+    }
+
+    @EventHandler(
+            priority = EventPriority.MONITOR,
+            ignoreCancelled = true
+    )
+    public void onDamaged(EntityDamageEvent event) {
+        if (!(event.getDamage() <= 0.0) && event.getEntity() instanceof LivingEntity) {
+            LivingEntity damaged = (LivingEntity)event.getEntity();
+            TreeMultiMap<PostDefenceEffectRunnable> postRunTasks = new TreeMultiMap((o1, o2) -> {
+                return -Integer.compare((Integer) o1,(Integer) o2);
+            });
+            Iterator var4 = this.getValidEnchantments(this.getItems(damaged)).entrySet().iterator();
+
+            while(var4.hasNext()) {
+                Map.Entry<CustomEnchantment, Integer> entry = (Map.Entry)var4.next();
+                ((CustomEnchantment)entry.getKey()).applyDefenseEffect(damaged, (LivingEntity)null, (Integer)entry.getValue(), event, postRunTasks);
+            }
+
+            var4 = postRunTasks.getAll().iterator();
+
+            while(var4.hasNext()) {
+                PostDefenceEffectRunnable runnable = (PostDefenceEffectRunnable)var4.next();
+                runnable.execute(damaged, (LivingEntity)null, event);
+            }
+
+        }
+    }
+
+    @EventHandler(
+            priority = EventPriority.MONITOR,
+            ignoreCancelled = true
+    )
+    public void onDamaged(EntityDamageByBlockEvent event) {
+        if (!(event.getDamage() <= 0.0) && event.getEntity() instanceof LivingEntity) {
+            LivingEntity damaged = (LivingEntity)event.getEntity();
+            TreeMultiMap<PostDefenceEffectRunnable> postRunTasks = new TreeMultiMap((o1, o2) -> {
+                return -Integer.compare((Integer)o1,(Integer) o2);
+            });
+            Iterator var4 = this.getValidEnchantments(this.getItems(damaged)).entrySet().iterator();
+
+            while(var4.hasNext()) {
+                Map.Entry<CustomEnchantment, Integer> entry = (Map.Entry)var4.next();
+                ((CustomEnchantment)entry.getKey()).applyDefenseEffect(damaged, (LivingEntity)null, (Integer)entry.getValue(), event, postRunTasks);
+            }
+
+            var4 = postRunTasks.getAll().iterator();
+
+            while(var4.hasNext()) {
+                PostDefenceEffectRunnable runnable = (PostDefenceEffectRunnable)var4.next();
+                runnable.execute(damaged, (LivingEntity)null, event);
+            }
+
         }
     }
 
@@ -190,7 +254,6 @@ public class EListener implements Listener {
 
         }
     }
-
     @EventHandler(
             priority = EventPriority.MONITOR
     )

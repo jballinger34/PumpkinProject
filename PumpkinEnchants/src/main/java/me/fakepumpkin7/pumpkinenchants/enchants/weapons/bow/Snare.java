@@ -2,15 +2,10 @@ package me.fakepumpkin7.pumpkinenchants.enchants.weapons.bow;
 
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
-import me.fakepumpkin7.pumpkinenchants.PumpkinEnchants;
 import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
-import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.util.Vector;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class Snare extends BaseEnchant {
 
@@ -22,7 +17,7 @@ public class Snare extends BaseEnchant {
     double stunTime = 2;
 
     @Override
-    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, CustomDamageEvent event) {
+    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, EntityDamageByEntityEvent event) {
         if(!(target instanceof Player)) return;
         Player victim = (Player) target;
 

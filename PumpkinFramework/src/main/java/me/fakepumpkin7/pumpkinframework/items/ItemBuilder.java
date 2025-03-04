@@ -2,7 +2,6 @@ package me.fakepumpkin7.pumpkinframework.items;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import me.fakepumpkin7.pumpkinframework.enchants.EnchantManager;
 import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
@@ -56,56 +55,10 @@ public class ItemBuilder {
         item.setItemMeta(meta);
         return this;
     }
-    public ItemBuilder addStatsLore(){
-        ItemMeta meta = item.getItemMeta();
-        List<String> lore = meta.getLore();
-        if(lore == null){
-            lore = new ArrayList<>();
-        }
-        List<String> statsLore = generateStatsLore();
 
-        statsLore.addAll(lore);
-        meta.setLore(statsLore);
-        item.setItemMeta(meta);
-        return this;
-    }
     public ItemBuilder addRarityLore(ItemRarity rarity){
         addLoreLine(rarity.color + ChatColor.BOLD.toString() + rarity.name());
         return this;
-    }
-    private List<String> generateStatsLore(){
-        List<String> lore = new ArrayList<>();
-
-        double baseDamage = CombatUtils.getItemBaseDamage(item);
-        double defence = CombatUtils.getItemDefence(item);
-        double maxHealth = CombatUtils.getItemMaxHealth(item);
-        double speed = CombatUtils.getItemSpeed(item);
-
-        double knockback = CombatUtils.getItemKnockbackMulti(item);
-
-        if(baseDamage != 0){
-            lore.add(ChatColor.GRAY + "Damage: "+ ChatColor.RED +"+" + baseDamage);
-        }
-        if(defence != 0){
-            lore.add(ChatColor.GRAY + "Defence: "+ ChatColor.RED +"+"  + defence);
-        }
-        if(maxHealth != 0){
-            lore.add(ChatColor.GRAY + "Health: "+ ChatColor.RED  +"+" + maxHealth);
-        }
-        if(speed != 0){
-            lore.add(ChatColor.GRAY + "Speed: "+ ChatColor.RED  +"+"+ speed);
-        }
-
-        //for the multis, 1 is default
-        if(knockback != 1){
-            lore.add(ChatColor.GRAY + "All knockback dealt is multiplied by " + ChatColor.RED +  knockback);
-        }
-
-        lore.add("");
-
-
-
-        return lore;
     }
 
     public ItemBuilder hideAttributes(ItemStack item){

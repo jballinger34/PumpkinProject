@@ -2,6 +2,9 @@ package me.fakepumpkin7.pumpkincrates;
 
 import me.fakepumpkin7.pumpkincrates.cmd.CmdGiveCrate;
 import me.fakepumpkin7.pumpkincrates.listeners.CrateListener;
+import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
+import me.fakepumpkin7.pumpkinframework.economy.EconomyAPI;
+import me.fakepumpkin7.pumpkinframework.enchants.EnchantAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

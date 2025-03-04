@@ -1,6 +1,6 @@
 package me.fakepumpkin7.pumpkinmmo.listener;
 
-import me.fakepumpkin7.pumpkinframework.event.mmo.SkillExpGainEvent;
+import me.fakepumpkin7.pumpkinframework.mmo.SkillExpGainEvent;
 import me.fakepumpkin7.pumpkinmmo.SkillHandler;
 import me.fakepumpkin7.pumpkinmmo.skills.Skill;
 import org.bukkit.entity.Player;

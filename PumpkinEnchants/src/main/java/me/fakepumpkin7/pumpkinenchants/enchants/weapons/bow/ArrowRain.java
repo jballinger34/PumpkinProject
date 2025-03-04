@@ -3,7 +3,6 @@ package me.fakepumpkin7.pumpkinenchants.enchants.weapons.bow;
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
 import me.fakepumpkin7.pumpkinenchants.PumpkinEnchants;
-import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
@@ -11,6 +10,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
@@ -32,7 +32,7 @@ public class ArrowRain extends BaseEnchant implements Listener {
     double procChancePerLevel = 0.02;
 
     @Override
-    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, CustomDamageEvent event) {
+    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, EntityDamageByEntityEvent event) {
         double random = Math.random();
         double chance = procChancePerLevel * enchantLevel;
 

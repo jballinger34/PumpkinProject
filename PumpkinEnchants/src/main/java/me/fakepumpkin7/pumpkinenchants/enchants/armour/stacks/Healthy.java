@@ -5,23 +5,24 @@ import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
 import me.fakepumpkin7.pumpkinframework.combat.CombatUtils;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 
 public class Healthy extends BaseEnchant {
 
     public Healthy() {
-        super("Healthy","Adds Health" , EnchantmentGroup.ARMOR, 5,true);
+        super("Healthy","Gain health boost" , EnchantmentGroup.ARMOR, 3,true);
     }
-
-    double healthPerLevel = 5;
 
     @Override
     public void applyEquipEffect(Player player, int enchantLevel) {
-        CombatUtils.addEntityHealth(player, enchantLevel*healthPerLevel);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 999999999, enchantLevel-1));
     }
 
     @Override
     public void applyUnequipEffect(Player player, int enchantLevel) {
-        CombatUtils.addEntityHealth(player, -enchantLevel*healthPerLevel);
+        player.removePotionEffect(PotionEffectType.HEALTH_BOOST);
     }
+
 }

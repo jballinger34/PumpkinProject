@@ -31,7 +31,6 @@ public class MidasArmour extends ArmourSet {
                 .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Helmet")
                 .setDefence(6)
-                .addStatsLore()
                 .addRarityLore(rarity)
                 .build());
 
@@ -39,7 +38,6 @@ public class MidasArmour extends ArmourSet {
                 .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Chestplate")
                 .setDefence(10)
-                .addStatsLore()
                 .addRarityLore(rarity)
                 .build());
 
@@ -47,7 +45,6 @@ public class MidasArmour extends ArmourSet {
                 .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Leggings")
                 .setDefence(9)
-                .addStatsLore()
                 .addRarityLore(rarity)
                 .build());
 
@@ -55,7 +52,6 @@ public class MidasArmour extends ArmourSet {
                 .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Boots")
                 .setDefence(6)
-                .addStatsLore()
                 .addRarityLore(rarity)
                 .build());
     }

@@ -10,18 +10,16 @@ import org.bukkit.potion.PotionEffectType;
 public class Speedy extends BaseEnchant {
 
     public Speedy() {
-        super("Speedy","Gives speed" , EnchantmentGroup.BOOTS, 3,false);
+        super("Speedy","Gain swiftness" , EnchantmentGroup.BOOTS, 3,false);
     }
-
-    double SpeedPerLevel = 0.04;
 
     @Override
     public void applyEquipEffect(Player player, int enchantLevel) {
-        CombatUtils.addPlayerSpeed(player,(enchantLevel*SpeedPerLevel));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999999, enchantLevel-1));
     }
 
     @Override
     public void applyUnequipEffect(Player player, int enchantLevel) {
-        CombatUtils.addPlayerSpeed(player,-(enchantLevel*SpeedPerLevel));
+        player.removePotionEffect(PotionEffectType.SPEED);
     }
 }

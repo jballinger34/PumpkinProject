@@ -2,9 +2,8 @@ package me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee;
 
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
-import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class Sharpness extends BaseEnchant {
     public Sharpness() {
@@ -13,7 +12,7 @@ public class Sharpness extends BaseEnchant {
     double damagebonus = 0.1;
 
     @Override
-    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, CustomDamageEvent event) {
+    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, EntityDamageByEntityEvent event) {
         double damage = event.getDamage();
         event.setDamage(damage*(1+(damagebonus*enchantLevel)));
     }

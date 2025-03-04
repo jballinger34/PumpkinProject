@@ -3,10 +3,10 @@ package me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee;
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.combat.CustomDamageEvent;
 import me.fakepumpkin7.pumpkinframework.economy.EconomyManager;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class Pickpocket extends BaseEnchant {
     public Pickpocket() {
@@ -16,7 +16,7 @@ public class Pickpocket extends BaseEnchant {
     double procChancePerLevel = 0.08;
 
     @Override
-    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, CustomDamageEvent event) {
+    public void applyEffect(LivingEntity user, LivingEntity target, int enchantLevel, EntityDamageByEntityEvent event) {
 
 
         double random = Math.random();
