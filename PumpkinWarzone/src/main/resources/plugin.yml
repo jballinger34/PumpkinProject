@@ -1,0 +1,10 @@
+name: PumpkinWarzone
+version: '${version}'
+main: me.fakepumpkin7.pumpkinwarzone.PumpkinWarzone
+commands:
+  togglechestmode:
+    usage: /togglechestmode
+  washup:
+    usage: /washup
+  forcewashup:
+    usage: /forcewashup
