@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkincrates;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkincrates.crates.Crate;
 import me.fakepumpkin7.pumpkincrates.crates.impl.*;
 import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
@@ -17,7 +16,6 @@ public enum CrateRegistry {
     ;
 
 
-    @Getter
     private Crate crate;
     CrateRegistry(Crate crate){
         this.crate = crate;
@@ -39,5 +37,9 @@ public enum CrateRegistry {
             }
         }
         return null;
+    }
+
+    public Crate getCrate() {
+        return crate;
     }
 }

@@ -1,12 +1,9 @@
 package me.fakepumpkin7.pumpkinfactions.struct;
 
-
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.player.teleport.TeleportUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-@Getter
 public class FWarp {
     Location location;
     FactionRank rankNeeded;
@@ -22,4 +19,15 @@ public class FWarp {
         TeleportUtils.timedTeleport(player, location);
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public FactionRank getRankNeeded() {
+        return rankNeeded;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

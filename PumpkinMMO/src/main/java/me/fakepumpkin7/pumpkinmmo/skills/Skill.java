@@ -1,7 +1,6 @@
 package me.fakepumpkin7.pumpkinmmo.skills;
 
-import lombok.Getter;
-import lombok.Setter;
+
 import me.fakepumpkin7.pumpkinmmo.PumpkinMMO;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.configuration.ConfigurationSection;
@@ -12,12 +11,10 @@ public abstract class Skill {
 
     //TODO rewrite save and load to be more compact
 
-    @Getter @Setter
     String name;
     int maxLevel;
 
 
-    @Getter
     HashMap<UUID, Double> expMap;
 
 
@@ -74,5 +71,17 @@ public abstract class Skill {
         }
 
         return Arrays.asList(level,tempExp,factor);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public HashMap<UUID, Double> getExpMap() {
+        return expMap;
     }
 }

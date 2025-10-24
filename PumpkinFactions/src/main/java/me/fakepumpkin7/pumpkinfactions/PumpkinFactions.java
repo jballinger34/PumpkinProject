@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkinfactions;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinfactions.cmd.faction.CmdFaction;
 import me.fakepumpkin7.pumpkinfactions.config.FactionConfigHandler;
 import me.fakepumpkin7.pumpkinfactions.listener.*;
@@ -10,7 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PumpkinFactions extends JavaPlugin {
 
-    @Getter
     static PumpkinFactions instance;
 
     private FactionHandler factionHandler = FactionHandler.getInstance();
@@ -52,5 +50,9 @@ public final class PumpkinFactions extends JavaPlugin {
         if(factionHandler.getFactionFromName("WarZone") == null){
             factionHandler.createNewFaction(null,"WarZone");
         }
+    }
+
+    public static PumpkinFactions getInstance() {
+        return instance;
     }
 }

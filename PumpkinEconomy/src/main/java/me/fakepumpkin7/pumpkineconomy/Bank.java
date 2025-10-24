@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkineconomy;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.economy.EconomyAPI;
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
 import org.bukkit.ChatColor;
@@ -12,7 +11,7 @@ import java.util.UUID;
 
 public class Bank implements EconomyAPI {
 
-    @Getter private static Bank instance = new Bank();
+    private static Bank instance = new Bank();
 
     private HashMap<UUID, Double> bank = new HashMap<>();
     public static final String moneyNoteNBT = "pumpkin-money-note";
@@ -54,4 +53,7 @@ public class Bank implements EconomyAPI {
     }
 
 
+    public static Bank getInstance() {
+        return instance;
+    }
 }

@@ -1,7 +1,6 @@
 package me.fakepumpkin7.pumpkinfactions;
 
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinfactions.event.FactionClaimChangeEvent;
 import me.fakepumpkin7.pumpkinfactions.event.FactionDisbandEvent;
 import me.fakepumpkin7.pumpkinfactions.event.FactionMemberJoinLeaveEvent;
@@ -28,7 +27,6 @@ public class FactionHandler implements FactionAPI {
     }
     private FactionHandler(){}
 
-    @Getter
     private List<Faction> allFactions = new ArrayList<>();
 
     //API METHODS
@@ -173,5 +171,9 @@ public class FactionHandler implements FactionAPI {
     @Override
     public boolean isWarzone(Location location) {
         return getClaimAt(new FChunk(location.getChunk())).getName().equalsIgnoreCase("warzone");
+    }
+
+    public List<Faction> getAllFactions() {
+        return allFactions;
     }
 }

@@ -1,8 +1,6 @@
 package me.fakepumpkin7.pumpkincore.hud;
 
-import lombok.Getter;
 
-@Getter
 public class Line {
 
     private final String message;
@@ -29,5 +27,25 @@ public class Line {
 
     public boolean isUpdating() {
         return !(this.teamKey == null);
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getTeamKey() {
+        return teamKey;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }

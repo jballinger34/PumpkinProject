@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkincrates.crates;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkincrates.struct.Reward;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import me.fakepumpkin7.pumpkinframework.items.ItemBuilder;
@@ -23,10 +22,8 @@ public class Crate {
 
     private String name;
 
-    @Getter
     private String id;
 
-    @Getter
     protected ItemRarity rarity;
 
 
@@ -101,4 +98,13 @@ public class Crate {
         }
         ChatUtils.success(player, "Opened " + name);
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public ItemRarity getRarity() {
+        return rarity;
+    }
 }
+

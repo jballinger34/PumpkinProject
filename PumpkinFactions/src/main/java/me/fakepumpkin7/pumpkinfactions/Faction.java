@@ -1,13 +1,12 @@
 package me.fakepumpkin7.pumpkinfactions;
 
-import lombok.Getter;
+
 import me.fakepumpkin7.pumpkinfactions.event.FactionMemberJoinLeaveEvent;
 import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
 import me.fakepumpkin7.pumpkinfactions.struct.FWarp;
 import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import me.fakepumpkin7.pumpkinframework.factions.FactionAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -17,25 +16,20 @@ import java.util.*;
 
 public class Faction {
 
-    @Getter
     private String name;
-    @Getter
     private HashMap<UUID, FactionRank> membersAndRank = new HashMap<>();
-    @Getter
     Faction ally;
-    @Getter
     boolean isInviteOnly = true;
     List<UUID> currentlyInvited = new ArrayList<>();
 
-    @Getter
     static final int maxMembers = 15;
-    @Getter
+
     private static final int maxPower = 100;
-    @Getter
+
     private static final int powerPerMember = 20;
-    @Getter
+
     private List<FChunk> claims = new ArrayList<>();
-    @Getter
+
     private List<FWarp> warps = new ArrayList<>();
     private List<Faction> factionsRequestingAlly = new ArrayList<>();
 
@@ -279,4 +273,41 @@ public class Faction {
         faction.factionsRequestingAlly.add(this);
 
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public HashMap<UUID, FactionRank> getMembersAndRank() {
+        return membersAndRank;
+    }
+
+    public Faction getAlly() {
+        return ally;
+    }
+
+    public boolean isInviteOnly() {
+        return isInviteOnly;
+    }
+
+    public List<FChunk> getClaims() {
+        return claims;
+    }
+
+    public List<FWarp> getWarps() {
+        return warps;
+    }
+
+    public static int getMaxMembers() {
+        return maxMembers;
+    }
+
+    public static int getMaxPower() {
+        return maxPower;
+    }
+
+    public static int getPowerPerMember() {
+        return powerPerMember;
+    }
+
 }

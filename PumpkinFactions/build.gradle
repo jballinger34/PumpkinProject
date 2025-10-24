@@ -21,9 +21,6 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
-
     implementation name: 'item-nbt-api-plugin-2.11.1'
 
     compileOnly name: "PumpkinFramework"
@@ -44,6 +41,18 @@ tasks.withType(JavaCompile).configureEach {
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         options.release = targetJavaVersion
     }
+}
+tasks.register('copyJarToTest'){
+    dependsOn tasks.named('jar')
+    copy {
+        from tasks.named('jar').get().archiveFile
+        into "D:/Users/balli/PUMPKINTESTSERVER/plugins"
+    }
+    // Always run this task
+    outputs.upToDateWhen { false }
+}
+tasks.named('build') {
+    finalizedBy('copyJarToTest')
 }
 
 processResources {

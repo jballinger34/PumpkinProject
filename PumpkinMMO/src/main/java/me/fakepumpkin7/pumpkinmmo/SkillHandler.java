@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkinmmo;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinmmo.skills.combat.CombatSkill;
 import me.fakepumpkin7.pumpkinmmo.skills.Skill;
 
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 
 public class SkillHandler {
 
-    @Getter
     ArrayList<Skill> skillList = new ArrayList<>();
 
     public SkillHandler(){
@@ -31,6 +29,10 @@ public class SkillHandler {
         }
         PumpkinMMO.getInstance().saveConfig();
 
+    }
+
+    public ArrayList<Skill> getSkillList() {
+        return skillList;
     }
 
 }

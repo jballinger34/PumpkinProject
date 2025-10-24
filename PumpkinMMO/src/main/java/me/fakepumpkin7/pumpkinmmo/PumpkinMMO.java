@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkinmmo;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinmmo.cmd.SkillCommand;
 import me.fakepumpkin7.pumpkinmmo.listener.SkillExpGainListener;
 import org.bukkit.Bukkit;
@@ -29,9 +28,7 @@ public final class PumpkinMMO extends JavaPlugin {
     //IMPL
     // onenable saves
 
-    @Getter
     static PumpkinMMO instance;
-    @Getter
     SkillHandler skillHandler;
 
     @Override
@@ -56,5 +53,13 @@ public final class PumpkinMMO extends JavaPlugin {
     }
     private void registerEvents(){
         Bukkit.getPluginManager().registerEvents(new SkillExpGainListener(skillHandler), this);
+    }
+
+    public static PumpkinMMO getInstance() {
+        return instance;
+    }
+
+    public SkillHandler getSkillHandler() {
+        return skillHandler;
     }
 }

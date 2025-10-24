@@ -1,16 +1,13 @@
 package me.fakepumpkin7.pumpkinfactions.struct;
 
-import lombok.Getter;
 import org.bukkit.Chunk;
 
 public class FChunk {
 
-    @Getter
     private String worldName;
-    @Getter
+
     private int x;
 
-    @Getter
     private int y;
 
     public FChunk(Chunk chunk){
@@ -29,5 +26,17 @@ public class FChunk {
         if(!(object instanceof FChunk)) return false;
         FChunk chunk = (FChunk) object;
         return this.x == chunk.x && this.y == chunk.y && this.worldName.equals(chunk.worldName);
+    }
+
+    public String getWorldName() {
+        return worldName;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

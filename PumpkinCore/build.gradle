@@ -30,13 +30,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
-
     compileOnly name: "spigot-1.8.8"
     compileOnly name: "PumpkinFramework"
     compileOnly name: "item-nbt-api-plugin-2.11.1"
-    compileOnly "com.destroystokyo.paper:paper-api:1.12-R0.1-SNAPSHOT"
 }
 
 def targetJavaVersion = 17
@@ -53,6 +49,18 @@ tasks.withType(JavaCompile).configureEach {
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         options.release = targetJavaVersion
     }
+}
+tasks.register('copyJarToTest'){
+    dependsOn tasks.named('jar')
+    copy {
+        from tasks.named('jar').get().archiveFile
+        into "D:/Users/balli/PUMPKINTESTSERVER/plugins"
+    }
+    // Always run this task
+    outputs.upToDateWhen { false }
+}
+tasks.named('build') {
+    finalizedBy('copyJarToTest')
 }
 
 processResources {

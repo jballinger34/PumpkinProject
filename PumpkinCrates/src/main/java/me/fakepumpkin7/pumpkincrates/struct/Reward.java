@@ -1,14 +1,11 @@
 package me.fakepumpkin7.pumpkincrates.struct;
 
-import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 
 public class Reward {
 
-    @Getter
     private ItemStack itemStack;
 
-    @Getter
     private double weight;
 
     public Reward(ItemStack itemStack, double weight){
@@ -16,5 +13,11 @@ public class Reward {
         this.weight = weight;
     }
 
+    public ItemStack getItemStack() {
+        return itemStack;
+    }
 
+    public double getWeight() {
+        return weight;
+    }
 }

@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkincore;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkincore.features.PearlCooldown;
 import me.fakepumpkin7.pumpkincore.hud.ActionBarHandler;
 import me.fakepumpkin7.pumpkincore.features.ClearLag;
@@ -15,7 +14,6 @@ public final class PumpkinCore extends JavaPlugin {
 
     public static final String serverName = "PumpkinCraft";
 
-    @Getter
     static PumpkinCore instance;
 
     //handle reboot
@@ -52,5 +50,9 @@ public final class PumpkinCore extends JavaPlugin {
         Bukkit.getScheduler().runTaskTimer(this, new Board(),0,100);
         Bukkit.getScheduler().runTaskTimer(this, new ActionBarHandler(),0,10);
         Bukkit.getScheduler().runTaskTimer(this, new ClearLag(),0,15*60*20);
+    }
+
+    public static PumpkinCore getInstance() {
+        return instance;
     }
 }
