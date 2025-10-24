@@ -2,9 +2,7 @@ package me.fakepumpkin7.pumpkinenchants.cmd.cmdenchants;
 
 
 import com.rit.sucy.service.ERomanNumeral;
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
-import me.fakepumpkin7.pumpkinenchants.EnchantItem;
 import me.fakepumpkin7.pumpkinenchants.EnchantType;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
 import me.fakepumpkin7.pumpkinframework.gui.book.populators.BookPopulator;
@@ -26,7 +24,6 @@ public class EnchantPopulator implements BookPopulator {
         validStackGroups.add(EnchantmentGroup.ARMOR);
     }
 
-    @Getter
     private final EnchantType enchantmentType;
 
     //Only write the book once.

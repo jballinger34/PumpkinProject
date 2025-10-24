@@ -1,21 +1,18 @@
 package me.fakepumpkin7.pumpkinenchants.cmd.cmdenchants;
 
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinenchants.EnchantType;
 import me.fakepumpkin7.pumpkinframework.gui.book.populators.BookPopulator;
 import me.fakepumpkin7.pumpkinframework.gui.book.util.BookBuilder;
 import me.fakepumpkin7.pumpkinframework.gui.book.util.TextFormat;
 import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Item;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class TierPopulator implements BookPopulator {
 
-    @Getter
     private final ItemRarity rarity;
 
     //Only write the book once.

@@ -1,16 +1,14 @@
 package me.fakepumpkin7.pumpkinenchants;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.*;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.boots.Leap;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.boots.Speedy;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.helmet.Clarity;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.helmet.Oxygen;
-import me.fakepumpkin7.pumpkinenchants.enchants.armour.leggings.Arsonist;
+import me.fakepumpkin7.pumpkinenchants.enchants.armour.Arsonist;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.Cactus;
 import me.fakepumpkin7.pumpkinenchants.enchants.armour.stacks.*;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.*;
-import me.fakepumpkin7.pumpkinenchants.enchants.weapons.bow.ArrowRain;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.bow.Snare;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.*;
 import me.fakepumpkin7.pumpkinenchants.enchants.weapons.melee.sword.Block;
@@ -54,9 +52,9 @@ public enum EnchantType {
     SNARE(new Snare(),ItemRarity.RARE),
     ;
 
-    @Getter
+
     BaseEnchant enchant;
-    @Getter
+
     ItemRarity rarity;
 
     EnchantType(BaseEnchant enchant, ItemRarity rarity){
@@ -79,5 +77,12 @@ public enum EnchantType {
         return nameToEnumMap.getOrDefault(enchantmentName, null);
     }
 
+    public BaseEnchant getEnchant() {
+        return enchant;
+    }
+
+    public ItemRarity getRarity() {
+        return rarity;
+    }
 
 }

@@ -1,4 +1,4 @@
-package me.fakepumpkin7.pumpkinenchants.enchants.armour.leggings;
+package me.fakepumpkin7.pumpkinenchants.enchants.armour;
 
 import me.fakepumpkin7.pumpkinenchants.BaseEnchant;
 import me.fakepumpkin7.pumpkinenchants.EnchantmentGroup;
@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Arsonist extends BaseEnchant {
 
     public Arsonist() {
-        super("Arsonist","Gain fire resistance" , EnchantmentGroup.LEGGINGS, 1,false);
+        super("Arsonist","Gain fire resistance" , EnchantmentGroup.ARMOR, 1,false);
     }
 
     @Override

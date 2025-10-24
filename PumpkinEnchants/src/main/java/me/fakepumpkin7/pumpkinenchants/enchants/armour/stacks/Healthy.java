@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Healthy extends BaseEnchant {
 
     public Healthy() {
-        super("Healthy","Gain health boost" , EnchantmentGroup.ARMOR, 3,true);
+        super("Healthy","Gain health boost" , EnchantmentGroup.ARMOR, 3,false);
     }
 
     @Override

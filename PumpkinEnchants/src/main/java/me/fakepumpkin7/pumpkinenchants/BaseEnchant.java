@@ -1,13 +1,11 @@
 package me.fakepumpkin7.pumpkinenchants;
 
 import com.rit.sucy.CustomEnchantment;
-import lombok.Getter;
 
 
 public class BaseEnchant extends CustomEnchantment {
 
 
-    @Getter
     private EnchantmentGroup group;
 
     public BaseEnchant(String name, String description, EnchantmentGroup group, int max) {
@@ -19,6 +17,7 @@ public class BaseEnchant extends CustomEnchantment {
         this.group = group;
     }
 
-
-
+    public EnchantmentGroup getGroup() {
+        return group;
+    }
 }

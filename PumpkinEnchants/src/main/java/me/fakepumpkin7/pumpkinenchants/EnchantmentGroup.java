@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkinenchants;
 
-import lombok.Getter;
 import org.bukkit.Material;
 
 import java.util.*;
@@ -24,11 +23,11 @@ public enum EnchantmentGroup {
     ALL("Equipment", "Equipment", WEAPONS_AND_TOOLS, ARMOR);
 
 
-    @Getter
+
     private final String name;
-    @Getter
+
     private final String pluralName;
-    @Getter
+
     List<EnchantmentGroup> children;
 
     EnchantmentGroup(String name, String pluralName){
@@ -147,5 +146,17 @@ public enum EnchantmentGroup {
 
     public List<EnchantmentGroup> getApplicableGroups() {
         return children;
+    }
+
+    public List<EnchantmentGroup> getChildren() {
+        return children;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPluralName() {
+        return pluralName;
     }
 }
