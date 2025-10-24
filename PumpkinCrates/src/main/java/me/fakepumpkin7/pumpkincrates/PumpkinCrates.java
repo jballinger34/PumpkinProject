@@ -5,6 +5,7 @@ import me.fakepumpkin7.pumpkincrates.listeners.CrateListener;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.economy.EconomyAPI;
 import me.fakepumpkin7.pumpkinframework.enchants.EnchantAPI;
+import me.fakepumpkin7.pumpkinframework.lootcrates.LootCrateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,6 +21,7 @@ public final class PumpkinCrates extends JavaPlugin {
 
         registerListeners();
         registerCommands();
+        LootCrateManager.setLootCrateAPI(LootCrateAPI.getInstance());
     }
 
     @Override

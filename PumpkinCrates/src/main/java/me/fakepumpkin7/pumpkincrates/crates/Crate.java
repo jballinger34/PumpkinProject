@@ -26,6 +26,7 @@ public class Crate {
     @Getter
     private String id;
 
+    @Getter
     protected ItemRarity rarity;
 
 
@@ -42,7 +43,7 @@ public class Crate {
     }
 
 
-
+    //populates reward pool
     protected void rollCrateRewards(){
     }
     public ItemStack generateCrate(){
@@ -53,7 +54,7 @@ public class Crate {
                 .build();
         return crateItem;
     }
-    public void openCrate(Player player){
+    public ArrayList<ItemStack> generateRewards(){
         //finds out how many rolls
         int rolls = random.nextInt( 1 + maxDrops - minDrops) + minDrops;
         //array for drops
@@ -75,8 +76,6 @@ public class Crate {
             rollCrateRewards();
 
 
-
-
             double randomWeight = Math.random() * totalWeight;
 
 
@@ -91,16 +90,15 @@ public class Crate {
                 }
 
             }
-
         }
+        return drops;
+    }
+    public void openCrate(Player player){
+        ArrayList<ItemStack> drops = generateRewards();
 
-        //give items to player
-        if(drops.isEmpty()){
-            return;
+        if(!drops.isEmpty()){
+            PlayerUtils.addItems(player, drops);
         }
-        PlayerUtils.addItems(player, drops);
         ChatUtils.success(player, "Opened " + name);
-
-
     }
 }

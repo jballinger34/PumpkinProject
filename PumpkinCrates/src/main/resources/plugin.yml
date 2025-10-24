@@ -1,6 +1,8 @@
 name: PumpkinCrates
 version: '${version}'
 main: me.fakepumpkin7.pumpkincrates.PumpkinCrates
+depend:
+  - PumpkinFramework
 commands:
   givecrate:
     usage: /givecrate <crate id>

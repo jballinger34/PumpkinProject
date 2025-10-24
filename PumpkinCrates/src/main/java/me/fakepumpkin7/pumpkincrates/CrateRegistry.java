@@ -2,13 +2,18 @@ package me.fakepumpkin7.pumpkincrates;
 
 import lombok.Getter;
 import me.fakepumpkin7.pumpkincrates.crates.Crate;
-import me.fakepumpkin7.pumpkincrates.crates.impl.CommonCrate;
+import me.fakepumpkin7.pumpkincrates.crates.impl.*;
+import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public enum CrateRegistry {
     COMMON(new CommonCrate()),
+    UNCOMMON(new UncommonCrate()),
+    RARE(new RareCrate()),
+    MYTHIC(new MythicCrate()),
+    HEROIC(new HeroicCrate()),
     ;
 
 
@@ -22,6 +27,14 @@ public enum CrateRegistry {
     public static CrateRegistry getCrateById(String id){
         for(CrateRegistry crateRegistry : values()){
             if(crateRegistry.getCrate().getId().equalsIgnoreCase(id)){
+                return crateRegistry;
+            }
+        }
+        return null;
+    }
+    public static CrateRegistry getCrateByRarity(ItemRarity rarity){
+        for(CrateRegistry crateRegistry : values()){
+            if(crateRegistry.getCrate().getRarity() == rarity){
                 return crateRegistry;
             }
         }

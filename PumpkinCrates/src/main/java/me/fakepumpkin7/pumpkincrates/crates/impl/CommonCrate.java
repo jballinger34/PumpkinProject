@@ -25,9 +25,7 @@ public class CommonCrate extends Crate {
     protected void rollCrateRewards() {
 
         this.rewards = Arrays.asList(
-                new Reward(EnchantManager.getEnchantAPI().getEnchantItem(ItemRarity.MYTHIC,-1), 100),
-                // need to properly implement getArmourItem
-                // new Reward(ArmourSetManager.getArmourSetsAPI().getArmourItem().get(0), 100),
+                new Reward(EnchantManager.getEnchantAPI().getEnchantItem(ItemRarity.COMMON,-1), 100),
                 new Reward(EconomyManager.getEconomyAPI().createMoneyNote(1000.0), 200),
                 new Reward(EconomyManager.getEconomyAPI().createMoneyNote(2000.0), 100)
         );
