@@ -9,6 +9,7 @@ import me.fakepumpkin7.pumpkinfactions.struct.FChunk;
 import me.fakepumpkin7.pumpkinfactions.struct.FactionRank;
 import me.fakepumpkin7.pumpkinframework.factions.FactionAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -169,6 +170,8 @@ public class FactionHandler implements FactionAPI {
         allFactions.remove(faction);
     }
 
-
-
+    @Override
+    public boolean isWarzone(Location location) {
+        return getClaimAt(new FChunk(location.getChunk())).getName().equalsIgnoreCase("warzone");
+    }
 }
