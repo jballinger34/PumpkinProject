@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkinarmour.listener;
 
-import me.fakepumpkin7.pumpkinarmour.struct.ArmourSet;
 import me.fakepumpkin7.pumpkinarmour.struct.ArmourSetRegistry;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
 import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;

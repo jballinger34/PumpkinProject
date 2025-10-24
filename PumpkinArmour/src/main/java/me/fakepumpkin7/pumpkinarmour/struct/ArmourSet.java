@@ -1,6 +1,5 @@
 package me.fakepumpkin7.pumpkinarmour.struct;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.items.ItemRarity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

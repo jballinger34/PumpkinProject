@@ -30,28 +30,24 @@ public class MidasArmour extends ArmourSet {
         pieces.add(new ItemBuilder(Material.GOLD_HELMET)
                 .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Helmet")
-                .setDefence(6)
                 .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_CHESTPLATE)
                 .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Chestplate")
-                .setDefence(10)
                 .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_LEGGINGS)
                 .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Leggings")
-                .setDefence(9)
                 .addRarityLore(rarity)
                 .build());
 
         pieces.add(new ItemBuilder(Material.GOLD_BOOTS)
                 .addNBT(PUMPKIN_ARMOUR_ID, id)
                 .setName(ChatColor.GOLD + "" + ChatColor.BOLD + "Midas Boots")
-                .setDefence(6)
                 .addRarityLore(rarity)
                 .build());
     }
