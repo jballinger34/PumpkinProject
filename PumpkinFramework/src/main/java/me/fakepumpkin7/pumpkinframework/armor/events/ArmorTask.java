@@ -1,9 +1,6 @@
 package me.fakepumpkin7.pumpkinframework.armor.events;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
-import me.fakepumpkin7.pumpkinframework.armor.events.ArmorEquipEvent;
-import me.fakepumpkin7.pumpkinframework.armor.events.ArmorUnEquipEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,7 +15,7 @@ import java.util.UUID;
 
 public class ArmorTask implements Runnable, Listener {
 
-    @Getter private static Hashtable<UUID, ItemStack[]> playerEquipment = new Hashtable<>();
+    private static Hashtable<UUID, ItemStack[]> playerEquipment = new Hashtable<>();
 
     public ArmorTask(){
         Bukkit.getPluginManager().registerEvents(this, PumpkinFramework.getInstance());
@@ -79,4 +76,7 @@ public class ArmorTask implements Runnable, Listener {
         playerEquipment.remove(player.getUniqueId());
     }
 
+    public static Hashtable<UUID, ItemStack[]> getPlayerEquipment() {
+        return playerEquipment;
+    }
 }

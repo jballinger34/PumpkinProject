@@ -11,7 +11,7 @@ public class EconomyManager {
 
     public static EconomyAPI getEconomyAPI() {
         if (economyAPI == null) {
-            throw new IllegalStateException("EnchantAPI implementation not set!");
+            throw new IllegalStateException("EconomyAPI implementation not set!");
         }
         return economyAPI;
     }

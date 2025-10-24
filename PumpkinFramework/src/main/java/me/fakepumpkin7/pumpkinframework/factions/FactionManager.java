@@ -13,7 +13,7 @@ public class FactionManager {
 
     public static FactionAPI getFactionAPI() {
         if (factionAPI == null) {
-            throw new IllegalStateException("EnchantAPI implementation not set!");
+            throw new IllegalStateException("FactionAPI implementation not set!");
         }
         return factionAPI;
     }

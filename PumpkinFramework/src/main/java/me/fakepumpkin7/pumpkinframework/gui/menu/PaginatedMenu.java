@@ -1,7 +1,5 @@
 package me.fakepumpkin7.pumpkinframework.gui.menu;
 
-import lombok.Getter;
-import lombok.Setter;
 import me.fakepumpkin7.pumpkinframework.gui.menu.buttons.NextButton;
 import me.fakepumpkin7.pumpkinframework.gui.menu.buttons.PrevButton;
 import me.fakepumpkin7.pumpkinframework.items.ItemUtil;
@@ -13,7 +11,7 @@ public class PaginatedMenu extends Menu {
 
     private PaginatedMenu current = this, next, previous;
 
-    @Getter
+
     private int currentPageNumber = 1, maxPages = 1;
     public PaginatedMenu(String name, int rows) {
         super(name, rows+1);
@@ -76,5 +74,13 @@ public class PaginatedMenu extends Menu {
 
     public void setMaxPages(int maxPages) {
         this.maxPages = maxPages;
+    }
+
+    public int getMaxPages() {
+        return maxPages;
+    }
+
+    public int getCurrentPageNumber() {
+        return currentPageNumber;
     }
 }

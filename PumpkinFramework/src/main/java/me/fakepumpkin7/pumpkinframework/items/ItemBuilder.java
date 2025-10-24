@@ -3,9 +3,7 @@ package me.fakepumpkin7.pumpkinframework.items;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import me.fakepumpkin7.pumpkinframework.enchants.EnchantManager;
-import me.fakepumpkin7.pumpkinframework.items.nbt.NbtUtil;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import net.minecraft.server.v1_8_R3.Packet;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -79,67 +77,6 @@ public class ItemBuilder {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
         item.setItemMeta(meta);
-        return this;
-    }
-
-    public ItemBuilder setBaseDamage(double baseDamage){
-        addNBT("pumpkin-base-damage", baseDamage);
-        return this;
-    }
-    public ItemBuilder addBaseDamage(double baseDamage){
-        double currentBaseDamage = NbtUtil.getNbtDouble(item, "pumpkin-base-damage");
-        setBaseDamage(currentBaseDamage + baseDamage);
-        return this;
-    }
-
-    public ItemBuilder setDamageMulti(double damageMulti){
-        addNBT("pumpkin-damage-multi", damageMulti);
-        return this;
-    }
-    public ItemBuilder addDamageMulti(double damageMulti){
-        double currentDamageMulti = NbtUtil.getNbtDouble(item, "pumpkin-damage-multi");
-        setDamageMulti(currentDamageMulti + damageMulti);
-        return this;
-    }
-
-    public ItemBuilder setKnockback(double knockback){
-        addNBT("pumpkin-knockback-multi", knockback);
-        return this;
-    }
-    public ItemBuilder addKnockback(double knockback){
-        double currentKnockback = NbtUtil.getNbtDouble(item, "pumpkin-knockback-multi");
-        setKnockback(currentKnockback + knockback);
-        return this;
-    }
-
-    public ItemBuilder setDefence(double defence){
-        addNBT("pumpkin-custom-defence", defence);
-        return this;
-    }
-    public ItemBuilder addDefence(double defence){
-        double currentDefence = NbtUtil.getNbtDouble(item, "pumpkin-custom-defence");
-        setDefence(currentDefence + defence);
-        return this;
-    }
-
-    public ItemBuilder setHealth(double health){
-        addNBT("pumpkin-custom-health", health);
-        return this;
-    }
-    public ItemBuilder addHealth(double health){
-        double currentHealth = NbtUtil.getNbtDouble(item, "pumpkin-custom-health");
-        setHealth(currentHealth + health);
-        return this;
-    }
-
-
-    public ItemBuilder setSpeed(double speed){
-        addNBT("pumpkin-custom-speed", speed);
-        return this;
-    }
-    public ItemBuilder addSpeed(double speed){
-        double currentSpeed = NbtUtil.getNbtDouble(item, "pumpkin-custom-speed");
-        setSpeed(currentSpeed + speed);
         return this;
     }
 

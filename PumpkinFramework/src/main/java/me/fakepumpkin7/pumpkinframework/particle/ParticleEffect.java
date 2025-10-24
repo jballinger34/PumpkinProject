@@ -5,10 +5,15 @@ import net.minecraft.server.v1_8_R3.EnumParticle;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.FireworkMeta;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -71,6 +76,16 @@ public enum ParticleEffect {
     ParticleEffect(String name, int id) {
         this.name = name;
         this.id = id;
+    }
+
+    public static void launchFirework(Location l, Color c) {
+        // Shoot a firework!
+        Firework fw = (Firework) l.getWorld().spawnEntity(l, EntityType.FIREWORK);
+        FireworkMeta fwm = fw.getFireworkMeta();
+        FireworkEffect effect = FireworkEffect.builder().flicker(true).withColor(c).withFade(c).with(FireworkEffect.Type.STAR).trail(true).build();
+        fwm.addEffect(effect);
+        fwm.setPower(1);
+        fw.setFireworkMeta(fwm);
     }
 
     public String getName() {

@@ -1,9 +1,7 @@
 package me.fakepumpkin7.pumpkinframework.player.combattag;
 
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 

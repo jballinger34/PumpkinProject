@@ -2,8 +2,6 @@ MC VERSION -
 	1.8.8
 
 FEATURES - 
-	custom damage/health/defence system
-	custom mining system
 
 	progression
 		enchants

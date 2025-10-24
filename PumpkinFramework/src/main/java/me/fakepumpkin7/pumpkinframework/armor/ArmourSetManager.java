@@ -6,13 +6,13 @@ public class ArmourSetManager {
 
     private static ArmourSetsAPI armourSetsAPI;
 
-    public static void setEnchantAPI(ArmourSetsAPI api) {
+    public static void setArmourSetsAPI(ArmourSetsAPI api) {
         armourSetsAPI = api;
     }
 
     public static ArmourSetsAPI getArmourSetsAPI() {
         if (armourSetsAPI == null) {
-            throw new IllegalStateException("EnchantAPI implementation not set!");
+            throw new IllegalStateException("ArmourSetsAPI implementation not set!");
         }
         return armourSetsAPI;
     }

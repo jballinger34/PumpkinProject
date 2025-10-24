@@ -1,21 +1,16 @@
 package me.fakepumpkin7.pumpkinframework.player.teleport;
 
 import com.google.common.collect.Maps;
-import lombok.Getter;
 import me.fakepumpkin7.pumpkinframework.PumpkinFramework;
 import me.fakepumpkin7.pumpkinframework.chat.ChatUtils;
 import me.fakepumpkin7.pumpkinframework.player.combattag.CombatTagUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class TeleportUtils {
 
-    @Getter
     static long defaultTimedTPseconds = 5;
 
     //stores players who are teleporting, and the time they started teleporting
@@ -48,4 +43,7 @@ public class TeleportUtils {
         currentlyTeleporting.remove(player);
     }
 
+    public static long getDefaultTimedTPseconds() {
+        return defaultTimedTPseconds;
+    }
 }

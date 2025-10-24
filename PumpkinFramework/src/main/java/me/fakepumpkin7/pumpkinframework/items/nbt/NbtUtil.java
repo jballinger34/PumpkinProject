@@ -38,7 +38,10 @@ public class NbtUtil {
         return getNbtItem(item).getFloat(key);
     }
 
-    public static void addNbt(ItemStack itemStack, String key, double value){
-        itemStack = new ItemBuilder(itemStack).addNBT(key,value).build();
+    public static ItemStack addNbt(ItemStack itemStack, String key, double value){
+        return new ItemBuilder(itemStack).addNBT(key,value).build();
+    }
+    public static ItemStack addNbt(ItemStack itemStack, String key, String value){
+        return new ItemBuilder(itemStack).addNBT(key,value).build();
     }
 }

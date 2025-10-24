@@ -1,26 +1,23 @@
 package me.fakepumpkin7.pumpkinframework.mmo;
 
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-@RequiredArgsConstructor
 public class SkillExpGainEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
+    public SkillExpGainEvent(Player player, String skillName, double exp) {
+        this.player = player;
+        this.skillName = skillName;
+        this.exp = exp;
+    }
 
-    @Getter
     private final Player player;
-    @Getter
     private final String skillName;
-    @Getter
     private final double exp;
 
-    @Getter @Setter
     private boolean cancelled = false;
 
     public static HandlerList getHandlerList() {
@@ -32,8 +29,23 @@ public class SkillExpGainEvent extends Event {
         return handlers;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
 
+    public String getSkillName() {
+        return skillName;
+    }
 
+    public double getExp() {
+        return exp;
+    }
 
+    public boolean isCancelled() {
+        return cancelled;
+    }
 
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
 }
