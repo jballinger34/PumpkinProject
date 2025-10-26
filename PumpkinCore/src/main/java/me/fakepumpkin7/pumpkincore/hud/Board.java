@@ -12,7 +12,6 @@ import org.bukkit.scoreboard.*;
 
 import java.util.*;
 
-
 public class Board implements Runnable {
 
     private static int count = 0;
@@ -145,7 +144,7 @@ public class Board implements Runnable {
         }
     }
     private void createEmptyLine(ArrayList<Line> lines, int priority){
-        createLine(lines,new Line(priority," ".repeat(priority)));
+        createLine(lines,new Line(priority,String.join("", Collections.nCopies(priority, " "))));
     }
     private void createStaticLine(ArrayList<Line> lines, int priority, String message){
         createLine(lines, new Line(priority,message));

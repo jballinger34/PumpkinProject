@@ -1,0 +1,12 @@
+rootProject.name = 'PumpkinProject'
+
+include('EnchantmentAPI')
+include('PumpkinArmour')
+include('PumpkinCore')
+include('PumpkinCrates')
+include('PumpkinEconomy')
+include('PumpkinEnchants')
+include('PumpkinFactions')
+include('PumpkinFramework')
+include('PumpkinMMO')
+include('PumpkinWarzone')

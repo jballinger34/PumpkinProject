@@ -6,6 +6,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import java.util.Collections;
+
 
 public class ActionBar {
 
@@ -27,8 +29,9 @@ public class ActionBar {
         int progressPercent = (int) Math.min(100, 100*progress/total);
         int remainingPercent = 100 - progressPercent;
 
-        String progressString = "|".repeat(progressPercent);
-        String remainingString = "|".repeat(remainingPercent);
+        String progressString = String.join("", Collections.nCopies(progressPercent, "|"));
+
+        String remainingString = String.join("", Collections.nCopies(remainingPercent, "|"));
 
         message = message + progressString + baseColour + remainingString;
 

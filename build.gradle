@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+}
+subprojects {
+    apply plugin: 'java'
+
+    group = 'me.fakepumpkin7'
+    version = ''
+
+    repositories {
+        flatDir {
+            dirs '../libraries'
+        }
+    }
+
+
+    //set java version
+    def targetJavaVersion = 8
+    java {
+        def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
+        if (JavaVersion.current() < javaVersion) {
+            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+            options.release = targetJavaVersion
+        }
+    }
+
+
+    // copy to test directory
+    tasks.register('copyJarToTest'){
+        dependsOn tasks.named('jar')
+        copy {
+            from tasks.named('jar').get().archiveFile
+            into "D:/Users/balli/PUMPKINTESTSERVER/plugins"
+        }
+        // Always run this task
+        outputs.upToDateWhen { false }
+    }
+    tasks.named('build') {
+        finalizedBy('copyJarToTest')
+    }
+
+    processResources {
+        def props = [version: version]
+        inputs.properties props
+        filteringCharset 'UTF-8'
+        filesMatching('plugin.yml') {
+            expand props
+        }
+    }
+}
